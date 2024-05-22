@@ -134,3 +134,135 @@ const DeleteModal = ({ isDeleteOpen, onCloseDelete, onDelete, itemId }) => {
 };
 
 export { DeleteModal };
+
+const EditModal = ({
+  isEditOpen,
+  onCloseEdit,
+  onSave,
+  formData,
+  setFormData,
+}) => {
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSave = () => {
+    if (Object.values(formData).every((field) => field.trim() !== "")) {
+      onSave(formData);
+      onCloseEdit();
+    } else {
+      toast.error("Please fill out all fields");
+    }
+  };
+
+  return (
+    <>
+      {isEditOpen && (
+        <div
+          style={{
+            display: "block",
+            zIndex: "1",
+            fontSize: "15px",
+            padding: "25px",
+            position: "fixed",
+            top: "195px",
+            backgroundColor: "#f9f9f9",
+            border: "1px solid #000",
+            fontWeight: "bolder",
+            borderRadius: "5px",
+            overflow: "hidden",
+            left: "480px",
+            width: "35%",
+            height: "auto",
+          }}
+        >
+          <button
+            type="button"
+            style={{
+              backgroundColor: "#db504a",
+              color: "#fff",
+              border: "none",
+              position: "absolute",
+              top: "0",
+              right: "0",
+              padding: "3px 8px",
+              cursor: "pointer",
+            }}
+            onClick={onCloseEdit}
+          >
+            <X />
+          </button>
+          <div style={{ paddingTop: "20px" }}>
+            {Object.keys(formData).map((key) => (
+              <div key={key} style={{ marginBottom: "10px" }}>
+                <label
+                  htmlFor={key}
+                  style={{ display: "block", marginBottom: "5px" }}
+                >
+                  {key}
+                </label>
+                <input
+                  id={key}
+                  name={key}
+                  type="text"
+                  value={formData[key]}
+                  onChange={handleInputChange}
+                  style={{
+                    width: "100%",
+                    padding: "8px",
+                    borderRadius: "4px",
+                    border: "1px solid #ccc",
+                  }}
+                />
+              </div>
+            ))}
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "25px",
+              }}
+            >
+              <button
+                type="button"
+                style={{
+                  backgroundColor: "#3c91e6",
+                  border: "none",
+                  color: "#FFF",
+                  marginTop: "5px",
+                  padding: "5px 10px",
+                  marginRight: "5px",
+                  borderRadius: "5px",
+                }}
+                onClick={onCloseEdit}
+              >
+                CANCEL
+              </button>
+              <button
+                type="button"
+                onClick={handleSave}
+                style={{
+                  backgroundColor: "#db504a",
+                  border: "none",
+                  color: "#FFF",
+                  marginTop: "5px",
+                  padding: "5px 10px",
+                  marginLeft: "5px",
+                  borderRadius: "5px",
+                }}
+              >
+                SAVE
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
+export { EditModal };
