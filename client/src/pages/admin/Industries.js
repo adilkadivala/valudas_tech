@@ -5,13 +5,13 @@ import { useValudasData } from "../../context/Storage";
 import "../../assets/css/admin/main.css";
 import { Trash2, Pencil } from "lucide-react";
 import { toast } from "react-toastify";
-import { DeleteModal, EditModal } from "./layout/Modal";
+import { DeleteModal } from "./layout/Modal";
 import axios from "axios";
 
 const Industries = () => {
   const [sidebarHidden, setSidebarHidden] = useState(window.innerWidth < 768);
   const [isDarkMode, setDarkMode] = useState(false);
-  const { industries, setIndustries } = useValudasData();
+  const { industries, setIndustries } = useValudasData([]);
   const [industryID, setIndustryID] = useState(null);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
@@ -66,8 +66,7 @@ const Industries = () => {
   const openEditModal = (industry) => {
     setEditModalOpen(true);
     setEditIndustryData({
-      ...editIndustryData,
-      // id: industry.id,
+      id: industry.id,
       industry_name: industry.industry_name,
     });
   };
@@ -78,30 +77,44 @@ const Industries = () => {
   };
 
   // update industry Logic
-  const updateIndustry = async () => {
+  const updateIndustry = async (e) => {
+    e.preventDefault();
     try {
-      const response = axios.put(
-        `http://localhost:5665/updateindustrydata/${editIndustryData.id}`
+      const response = await axios.put(
+        `http://localhost:5665/updateindustrydata/${editIndustryData.id}`,
+        editIndustryData
       );
+
       if (response.status === 200) {
         setEditIndustryData({
           industry_name: "",
         });
+        closeEditModal();
+        toast.success("Industry updated successfully");
 
         const refreshData = await axios.get(
           "http://localhost:5665/getindustriesdata"
         );
         setIndustries(refreshData.data);
-        toast.success("Industry updated successfully");
-        closeEditModal();
       } else {
-        console.error("error form Industry new collection");
-        toast.error("updating Industry failed due to some reason");
+        console.error("Error from Industry new collection");
+        toast.error("Updating industry failed due to some reason");
       }
     } catch (error) {
-      console.error("error form Industry new collection");
-      toast.error("updating Industry failed due to some reason");
+      console.error("Error from Industry new collection", error);
+      toast.error("Updating industry failed due to some reason");
     }
+  };
+
+  // update input handler
+  const updateInputHandler = (e) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+
+    setEditIndustryData({
+      ...editIndustryData,
+      [name]: value,
+    });
   };
 
   useEffect(() => {
@@ -125,13 +138,6 @@ const Industries = () => {
         onCloseDelete={closeDeleteModal}
         onDelete={deleteIndustry}
         itemId={industryID}
-      />
-      <EditModal
-        isEditOpen={editModalOpen}
-        onCloseEdit={closeEditModal}
-        onSave={updateIndustry}
-        formData={editIndustryData}
-        setFormData={setEditIndustryData}
       />
 
       <section id="content">
@@ -208,32 +214,200 @@ const Industries = () => {
                 <i className="bx bx-plus"></i>
                 <i className="bx bx-filter"></i>
               </div>
-              <ul className="todo-list">
-                <li className="completed">
-                  <p>Todo List</p>
-                  <i className="bx bx-dots-vertical-rounded"></i>
-                </li>
-                <li className="completed">
-                  <p>Todo List</p>
-                  <i className="bx bx-dots-vertical-rounded"></i>
-                </li>
-                <li className="not-completed">
-                  <p>Todo List</p>
-                  <i className="bx bx-dots-vertical-rounded"></i>
-                </li>
-                <li className="completed">
-                  <p>Todo List</p>
-                  <i className="bx bx-dots-vertical-rounded"></i>
-                </li>
-                <li className="not-completed">
-                  <p>Todo List</p>
-                  <i className="bx bx-dots-vertical-rounded"></i>
-                </li>
-              </ul>
+              <div className="todo-list">
+                <form
+                  method="post"
+                  encType="multipart/form-data"
+                  name="add form"
+                  // onSubmit={handleNewCity}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    rowGap: "10px",
+                  }}
+                >
+                  <div
+                    className="mb-3"
+                    style={{ display: "flex", flexDirection: "column" }}
+                  >
+                    <label htmlFor="industry_name" className="form-label">
+                      City Name
+                    </label>
+                    <input
+                      style={{ padding: "12px 5px", fontSize: "15px" }}
+                      type="text"
+                      className="form-control"
+                      // value={enterCity.industry_name}
+                      id="industry_name"
+                      name="industry_name"
+                      // onChange={inputHandler}
+                      placeholder="Enter City name Here"
+                    />
+                  </div>
+
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      marginTop: "10px",
+                    }}
+                  >
+                    <button
+                      type="reset"
+                      style={{
+                        backgroundColor: "#3c91e6",
+                        border: "none",
+                        color: "#FFF",
+                        marginRight: "5px",
+                        padding: "7px 10px",
+                        cursor: "pointer",
+                        borderRadius: "5px",
+                      }}
+                    >
+                      CANCEL
+                    </button>
+                    <button
+                      type="submit"
+                      style={{
+                        backgroundColor: "#db504a",
+                        border: "none",
+                        color: "#FFF",
+                        cursor: "pointer",
+                        marginLeft: "5px",
+                        padding: "7px 10px",
+                        borderRadius: "5px",
+                      }}
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </main>
       </section>
+
+      {/* edit modal */}
+      <div
+        style={{
+          display: editModalOpen ? "block" : "none",
+          zIndex: "1",
+          fontSize: "15px",
+          padding: "25px",
+          position: "fixed",
+          top: "15rem",
+          backgroundColor: "#f9f9f9",
+          border: "1px solid #000",
+          fontWeight: "bolder",
+          borderRadius: "5px",
+          overflow: "hidden",
+          left: "480px",
+          width: "35%",
+          height: "auto",
+        }}
+      >
+        <div
+          style={{
+            display: "block",
+            fontSize: "15px",
+            alignContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <div>
+            <div>
+              <button
+                type="button"
+                style={{
+                  backgroundColor: "#db504a",
+                  color: "#fff",
+                  border: "none",
+                  position: "absolute",
+                  top: "0",
+                  cursor: "pointer",
+                  padding: "7px 10px",
+                  right: "0",
+                }}
+                onClick={closeEditModal}
+              >
+                <i className="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+
+            <div>
+              <p>Update Skill</p>
+              <br />
+              <form
+                method="post"
+                encType="multipart/form-data"
+                name="edit form"
+                onSubmit={updateIndustry}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  rowGap: "10px",
+                }}
+              >
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <label htmlFor="industry_name" className="form-label">
+                    industry_name
+                  </label>
+                  <input
+                    style={{ padding: "12px 5px", fontSize: "15px" }}
+                    type="text"
+                    className="form-control"
+                    value={editIndustryData.industry_name}
+                    id="industry_name"
+                    onChange={updateInputHandler}
+                    name="industry_name"
+                    placeholder="Enter City name Here"
+                  />
+                </div>
+              </form>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "10px",
+              }}
+            >
+              <button
+                type="button"
+                style={{
+                  backgroundColor: "#3c91e6",
+                  border: "none",
+                  color: "#FFF",
+                  marginRight: "5px",
+                  padding: "7px 10px",
+                  cursor: "pointer",
+                  borderRadius: "5px",
+                }}
+                onClick={closeEditModal}
+              >
+                CANCEL
+              </button>
+              <button
+                type="submit"
+                style={{
+                  backgroundColor: "#db504a",
+                  border: "none",
+                  color: "#FFF",
+                  cursor: "pointer",
+                  marginLeft: "5px",
+                  padding: "7px 10px",
+                  borderRadius: "5px",
+                }}
+                onClick={updateIndustry}
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* edit modal */}
     </>
   );
 };
