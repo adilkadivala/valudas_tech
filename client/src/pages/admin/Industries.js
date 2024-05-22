@@ -71,7 +71,7 @@ const Industries = () => {
     try {
       const response = await axios.post(
         "http://localhost:5665/postindustrydata",
-        insertIndustryData  
+        insertIndustryData
       );
 
       if (response.status === 200) {
@@ -117,16 +117,16 @@ const Industries = () => {
       );
 
       if (response.status === 200) {
+        const refreshData = await axios.get(
+          "http://localhost:5665/getindustriesdata"
+        );
+        const finelData = await refreshData.data;
         setEditIndustryData({
           industry_name: "",
         });
+        setIndustries(finelData);
         closeEditModal();
-        toast.success("Industry updated successfully");
-
-        // const refreshData = await axios.get(
-        //   "http://localhost:5665/getindustriesdata"
-        // );
-        // setIndustries(refreshData.data);
+        toast.success("industry Updated successfully");
       } else {
         console.error("Error from Industry new industry");
         toast.error("Updating industry failed due to some reason");
@@ -429,6 +429,7 @@ const Industries = () => {
                       padding: "7px 10px",
                       borderRadius: "5px",
                     }}
+                    onClick={updateIndustry}
                   >
                     Save
                   </button>
