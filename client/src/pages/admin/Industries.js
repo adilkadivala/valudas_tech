@@ -62,7 +62,7 @@ const Industries = () => {
     }
   };
 
-  // open update moal
+  // open update modal
   const openEditModal = (industry) => {
     setEditModalOpen(true);
     setEditIndustryData({
@@ -108,9 +108,7 @@ const Industries = () => {
 
   // update input handler
   const updateInputHandler = (e) => {
-    e.preventDefault();
     const { name, value } = e.target;
-
     setEditIndustryData({
       ...editIndustryData,
       [name]: value,
@@ -167,42 +165,40 @@ const Industries = () => {
                   {industries &&
                     industries.map((industry, index) => {
                       return (
-                        <>
-                          <tr key={index}>
-                            <td>
-                              <p>{industry.id}</p>
-                            </td>
-                            <td>
-                              <p>{industry.industry_name}</p>
-                            </td>
-                            <td>
-                              <button
-                                style={{
-                                  backgroundColor: "transparent",
-                                  border: "none",
-                                  color: "#FD7238",
-                                  marginLeft: "0.5rem",
-                                  cursor: "pointer",
-                                }}
-                                onClick={() => openDeleteModal(industry.id)}
-                              >
-                                <Trash2 />
-                              </button>
+                        <tr key={index}>
+                          <td>
+                            <p>{industry.id}</p>
+                          </td>
+                          <td>
+                            <p>{industry.industry_name}</p>
+                          </td>
+                          <td>
+                            <button
+                              style={{
+                                backgroundColor: "transparent",
+                                border: "none",
+                                color: "#FD7238",
+                                marginLeft: "0.5rem",
+                                cursor: "pointer",
+                              }}
+                              onClick={() => openDeleteModal(industry.id)}
+                            >
+                              <Trash2 />
+                            </button>
 
-                              <button
-                                style={{
-                                  backgroundColor: "transparent",
-                                  border: "none",
-                                  color: "#3C91E6",
-                                  cursor: "pointer",
-                                }}
-                                onClick={() => openEditModal(industry)}
-                              >
-                                <Pencil />
-                              </button>
-                            </td>
-                          </tr>
-                        </>
+                            <button
+                              style={{
+                                backgroundColor: "transparent",
+                                border: "none",
+                                color: "#3C91E6",
+                                cursor: "pointer",
+                              }}
+                              onClick={() => openEditModal(industry)}
+                            >
+                              <Pencil />
+                            </button>
+                          </td>
+                        </tr>
                       );
                     })}
                 </tbody>
@@ -351,7 +347,7 @@ const Industries = () => {
               >
                 <div style={{ display: "flex", flexDirection: "column" }}>
                   <label htmlFor="industry_name" className="form-label">
-                    industry_name
+                    Industry Name
                   </label>
                   <input
                     style={{ padding: "12px 5px", fontSize: "15px" }}
@@ -361,48 +357,47 @@ const Industries = () => {
                     id="industry_name"
                     onChange={updateInputHandler}
                     name="industry_name"
-                    placeholder="Enter City name Here"
+                    placeholder="Enter Industry name Here"
                   />
                 </div>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginTop: "10px",
+                  }}
+                >
+                  <button
+                    type="button"
+                    style={{
+                      backgroundColor: "#3c91e6",
+                      border: "none",
+                      color: "#FFF",
+                      marginRight: "5px",
+                      padding: "7px 10px",
+                      cursor: "pointer",
+                      borderRadius: "5px",
+                    }}
+                    onClick={closeEditModal}
+                  >
+                    CANCEL
+                  </button>
+                  <button
+                    type="submit"
+                    style={{
+                      backgroundColor: "#db504a",
+                      border: "none",
+                      color: "#FFF",
+                      cursor: "pointer",
+                      marginLeft: "5px",
+                      padding: "7px 10px",
+                      borderRadius: "5px",
+                    }}
+                  >
+                    Save
+                  </button>
+                </div>
               </form>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                marginTop: "10px",
-              }}
-            >
-              <button
-                type="button"
-                style={{
-                  backgroundColor: "#3c91e6",
-                  border: "none",
-                  color: "#FFF",
-                  marginRight: "5px",
-                  padding: "7px 10px",
-                  cursor: "pointer",
-                  borderRadius: "5px",
-                }}
-                onClick={closeEditModal}
-              >
-                CANCEL
-              </button>
-              <button
-                type="submit"
-                style={{
-                  backgroundColor: "#db504a",
-                  border: "none",
-                  color: "#FFF",
-                  cursor: "pointer",
-                  marginLeft: "5px",
-                  padding: "7px 10px",
-                  borderRadius: "5px",
-                }}
-                onClick={updateIndustry}
-              >
-                Save
-              </button>
             </div>
           </div>
         </div>
