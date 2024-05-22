@@ -14,6 +14,7 @@ import {
   ShowerHead,
   ArrowLeftFromLine,
   Cog,
+  Images,
 } from "lucide-react";
 import { useLocation } from "react-router-dom";
 
@@ -111,6 +112,18 @@ const Sidebar = ({ isOpen }) => {
                         <Link to="/dashboard/techstack">
                           <Cpu />
                           <span className="text">Tech_stack</span>
+                        </Link>
+                      </li>
+                      <li
+                        className={
+                          location.pathname === "/dashboard/portimage"
+                            ? "active"
+                            : ""
+                        }
+                      >
+                        <Link to="/dashboard/portimage">
+                          <Images />
+                          <span className="text">Portfolio Image</span>
                         </Link>
                       </li>
                     </div>

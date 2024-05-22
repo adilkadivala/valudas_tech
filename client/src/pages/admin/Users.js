@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../admin/layout/Navbar";
 import Sidebar from "../admin/layout/Sidebar";
+import { Trash2 } from "lucide-react";
+import { toast } from "react-toastify";
 import { useValudasData } from "../../context/Storage";
 import "../../assets/css/admin/main.css";
+import { DeleteModal } from "./layout/Modal";
+import axios from "axios";
 
 const Users = () => {
   const [sidebarHidden, setSidebarHidden] = useState(window.innerWidth < 768);
   const [isDarkMode, setDarkMode] = useState(false);
   const { users, setUsers } = useValudasData();
+  const [userId, setUserId] = useState(null);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
   const toggleSidebar = () => {
     setSidebarHidden(!sidebarHidden);
@@ -16,6 +22,38 @@ const Users = () => {
   const toggleDarkMode = () => {
     setDarkMode(!isDarkMode);
     document.body.classList.toggle("dark");
+  };
+
+  // open Delete modal
+  const openDeleteModal = (userId) => {
+    setDeleteModalOpen(true);
+    setUserId(userId);
+  };
+  
+  // close Delete modal
+  const closeDeleteModal = () => {
+    setDeleteModalOpen(false);
+    setUserId(null);
+  };
+
+  // delete user
+
+  const deleteUser = async () => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:5665/deleteuser/${userId}`
+      );
+      console.log(userId, 44);
+      if (response.status === 200) {
+        const updateData = await axios.get("http://localhost:5665/getuser");
+        const finalData = await updateData.data;
+        setUsers(finalData);
+        closeDeleteModal();
+        toast.success("Deleted Successfully");
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
   };
 
   useEffect(() => {
@@ -34,6 +72,12 @@ const Users = () => {
     <>
       <Sidebar isOpen={!sidebarHidden} />
       <Navbar toggleSidebar={toggleSidebar} toggleDarkMode={toggleDarkMode} />
+      <DeleteModal
+        isDeleteOpen={deleteModalOpen}
+        onCloseDelete={closeDeleteModal}
+        onDelete={deleteUser}
+        itemId={userId}
+      />
       <section id="content">
         <main>
           <div className="head-title">
@@ -56,7 +100,7 @@ const Users = () => {
                     <th>Last Name</th>
                     <th>Email</th>
                     <th>Mobile No</th>
-                    <th>Status</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -78,9 +122,17 @@ const Users = () => {
                               <p>{user.mobile_no}</p>
                             </td>
                             <td>
-                              <span className="status completed">
-                                Completed
-                              </span>
+                              <button
+                                style={{
+                                  backgroundColor: "transparent",
+                                  border: "none",
+                                  color: "#FD7238",
+                                  cursor: "pointer",
+                                }}
+                                onClick={() => openDeleteModal(user.id)}
+                              >
+                                <Trash2 />
+                              </button>
                             </td>
                           </tr>
                         </>

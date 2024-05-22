@@ -6,6 +6,7 @@ import Industries from "../pages/admin/Industries";
 import Portfolio from "../pages/admin/Portfolio";
 import Services from "../pages/admin/Services";
 import TechStack from "../pages/admin/TechStack";
+import PortImages from "../pages/admin/PortfolioImages";
 
 const Pathes = () => {
   return (
@@ -21,6 +22,7 @@ const Pathes = () => {
         <Route path="portfolio" element={<Portfolio />} />
         <Route path="services" element={<Services />} />
         <Route path="techstack" element={<TechStack />} />
+        <Route path="portimage" element={<PortImages />} />
       </Route>
     </Routes>
   );

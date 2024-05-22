@@ -14,6 +14,7 @@ export const ValudasStorage = ({ children }) => {
   const [portfolio, setPortfolio] = useState();
   const [services, setServices] = useState();
   const [stack, setStack] = useState();
+  const [portImages, setPortImages] = useState();
 
   // users
   const getUsersList = async () => {
@@ -67,12 +68,23 @@ export const ValudasStorage = ({ children }) => {
     }
   };
 
+  // Port Images
+  const getPortImages = async () => {
+    try {
+      const response = await axios.get("http://localhost:5665/getphotos");
+      setPortImages(response.data);
+    } catch (error) {
+      console.error("Error fetching city list:", error);
+    }
+  };
+
   useEffect(() => {
     getUsersList();
     getIndustryData();
     getPortfolio();
     getService();
     getStack();
+    getPortImages();
   }, []);
 
   return (
@@ -88,6 +100,8 @@ export const ValudasStorage = ({ children }) => {
         setServices,
         stack,
         setStack,
+        portImages,
+        setPortImages,
       }}
     >
       {children}
