@@ -2,6 +2,7 @@ import { X } from "lucide-react";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 
+// delete modal
 const DeleteModal = ({ isDeleteOpen, onCloseDelete, onDelete, itemId }) => {
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
 
@@ -135,6 +136,7 @@ const DeleteModal = ({ isDeleteOpen, onCloseDelete, onDelete, itemId }) => {
 
 export { DeleteModal };
 
+// update modal
 const EditModal = ({
   isEditOpen,
   onCloseEdit,
@@ -198,27 +200,30 @@ const EditModal = ({
           </button>
           <div style={{ paddingTop: "20px" }}>
             {Object.keys(formData).map((key) => (
-              <div key={key} style={{ marginBottom: "10px" }}>
-                <label
-                  htmlFor={key}
-                  style={{ display: "block", marginBottom: "5px" }}
-                >
-                  {key}
-                </label>
-                <input
-                  id={key}
-                  name={key}
-                  type="text"
-                  value={formData[key]}
-                  onChange={handleInputChange}
-                  style={{
-                    width: "100%",
-                    padding: "8px",
-                    borderRadius: "4px",
-                    border: "1px solid #ccc",
-                  }}
-                />
-              </div>
+              <>
+                <h2>Update Data</h2>
+                <div key={key} style={{ margin: "2rem 0" }}>
+                  <label
+                    htmlFor={key}
+                    style={{ display: "block", marginBottom: "5px" }}
+                  >
+                    {key}
+                  </label>
+                  <input
+                    id={key}
+                    name={key}
+                    type="text"
+                    value={formData[key]}
+                    onChange={handleInputChange}
+                    style={{
+                      width: "100%",
+                      padding: "8px",
+                      borderRadius: "4px",
+                      border: "1px solid #ccc",
+                    }}
+                  />
+                </div>
+              </>
             ))}
             <div
               style={{

@@ -5,7 +5,7 @@ import { useValudasData } from "../../context/Storage";
 import "../../assets/css/admin/main.css";
 import { Trash2, Pencil } from "lucide-react";
 import { toast } from "react-toastify";
-import { DeleteModal } from "./layout/Modal";
+import { DeleteModal, EditModal } from "./layout/Modal";
 import axios from "axios";
 
 const Industries = () => {
@@ -14,6 +14,10 @@ const Industries = () => {
   const { industries, setIndustries } = useValudasData();
   const [industryID, setIndustryID] = useState(null);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [editIndustryData, setEditIndustryData] = useState({
+    industry_name: "",
+  });
 
   const toggleSidebar = () => {
     setSidebarHidden(!sidebarHidden);
@@ -37,7 +41,6 @@ const Industries = () => {
   };
 
   // delete Industry
-
   const deleteIndustry = async () => {
     try {
       const response = await axios.delete(
@@ -54,7 +57,51 @@ const Industries = () => {
         closeDeleteModal();
         toast.success("Deleted Successfully");
       }
-    } catch (error) {}
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  // open update moal
+  const openEditModal = (industry) => {
+    setEditModalOpen(true);
+    setEditIndustryData({
+      ...editIndustryData,
+      // id: industry.id,
+      industry_name: industry.industry_name,
+    });
+  };
+
+  // close update modal
+  const closeEditModal = () => {
+    setEditModalOpen(false);
+  };
+
+  // update industry Logic
+  const updateIndustry = async () => {
+    try {
+      const response = axios.put(
+        `http://localhost:5665/updateindustrydata/${editIndustryData.id}`
+      );
+      if (response.status === 200) {
+        setEditIndustryData({
+          industry_name: "",
+        });
+
+        const refreshData = await axios.get(
+          "http://localhost:5665/getindustriesdata"
+        );
+        setIndustries(refreshData.data);
+        toast.success("Industry updated successfully");
+        closeEditModal();
+      } else {
+        console.error("error form Industry new collection");
+        toast.error("updating Industry failed due to some reason");
+      }
+    } catch (error) {
+      console.error("error form Industry new collection");
+      toast.error("updating Industry failed due to some reason");
+    }
   };
 
   useEffect(() => {
@@ -79,6 +126,14 @@ const Industries = () => {
         onDelete={deleteIndustry}
         itemId={industryID}
       />
+      <EditModal
+        isEditOpen={editModalOpen}
+        onCloseEdit={closeEditModal}
+        onSave={updateIndustry}
+        formData={editIndustryData}
+        setFormData={setEditIndustryData}
+      />
+
       <section id="content">
         <main>
           <div className="head-title">
@@ -135,7 +190,7 @@ const Industries = () => {
                                   color: "#3C91E6",
                                   cursor: "pointer",
                                 }}
-                                onClick={() => openDeleteModal(industry)}
+                                onClick={() => openEditModal(industry)}
                               >
                                 <Pencil />
                               </button>
