@@ -3,7 +3,7 @@ import Navbar from "../admin/layout/Navbar";
 import Sidebar from "../admin/layout/Sidebar";
 import { useValudasData } from "../../context/Storage";
 import "../../assets/css/admin/main.css";
-import { Trash2, Pencil } from "lucide-react";
+import { Trash2, Pencil, X } from "lucide-react";
 import { toast } from "react-toastify";
 import { DeleteModal } from "./layout/Modal";
 import axios from "axios";
@@ -16,6 +16,9 @@ const Industries = () => {
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [editIndustryData, setEditIndustryData] = useState({
+    industry_name: "",
+  });
+  const [insertIndustryData, setInsertIndustryData] = useState({
     industry_name: "",
   });
 
@@ -62,6 +65,34 @@ const Industries = () => {
     }
   };
 
+  // innsert industrydata
+  const insertIndustry = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:5665/postindustrydata",
+        insertIndustryData  
+      );
+
+      if (response.status === 200) {
+        const newInserted = await axios.get(
+          "http://localhost:5665/getindustriesdata"
+        );
+        const finelData = newInserted.data;
+        setIndustries(finelData);
+        setInsertIndustryData({
+          industry_name: "",
+        });
+        toast.success("industry added successfully");
+      } else {
+        console.error("error form inserting new industry");
+        toast.error("industry failed due to some reason");
+      }
+    } catch (error) {
+      console.error("Skill Update", error.message);
+    }
+  };
+
   // open update modal
   const openEditModal = (industry) => {
     setEditModalOpen(true);
@@ -92,12 +123,12 @@ const Industries = () => {
         closeEditModal();
         toast.success("Industry updated successfully");
 
-        const refreshData = await axios.get(
-          "http://localhost:5665/getindustriesdata"
-        );
-        setIndustries(refreshData.data);
+        // const refreshData = await axios.get(
+        //   "http://localhost:5665/getindustriesdata"
+        // );
+        // setIndustries(refreshData.data);
       } else {
-        console.error("Error from Industry new collection");
+        console.error("Error from Industry new industry");
         toast.error("Updating industry failed due to some reason");
       }
     } catch (error) {
@@ -111,6 +142,14 @@ const Industries = () => {
     const { name, value } = e.target;
     setEditIndustryData({
       ...editIndustryData,
+      [name]: value,
+    });
+  };
+
+  const insertInputHandler = (e) => {
+    const { name, value } = e.target;
+    setInsertIndustryData({
+      ...insertIndustryData,
       [name]: value,
     });
   };
@@ -206,7 +245,7 @@ const Industries = () => {
             </div>
             <div className="todo">
               <div className="head">
-                <h3>Todos</h3>
+                <h3>Insert Industry</h3>
                 <i className="bx bx-plus"></i>
                 <i className="bx bx-filter"></i>
               </div>
@@ -214,33 +253,29 @@ const Industries = () => {
                 <form
                   method="post"
                   encType="multipart/form-data"
-                  name="add form"
-                  // onSubmit={handleNewCity}
+                  name="edit form"
+                  onSubmit={insertIndustry}
                   style={{
                     display: "flex",
                     flexDirection: "column",
                     rowGap: "10px",
                   }}
                 >
-                  <div
-                    className="mb-3"
-                    style={{ display: "flex", flexDirection: "column" }}
-                  >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
                     <label htmlFor="industry_name" className="form-label">
-                      City Name
+                      Industry Name
                     </label>
                     <input
                       style={{ padding: "12px 5px", fontSize: "15px" }}
                       type="text"
                       className="form-control"
-                      // value={enterCity.industry_name}
+                      value={insertIndustryData.industry_name}
                       id="industry_name"
+                      onChange={insertInputHandler}
                       name="industry_name"
-                      // onChange={inputHandler}
-                      placeholder="Enter City name Here"
+                      placeholder="Enter Industry name Here"
                     />
                   </div>
-
                   <div
                     style={{
                       display: "flex",
@@ -249,7 +284,7 @@ const Industries = () => {
                     }}
                   >
                     <button
-                      type="reset"
+                      type="button"
                       style={{
                         backgroundColor: "#3c91e6",
                         border: "none",
@@ -259,6 +294,7 @@ const Industries = () => {
                         cursor: "pointer",
                         borderRadius: "5px",
                       }}
+                      onClick={closeEditModal}
                     >
                       CANCEL
                     </button>
@@ -274,7 +310,7 @@ const Industries = () => {
                         borderRadius: "5px",
                       }}
                     >
-                      Submit
+                      Save
                     </button>
                   </div>
                 </form>
@@ -327,7 +363,7 @@ const Industries = () => {
                 }}
                 onClick={closeEditModal}
               >
-                <i className="fa-solid fa-xmark"></i>
+                <X />
               </button>
             </div>
 
