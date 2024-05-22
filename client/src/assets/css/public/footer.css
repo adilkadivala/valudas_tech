@@ -1,0 +1,42 @@
+
+footer {
+    margin-top: 50px;
+}
+
+footer .footer_container {
+    border-top: 1px solid #ebebeb;
+    padding: 40px 0;
+}
+
+footer .footer_container .copyright {
+    color: #9faabb;
+}
+
+#BackToTopButton {
+    color: #8f9bad;
+    font-size: 13px;
+    border: 1px solid #ebebeb;
+    text-decoration: none;
+    border-radius: 25px;
+    padding: 6px 20px;
+    z-index: 4;
+    transition: all 0.3s ease-in-out;
+}
+
+#BackToTopButton i {
+    font-size: 11px;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+#BackToTopButton:hover {
+    color: #ad1deb;
+    border-color: #ad1deb;
+}
+
+
+@media only screen and (max-width: 768px) {
+    .footer-inner {
+        text-align: center;
+      }
+}

@@ -1,0 +1,330 @@
+section {
+    position: relative;
+  }
+  
+  .hero {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 1040px;
+    width: 100%;
+  }
+  
+  .hero::after {
+    content: "";
+    background: #203656;
+    display: block;
+    left: 0;
+    opacity: 0.8;
+    top: 0;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+  }
+  
+  .post .category-badge {
+    color: #fff;
+    font-size: 13px;
+    border-radius: 25px;
+    display: inline-block;
+    padding: 6px 11px;
+    line-height: 1;
+    left: 20px;
+    top: 20px;
+    z-index: 1;
+    background-color: #6e72fc;
+    background-image: linear-gradient(315deg, #6e72fc 0%, #ad1deb 74%);
+    background-size: 200% auto;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .post .category-badge:hover {
+    background-position: right center;
+  }
+  
+  .post .thumb {
+    position: relative;
+  }
+  
+  .post .thumb.rounded .inner {
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .post .thumb img {
+    transform: scale(1);
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .post .thumb:hover img {
+    transform: scale(1.07);
+  }
+  
+  .post .post-title a {
+    color: #203656;
+  }
+  
+  .post .post-title a:hover {
+    color: #ad1deb;
+  }
+  
+  .post .meta {
+    font-size: 14px;
+    color: #9faabb;
+  }
+  
+  .post .meta a {
+    color: #9faabb;
+    font-weight: 400;
+  }
+  
+  .post .meta a:hover {
+    color: #570f75;
+  }
+  
+  .post .meta i {
+    vertical-align: middle;
+  }
+  
+  .post .meta li:last-child::after {
+    content: "";
+    display: none;
+  }
+  
+  .post .meta li::after {
+    content: "";
+    display: inline-block;
+    background-color: #ad1deb;
+    border-radius: 50%;
+    margin-left: 1rem;
+    height: 3px;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+    width: 3px;
+  }
+  
+  .post .meta li:not(:last-child) {
+    margin-right: 0.8rem;
+  }
+  
+  .featured-post-lg {
+    position: relative;
+  }
+  
+  .featured-post-lg:hover .thumb .inner {
+    transform: scale(1.05);
+  }
+  
+  .featured-post-lg .thumb {
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(32, 54, 86, 0.3);
+  }
+  
+  .featured-post-lg .thumb::after {
+    content: "";
+    background: #203656;
+    display: block;
+    height: 100%;
+    left: 0;
+    opacity: 0.6;
+    top: 0;
+    position: absolute;
+    width: 100%;
+  }
+  
+  .featured-post-lg .details {
+    bottom: 50px;
+    left: 50px;
+    right: 50px;
+    position: absolute;
+    z-index: 1;
+  }
+  
+  .featured-post-lg .post-title {
+    font-size: 32px;
+  }
+  
+  .featured-post-lg .post-title a {
+    color: #fff;
+  }
+  
+  .featured-post-lg .thumb .inner {
+    background-size: cover;
+    background-position: center center;
+    height: 533px;
+    transition: all 0.3s ease-in-out;
+    transform: scale(1);
+  }
+  
+  .featured-post-lg .post-title a:hover {
+    color: #e098ff;
+  }
+  
+  .featured-post-lg .meta {
+    color: rgba(255, 255, 255, 0.6);
+  }
+  
+  .featured-post-lg .meta li::after {
+    content: "";
+    background: rgba(255, 255, 255, 0.6);
+  }
+  
+  .featured-post-lg .meta li a {
+    color: rgba(255, 255, 255, 0.6);
+  }
+  
+  /* ******************* hero right side ************** */
+  
+  .rounded {
+    border-radius: 10px !important;
+  }
+  
+  .bordered {
+    border: 1px solid #ebebeb;
+  }
+  
+  .post-tabs {
+    padding: 30px;
+  }
+  
+  .post-tabs .tab-content {
+    margin-top: 30px;
+  }
+  
+  .nav-tabs {
+    border-bottom: 0;
+  }
+  
+  .tab-content {
+    position: relative;
+  }
+  
+  .tab-pane {
+    opacity: 1;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .tab-pane.loading {
+    opacity: 0.3;
+  }
+  
+  .lds-dual-ring {
+    display: inline-block;
+    position: absolute;
+    right: 40px;
+    height: 40px;
+    top: 50%;
+    left: 50%;
+    visibility: hidden;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    transition: all 0.2s ease-in-out;
+    z-index: 1;
+  }
+  
+  .lds-dual-ring.loading {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  .lds-dual-ring::after {
+    content: " ";
+    display: block;
+    width: 40px;
+    height: 40px;
+    margin: 8px;
+    border-radius: 50%;
+    border: 3px solid;
+    border-color: #ad1deb transparent #ad1deb transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+  }
+  
+  @keyframes lds-dual-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+  }
+  
+  .nav-fill .nav-item, .nav-fill>.nav-link {
+    margin-right: 10px;
+  }
+  
+  .nav-fill .nav-item:last-child, .nav-fill>.nav-link:last-child {
+    margin-right: 0;
+  }
+  
+  .nav-fill .nav-item>.nav-link {
+    color: #8f9bad !important;
+    margin-right: 10px;
+  }
+  
+  .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color: #fff !important;
+    background-color: #6e72fc;
+    background-image: linear-gradient(315deg, #6e72fc 0%, #ad1deb 74%);
+    border-color: transparent;
+    background-size: 200% auto;
+  }
+  
+  .nav-pills .nav-link {
+    background: 0 0;
+    border: 1px solid #ebebeb;
+    border-radius: 30px;
+  }
+  
+  .post.post-list-sm {
+    clear: both;
+  }
+  
+  .post.post-list-sm.circle .thumb {
+    max-width: 60px;
+  }
+  
+  .post.post-list-sm.circle .details {
+    margin-left: 80px;
+  }
+  
+  .post.post-list-sm .thumb {
+    float: left;
+    position: relative;
+  }
+  
+  .post .thumb {
+    position: relative;
+  }
+  
+  .post .thumb.rounded .inner {
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .post .thumb.circle .inner {
+    overflow: hidden;
+    border-radius: 50%;
+  }
+  
+  .post.post-list-sm .post-title {
+    font-size: 15px;
+  }
+  
+  .post.post-list-sm::after {
+    content: "";
+    display: block;
+    height: 1px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    width: 100%;
+    background: #ebebeb;
+    background: linear-gradient(to left, #ebebeb 0%, transparent 100%);
+  }
+  
+  .post.post-list-sm:last-child::after {
+    content: "";
+    display: none;
+  }
+  
