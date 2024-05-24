@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 import "../../assets/css/admin/main.css";
 import axios from "axios";
 
+const API = process.env.REACT_APP_API_URL;
+
 const Services = () => {
   const [sidebarHidden, setSidebarHidden] = useState(window.innerWidth < 768);
   const [isDarkMode, setDarkMode] = useState(false);
@@ -28,13 +30,10 @@ const Services = () => {
   const insertServiceData = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:5665/postservice",
-        insertService
-      );
+      const response = await axios.post(`${API}/postservice`, insertService);
 
       if (response.status === 200) {
-        const response = await axios.get("http://localhost:5665/getservice");
+        const response = await axios.get(`${API}/getservice`);
         const finelData = response.data;
         setServices(finelData);
         setInsertService({
@@ -64,12 +63,12 @@ const Services = () => {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `http://localhost:5665/updateservice/${updateService.id}`,
+        `${API}/updateservice/${updateService.id}`,
         updateService
       );
 
       if (response.status === 200) {
-        const response = await axios.get("http://localhost:5665/getservice");
+        const response = await axios.get(`${API}/getservice`);
         const finelData = response.data;
         setServices(finelData);
         setUpdateService({
@@ -126,12 +125,10 @@ const Services = () => {
   // delete Service
   const deleteService = async () => {
     try {
-      const response = await axios.delete(
-        `http://localhost:5665/deleteservice/${serviceId}`
-      );
+      const response = await axios.delete(`${API}/deleteservice/${serviceId}`);
 
       if (response.status === 200) {
-        const response = await axios.get("http://localhost:5665/getservice");
+        const response = await axios.get(`${API}/getservice`);
         const refresh = await response.data;
         setServices(refresh);
         closeDeleteModal();

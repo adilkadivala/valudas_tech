@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 import { DeleteModal } from "./layout/Modal";
 import axios from "axios";
 
+const API = process.env.REACT_APP_API_URL;
+
 const Industries = () => {
   const [sidebarHidden, setSidebarHidden] = useState(window.innerWidth < 768);
   const [isDarkMode, setDarkMode] = useState(false);
@@ -47,13 +49,11 @@ const Industries = () => {
   const deleteIndustry = async () => {
     try {
       const response = await axios.delete(
-        `http://localhost:5665/deleteindustrydata/${industryID}`
+        `${API}/deleteindustrydata/${industryID}`
       );
 
       if (response.status === 200) {
-        const updateData = await axios.get(
-          "http://localhost:5665/getindustriesdata"
-        );
+        const updateData = await axios.get(`${API}/getindustriesdata`);
 
         const finelData = await updateData.data;
         setIndustries(finelData);
@@ -70,14 +70,12 @@ const Industries = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:5665/postindustrydata",
+        `${API}/postindustrydata`,
         insertIndustryData
       );
 
       if (response.status === 200) {
-        const newInserted = await axios.get(
-          "http://localhost:5665/getindustriesdata"
-        );
+        const newInserted = await axios.get(`${API}/getindustriesdata`);
         const finelData = newInserted.data;
         setIndustries(finelData);
         setInsertIndustryData({
@@ -112,14 +110,12 @@ const Industries = () => {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `http://localhost:5665/updateindustrydata/${editIndustryData.id}`,
+        `${API}/updateindustrydata/${editIndustryData.id}`,
         editIndustryData
       );
 
       if (response.status === 200) {
-        const refreshData = await axios.get(
-          "http://localhost:5665/getindustriesdata"
-        );
+        const refreshData = await axios.get(`${API}/getindustriesdata`);
         const finelData = await refreshData.data;
         setEditIndustryData({
           industry_name: "",

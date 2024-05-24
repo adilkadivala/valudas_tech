@@ -27,7 +27,7 @@ const Navbar = ({ toggleSidebar, toggleDarkMode }) => {
     <>
       <section id="content">
         <nav>
-          <Menu onClick={toggleSidebar} />
+          <Menu onClick={toggleSidebar} style={{ cursor: "pointer" }} />
           <form>
             <div className="form-input">
               <input type="search" placeholder="Search..." />

@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
+const API = process.env.REACT_APP_API_URL;
 
 // making context
 export const ValudasData = createContext();
@@ -19,7 +20,7 @@ export const ValudasStorage = ({ children }) => {
   // users
   const getUsersList = async () => {
     try {
-      const response = await axios.get("http://localhost:5665/getuser");
+      const response = await axios.get(`${API}/getuser`);
       setUsers(response.data);
     } catch (error) {
       console.error("Error fetching city list:", error);
@@ -29,19 +30,17 @@ export const ValudasStorage = ({ children }) => {
   // industry
   const getIndustryData = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:5665/getindustriesdata"
-      );
+      const response = await axios.get(`${API}/getindustriesdata`);
       setIndustries(response.data);
     } catch (error) {
-      console.error("Error fetching city list:", error);
+      console.error("Error fetching industry data:", error);
     }
   };
 
   // portfolio
   const getPortfolio = async () => {
     try {
-      const response = await axios.get("http://localhost:5665/getportfolio");
+      const response = await axios.get(`${API}/getportfolio`);
       setPortfolio(response.data);
     } catch (error) {
       console.error("Error fetching city list:", error);
@@ -51,7 +50,7 @@ export const ValudasStorage = ({ children }) => {
   // services
   const getService = async () => {
     try {
-      const response = await axios.get("http://localhost:5665/getservice");
+      const response = await axios.get(`${API}/getservice`);
       setServices(response.data);
     } catch (error) {
       console.error("Error fetching city list:", error);
@@ -61,7 +60,7 @@ export const ValudasStorage = ({ children }) => {
   // stack
   const getStack = async () => {
     try {
-      const response = await axios.get("http://localhost:5665/getstack");
+      const response = await axios.get(`${API}/getstack`);
       setStack(response.data);
     } catch (error) {
       console.error("Error fetching city list:", error);
@@ -71,7 +70,7 @@ export const ValudasStorage = ({ children }) => {
   // Port Images
   const getPortImages = async () => {
     try {
-      const response = await axios.get("http://localhost:5665/getphotos");
+      const response = await axios.get(`${API}/getphotos`);
       setPortImages(response.data);
     } catch (error) {
       console.error("Error fetching city list:", error);

@@ -36,9 +36,10 @@ const postTechStack = async (req, res) => {
 
       return res.json(data);
     });
-  } catch (error) {}
-  console.error(error.message);
-  return res.status(500).json({ message: "internal server error" });
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).json({ message: "internal server error" });
+  }
 };
 
 // update
