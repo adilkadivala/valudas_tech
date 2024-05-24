@@ -47,7 +47,7 @@ const updateIndustry = async (req, res) => {
     const { id } = req.params;
     const { industry_name } = req.body;
     const Que = `UPDATE industries SET industry_name =? WHERE id = ?`;
-    const data = [id, industry_name];
+    const data = [industry_name, id];
     connectDB.query(Que, data, (err, data) => {
       if (err) {
         console.error(err.message);

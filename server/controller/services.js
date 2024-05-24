@@ -46,9 +46,10 @@ const updateServices = async (req, res) => {
   try {
     const { id } = req.params;
     const { service_name, services_id } = req.body;
-    const Que = `UPDATE services SET service_name = ? , services_id = ? WHERE id = ?`;
+    const Que =
+      "UPDATE `services` SET `service_name`=?, `services_id`=? WHERE `id`=?";
 
-    const data = [id, service_name, services_id];
+    const data = [service_name, services_id, id];
 
     connectDB.query(Que, data, (err, data) => {
       if (err) {
@@ -57,6 +58,7 @@ const updateServices = async (req, res) => {
           .status(500)
           .json({ message: "error got from updating services" });
       }
+      return res.json(data);
     });
   } catch (error) {
     console.error(err.message);
