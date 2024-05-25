@@ -29,7 +29,7 @@ const Users = () => {
     setDeleteModalOpen(true);
     setUserId(userId);
   };
-  
+
   // close Delete modal
   const closeDeleteModal = () => {
     setDeleteModalOpen(false);
@@ -89,7 +89,7 @@ const Users = () => {
           <div className="table-data">
             <div className="order">
               <div className="head">
-                <h3>Recent Orders</h3>
+                <h3>All Users</h3>
                 <i className="bx bx-search"></i>
                 <i className="bx bx-filter"></i>
               </div>
@@ -140,35 +140,6 @@ const Users = () => {
                     })}
                 </tbody>
               </table>
-            </div>
-            <div className="todo">
-              <div className="head">
-                <h3>Todos</h3>
-                <i className="bx bx-plus"></i>
-                <i className="bx bx-filter"></i>
-              </div>
-              <ul className="todo-list">
-                <li className="completed">
-                  <p>Todo List</p>
-                  <i className="bx bx-dots-vertical-rounded"></i>
-                </li>
-                <li className="completed">
-                  <p>Todo List</p>
-                  <i className="bx bx-dots-vertical-rounded"></i>
-                </li>
-                <li className="not-completed">
-                  <p>Todo List</p>
-                  <i className="bx bx-dots-vertical-rounded"></i>
-                </li>
-                <li className="completed">
-                  <p>Todo List</p>
-                  <i className="bx bx-dots-vertical-rounded"></i>
-                </li>
-                <li className="not-completed">
-                  <p>Todo List</p>
-                  <i className="bx bx-dots-vertical-rounded"></i>
-                </li>
-              </ul>
             </div>
           </div>
         </main>

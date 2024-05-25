@@ -48,7 +48,7 @@ const updateTechStack = async (req, res) => {
     const { id } = req.params;
     const { technology_name } = req.body;
     const Que = `UPDATE  tech_stack SET technology_name = ? WHERE id = ?`;
-    const data = [id, technology_name];
+    const data = [technology_name, id];
 
     connectDB.query(Que, data, (err, data) => {
       if (err) {
@@ -57,10 +57,12 @@ const updateTechStack = async (req, res) => {
           .status(500)
           .json({ message: "error got from update teh stack" });
       }
+      return res.json(data);
     });
-  } catch (error) {}
-  console.error(error.message);
-  return res.status(500).json({ message: "error got from update teh stack" });
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).json({ message: "error got from update teh stack" });
+  }
 };
 
 // delete

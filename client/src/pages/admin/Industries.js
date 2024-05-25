@@ -184,7 +184,7 @@ const Industries = () => {
           <div className="table-data">
             <div className="order">
               <div className="head">
-                <h3>Recent Orders</h3>
+                <h3>Industry Data</h3>
                 <i className="bx bx-search"></i>
                 <i className="bx bx-filter"></i>
               </div>
@@ -364,7 +364,7 @@ const Industries = () => {
             </div>
 
             <div>
-              <p>Update Skill</p>
+              <p>Update Industry</p>
               <br />
               <form
                 method="post"

@@ -53,12 +53,45 @@ const TechStack = () => {
     });
   };
 
+  // update data
+  const UpdateData = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.put(
+        `${API}/updatestack/${updatetTechStack.id}`,
+        updatetTechStack
+      );
+      if (response.status === 200) {
+        const response = await axios.get(`${API}/getstack`);
+        const refreshData = await response.data;
+        setStack(refreshData);
+        closeEditModal();
+        setUpdateTechStack({
+          technology_name: "",
+        });
+        toast.success("updated successfully");
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  // update input handler
+  const updateHandler = (e) => {
+    const { name, value } = e.target;
+    setUpdateTechStack({
+      ...updatetTechStack,
+      [name]: value,
+    });
+  };
+
   // open update modal
   const openEditModal = (techStack) => {
     setEditModalOpen(true);
+    console.log(techStack.id);
     setUpdateTechStack({
       id: techStack.id,
-      technology_name: techStack.service_name,
+      technology_name: techStack.technology_name,
     });
   };
 
@@ -137,7 +170,7 @@ const TechStack = () => {
           <div className="table-data">
             <div className="order">
               <div className="head">
-                <h3>Recent Orders</h3>
+                <h3>Tech stack Data</h3>
                 <i className="bx bx-search"></i>
                 <i className="bx bx-filter"></i>
               </div>
@@ -196,7 +229,7 @@ const TechStack = () => {
             </div>
             <div className="todo">
               <div className="head">
-                <h3>Insert Industry</h3>
+                <h3>Insert Tech stack</h3>
                 <i className="bx bx-plus"></i>
                 <i className="bx bx-filter"></i>
               </div>
@@ -325,7 +358,7 @@ const TechStack = () => {
                 method="post"
                 encType="multipart/form-data"
                 name="edit form"
-                // onSubmit={InsertData}
+                onSubmit={UpdateData}
                 style={{
                   display: "flex",
                   flexDirection: "column",
@@ -342,7 +375,7 @@ const TechStack = () => {
                     className="form-control"
                     value={updatetTechStack.technology_name}
                     id="technology_name"
-                    // onChange={inserHandler}
+                    onChange={updateHandler}
                     name="technology_name"
                     placeholder="Enter Technology name Here"
                   />
@@ -371,7 +404,6 @@ const TechStack = () => {
                     CANCEL
                   </button>
                   <button
-                    type="submit"
                     style={{
                       backgroundColor: "#db504a",
                       border: "none",

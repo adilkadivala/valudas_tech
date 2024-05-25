@@ -182,7 +182,7 @@ const Services = () => {
           <div className="table-data">
             <div className="order">
               <div className="head">
-                <h3>Recent Orders</h3>
+                <h3>Services Data</h3>
                 <i className="bx bx-search"></i>
                 <i className="bx bx-filter"></i>
               </div>
@@ -245,7 +245,7 @@ const Services = () => {
             </div>
             <div className="todo">
               <div className="head">
-                <h3>Insert Industry</h3>
+                <h3>Insert Services</h3>
                 <i className="bx bx-plus"></i>
                 <i className="bx bx-filter"></i>
               </div>
