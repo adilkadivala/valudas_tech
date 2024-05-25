@@ -13,6 +13,6 @@ router
   .route("/updatephotos/:id")
   .put(Middleware.uploads.single("portfolio_photo"), photosData.updatePhotos);
 
-router.route("/deletephotos/:id").delete(photosData.getPhotos);
+router.route("/deletephotos/:id").delete(photosData.deletePhotos);
 
 module.exports = router;

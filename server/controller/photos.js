@@ -74,7 +74,6 @@ const updatePhotos = async (req, res) => {
 const deletePhotos = async (req, res) => {
   try {
     const { id } = req.params;
-    console.log(id);
     const Que = `DELETE FROM photos WHERE id = ?`;
 
     connectDB.query(Que, [id], (err, data) => {

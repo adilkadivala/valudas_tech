@@ -14,7 +14,14 @@ const tech_stack = require("./routes/techStackRoots");
 
 // middleware
 
-app.use(cors());
+const corsOptions = {
+  credentials: "true",
+  methods: "GET,POST,PUT,DELETE",
+  origin: "http://localhost:3000",
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 // pathes
