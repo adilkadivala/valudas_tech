@@ -24,9 +24,9 @@ const insertPortfolio = async (req, res) => {
   try {
     const { title, short_description, company_name, service_id, industry_id } =
       req.body;
-    const image = req.file.filename;
+    const { thumbnail, portfolio_photos } = req.file.filename;
 
-    const Que = `INSERT into portfolio (title, short_description, company_name, service_id, industry_id,image) VALUES (?,?,?,?,?,?)`;
+    const Que = `INSERT into portfolio (title, short_description, company_name, service_id, industry_id,thumbnail,portfolio_photos) VALUES (?,?,?,?,?,?,?)`;
 
     const data = [
       title,
@@ -34,7 +34,8 @@ const insertPortfolio = async (req, res) => {
       company_name,
       service_id,
       industry_id,
-      image,
+      thumbnail,
+      portfolio_photos,
     ];
 
     connectDB.query(Que, data, (err, data) => {

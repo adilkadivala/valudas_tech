@@ -7,12 +7,18 @@ router.route("/getportfolio").get(portfolioData.getPortfolio);
 
 router
   .route("/insertportfolio")
-  .post(Middleware.uploads.single("image"), portfolioData.insertPortfolio);
+  .post(
+    Middleware.uploads.single("thumbnail,portfolio_photos"),
+    portfolioData.insertPortfolio
+  );
 
 router
   .route("/updateportfolio/:id")
-  .post(Middleware.uploads.single("image"), portfolioData.updatePortfolio);
+  .put(
+    Middleware.uploads.single("thumbnail,portfolio_photos"),
+    portfolioData.updatePortfolio
+  );
 
-router.route("/deleteportfoli").delete(portfolioData.deletePortfolio);
+router.route("/deleteportfoli/:id").delete(portfolioData.deletePortfolio);
 
 module.exports = router;

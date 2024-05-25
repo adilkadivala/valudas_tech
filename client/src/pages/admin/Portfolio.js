@@ -13,14 +13,8 @@ const API = process.env.REACT_APP_API_URL;
 const Portfolio = () => {
   const [sidebarHidden, setSidebarHidden] = useState(window.innerWidth < 768);
   const [isDarkMode, setDarkMode] = useState(false);
-  const {
-    portfolio,
-    setPortfolio,
-    industries,
-    setIndustries,
-    services,
-    setServices,
-  } = useValudasData();
+  const { portfolio, setPortfolio, industries, services, portImages } =
+    useValudasData();
   const [insertModalOpen, setInsertModalOpen] = useState(false);
   const [insertPortfolio, setInsertPortfolio] = useState({
     thumbnail: null,
@@ -33,23 +27,31 @@ const Portfolio = () => {
   });
 
   // insert portfolio data
-  const insertData = async () => {
+  const insertData = async (e) => {
+    e.preventDefault();
+
+    const fromData = new FormData();
+    fromData.append("thumbnail", insertPortfolio.thumbnail);
+    fromData.append("title", insertPortfolio.title);
+    fromData.append("short_description", insertPortfolio.short_description);
+    fromData.append("company_name", insertPortfolio.company_name);
+    fromData.append("portfolio_photos", insertPortfolio.portfolio_photos);
+    fromData.append("service_id", insertPortfolio.service_id);
+    fromData.append("industry_id", insertPortfolio.industry_id);
+
     try {
-      const response = await axios.post(
-        `${API}/insertportfolio`,
-        insertPortfolio
-      );
+      const response = await axios.post(`${API}/insertportfolio`, fromData);
 
       if (response.status === 200) {
         const response = axios.get(`${API}/getportfolio`);
         const finelData = response.data;
         setPortfolio(finelData);
         setInsertPortfolio({
-          thumbnail: null,
+          thumbnail: "",
           title: "",
           short_description: "",
           company_name: "",
-          portfolio_photos: null,
+          portfolio_photos: "",
           service_id: "",
           industry_id: "",
         });
@@ -66,18 +68,12 @@ const Portfolio = () => {
 
   // insert input handler
   const insertInputhandler = (e) => {
-    if (e.target.name === "thumbnail") {
-      setInsertPortfolio({
-        ...insertPortfolio,
-        thumbnail: e.target.files[0],
-      });
-    } else {
-      const { name, value } = e.target;
-      setInsertPortfolio({
-        ...insertPortfolio,
-        [name]: value,
-      });
-    }
+    const { name, value, files } = e.target;
+    setInsertPortfolio({ 
+      ...insertPortfolio,
+      [name]:
+        name === "thumbnail" || name === "portfolio_photos" ? files[0] : value,
+    });
   };
 
   // insert modal
@@ -153,6 +149,10 @@ const Portfolio = () => {
                       const service = services.find(
                         (service) => service.id === portfolio.service_id
                       );
+                      const portImage = portImages.find(
+                        (portImage) =>
+                          portImage.id === portfolio.portfolio_photos
+                      );
                       return (
                         <>
                           <tr key={index}>
@@ -169,7 +169,11 @@ const Portfolio = () => {
                               <p>{port.company_name}</p>
                             </td>
                             <td>
-                              <p>{port.portfolio_photos}</p>
+                              <p>
+                                {portImage
+                                  ? portImage.portfolio_photos
+                                  : "unkbbnow"}
+                              </p>
                             </td>
                             <td>
                               <p>
@@ -281,22 +285,22 @@ const Portfolio = () => {
                 }}
               >
                 <div style={{ display: "flex", flexDirection: "column" }}>
-                  <label htmlFor="thumbnail " className="form-label">
+                  <label htmlFor="thumbnail" className="form-label">
                     Thumbnail Photo
                   </label>
                   <input
                     style={{ padding: "12px 5px", fontSize: "15px" }}
                     type="file"
                     className="form-control"
-                    id="thumbnail "
+                    id="thumbnail"
                     onChange={insertInputhandler}
-                    name="thumbnail "
+                    name="thumbnail"
                     placeholder="Enter Industry name Here"
                   />
                 </div>
 
                 <div style={{ display: "flex", flexDirection: "column" }}>
-                  <label htmlFor="title " className="form-label">
+                  <label htmlFor="title" className="form-label">
                     Portfolio Title
                   </label>
                   <input
@@ -304,7 +308,7 @@ const Portfolio = () => {
                     type="text"
                     className="form-control"
                     value={insertPortfolio.title}
-                    id="title "
+                    id="title"
                     onChange={insertInputhandler}
                     name="title"
                     placeholder="Enter Portfolio Title Here"
@@ -342,20 +346,34 @@ const Portfolio = () => {
                     placeholder="Enter company_name Here"
                   />
                 </div>
-                
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                  <label htmlFor="portfolio_photos " className="form-label">
-                    portfolio_photos
+
+                <div
+                  className="mb-3"
+                  style={{ display: "flex", flexDirection: "column" }}
+                >
+                  <label htmlFor="service_id" className="form-label">
+                    Choose Portfolio image
                   </label>
-                  <input
+                  <select
                     style={{ padding: "12px 5px", fontSize: "15px" }}
-                    type="file"
+                    type="text"
                     className="form-control"
-                    id="portfolio_photos"
+                    id="service_id"
+                    name="service_id"
                     onChange={insertInputhandler}
-                    name="portfolio_photos"
-                    placeholder="Enter portfolio_photos  Here"
-                  />
+                    placeholder="Enter City name Here"
+                  >
+                    <option value="">Select service</option>
+
+                    {portImages &&
+                      portImages.map((portImg) => {
+                        return (
+                          <option key={portImg.id} value={portImg.id}>
+                            {portImg.portfolio_photo}
+                          </option>
+                        );
+                      })}
+                  </select>
                 </div>
 
                 <div
