@@ -185,8 +185,6 @@ const Industries = () => {
             <div className="order">
               <div className="head">
                 <h3>Industry Data</h3>
-                <i className="bx bx-search"></i>
-                <i className="bx bx-filter"></i>
               </div>
               <table>
                 <thead>
@@ -290,7 +288,6 @@ const Industries = () => {
                         cursor: "pointer",
                         borderRadius: "5px",
                       }}
-                      onClick={closeEditModal}
                     >
                       CANCEL
                     </button>

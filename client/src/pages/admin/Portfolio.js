@@ -4,13 +4,81 @@ import Sidebar from "../admin/layout/Sidebar";
 import { useValudasData } from "../../context/Storage";
 import "../../assets/css/admin/main.css";
 import { Pencil, Plus, Trash2, X } from "lucide-react";
+import { toast } from "react-toastify";
 import { NavLink } from "react-router-dom";
+import axios from "axios";
+
+const API = process.env.REACT_APP_API_URL;
 
 const Portfolio = () => {
   const [sidebarHidden, setSidebarHidden] = useState(window.innerWidth < 768);
   const [isDarkMode, setDarkMode] = useState(false);
-  const { portfolio, setPortfolio } = useValudasData();
+  const {
+    portfolio,
+    setPortfolio,
+    industries,
+    setIndustries,
+    services,
+    setServices,
+  } = useValudasData();
   const [insertModalOpen, setInsertModalOpen] = useState(false);
+  const [insertPortfolio, setInsertPortfolio] = useState({
+    thumbnail: null,
+    title: "",
+    short_description: "",
+    company_name: "",
+    portfolio_photos: null,
+    service_id: "",
+    industry_id: "",
+  });
+
+  // insert portfolio data
+  const insertData = async () => {
+    try {
+      const response = await axios.post(
+        `${API}/insertportfolio`,
+        insertPortfolio
+      );
+
+      if (response.status === 200) {
+        const response = axios.get(`${API}/getportfolio`);
+        const finelData = response.data;
+        setPortfolio(finelData);
+        setInsertPortfolio({
+          thumbnail: null,
+          title: "",
+          short_description: "",
+          company_name: "",
+          portfolio_photos: null,
+          service_id: "",
+          industry_id: "",
+        });
+        closeInsertModal();
+        toast.success("Portfolio Inserted successfully");
+      } else {
+        console.error("error form inserting new industry");
+        toast.error("industry failed due to some reason");
+      }
+    } catch (error) {
+      console.error("Skill Update", error.message);
+    }
+  };
+
+  // insert input handler
+  const insertInputhandler = (e) => {
+    if (e.target.name === "thumbnail") {
+      setInsertPortfolio({
+        ...insertPortfolio,
+        thumbnail: e.target.files[0],
+      });
+    } else {
+      const { name, value } = e.target;
+      setInsertPortfolio({
+        ...insertPortfolio,
+        [name]: value,
+      });
+    }
+  };
 
   // insert modal
   const openInsertModal = () => {
@@ -79,6 +147,12 @@ const Portfolio = () => {
                 <tbody>
                   {portfolio &&
                     portfolio.map((port, index) => {
+                      const industry = industries.find(
+                        (industry) => industry.id === portfolio.industry_id
+                      );
+                      const service = services.find(
+                        (service) => service.id === portfolio.service_id
+                      );
                       return (
                         <>
                           <tr key={index}>
@@ -98,10 +172,14 @@ const Portfolio = () => {
                               <p>{port.portfolio_photos}</p>
                             </td>
                             <td>
-                              <p>{port.service_id}</p>
+                              <p>
+                                {service ? service.service_name : "unknown"}
+                              </p>
                             </td>
                             <td>
-                              <p>{port.industry_id}</p>
+                              <p>
+                                {industry ? industry.industry_name : "unknow"}
+                              </p>
                             </td>
                             <td>
                               <button
@@ -195,7 +273,7 @@ const Portfolio = () => {
                 method="post"
                 encType="multipart/form-data"
                 name="edit form"
-                // onSubmit={updateIndustry}
+                onSubmit={insertData}
                 style={{
                   display: "flex",
                   flexDirection: "column",
@@ -203,109 +281,141 @@ const Portfolio = () => {
                 }}
               >
                 <div style={{ display: "flex", flexDirection: "column" }}>
-                  <label htmlFor="industry_name" className="form-label">
-                    Industry Name
+                  <label htmlFor="thumbnail " className="form-label">
+                    Thumbnail Photo
                   </label>
                   <input
                     style={{ padding: "12px 5px", fontSize: "15px" }}
-                    type="text"
+                    type="file"
                     className="form-control"
-                    // value={editIndustryData.industry_name}
-                    id="industry_name"
-                    // onChange={updateInputHandler}
-                    name="industry_name"
+                    id="thumbnail "
+                    onChange={insertInputhandler}
+                    name="thumbnail "
                     placeholder="Enter Industry name Here"
                   />
                 </div>
+
                 <div style={{ display: "flex", flexDirection: "column" }}>
-                  <label htmlFor="industry_name" className="form-label">
-                    Industry Name
+                  <label htmlFor="title " className="form-label">
+                    Portfolio Title
                   </label>
                   <input
                     style={{ padding: "12px 5px", fontSize: "15px" }}
                     type="text"
                     className="form-control"
-                    // value={editIndustryData.industry_name}
-                    id="industry_name"
-                    // onChange={updateInputHandler}
-                    name="industry_name"
-                    placeholder="Enter Industry name Here"
+                    value={insertPortfolio.title}
+                    id="title "
+                    onChange={insertInputhandler}
+                    name="title"
+                    placeholder="Enter Portfolio Title Here"
                   />
                 </div>
+
                 <div style={{ display: "flex", flexDirection: "column" }}>
-                  <label htmlFor="industry_name" className="form-label">
-                    Industry Name
+                  <label htmlFor="short_description " className="form-label">
+                    short_description
                   </label>
                   <input
                     style={{ padding: "12px 5px", fontSize: "15px" }}
                     type="text"
                     className="form-control"
-                    // value={editIndustryData.industry_name}
-                    id="industry_name"
-                    // onChange={updateInputHandler}
-                    name="industry_name"
-                    placeholder="Enter Industry name Here"
+                    value={insertPortfolio.short_description}
+                    id="short_description"
+                    onChange={insertInputhandler}
+                    name="short_description"
+                    placeholder="Enter short_description Here"
                   />
                 </div>
+
                 <div style={{ display: "flex", flexDirection: "column" }}>
-                  <label htmlFor="industry_name" className="form-label">
-                    Industry Name
+                  <label htmlFor="company_name " className="form-label">
+                    company_name
                   </label>
                   <input
                     style={{ padding: "12px 5px", fontSize: "15px" }}
                     type="text"
                     className="form-control"
-                    // value={editIndustryData.industry_name}
-                    id="industry_name"
-                    // onChange={updateInputHandler}
-                    name="industry_name"
-                    placeholder="Enter Industry name Here"
+                    value={insertPortfolio.company_name}
+                    id="company_name"
+                    onChange={insertInputhandler}
+                    name="company_name"
+                    placeholder="Enter company_name Here"
                   />
                 </div>
+                
                 <div style={{ display: "flex", flexDirection: "column" }}>
-                  <label htmlFor="industry_name" className="form-label">
-                    Industry Name
+                  <label htmlFor="portfolio_photos " className="form-label">
+                    portfolio_photos
                   </label>
                   <input
                     style={{ padding: "12px 5px", fontSize: "15px" }}
-                    type="text"
+                    type="file"
                     className="form-control"
-                    // value={editIndustryData.industry_name}
-                    id="industry_name"
-                    // onChange={updateInputHandler}
-                    name="industry_name"
-                    placeholder="Enter Industry name Here"
+                    id="portfolio_photos"
+                    onChange={insertInputhandler}
+                    name="portfolio_photos"
+                    placeholder="Enter portfolio_photos  Here"
                   />
                 </div>
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                  <label htmlFor="industry_name" className="form-label">
-                    Industry Name
+
+                <div
+                  className="mb-3"
+                  style={{ display: "flex", flexDirection: "column" }}
+                >
+                  <label htmlFor="service_id" className="form-label">
+                    Choose service
                   </label>
-                  <input
+                  <select
                     style={{ padding: "12px 5px", fontSize: "15px" }}
                     type="text"
                     className="form-control"
-                    // value={editIndustryData.industry_name}
-                    id="industry_name"
-                    // onChange={updateInputHandler}
-                    name="industry_name"
-                    placeholder="Enter Industry name Here"
-                  />
+                    value={insertPortfolio.service_id}
+                    id="service_id"
+                    name="service_id"
+                    onChange={insertInputhandler}
+                    placeholder="Enter City name Here"
+                  >
+                    <option value="">Select service</option>
+
+                    {services &&
+                      services.map((service) => {
+                        return (
+                          <option key={service.id} value={service.id}>
+                            {service.service_name}
+                          </option>
+                        );
+                      })}
+                  </select>
                 </div>
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                  <label htmlFor="industry_name" className="form-label">
-                    Industry Name
+
+                <div
+                  className="mb-3"
+                  style={{ display: "flex", flexDirection: "column" }}
+                >
+                  <label htmlFor="service_id" className="form-label">
+                    Choose Industry
                   </label>
-                  <input
+                  <select
                     style={{ padding: "12px 5px", fontSize: "15px" }}
                     type="text"
                     className="form-control"
-                    // value={editIndustryData.industry_name}
-                    id="industry_name"
-                    // onChange={updateInputHandler}
-                    name="industry_name"
-                    placeholder="Enter Industry name Here"
-                  />
+                    value={insertPortfolio.service_id}
+                    id="service_id"
+                    name="service_id"
+                    onChange={insertInputhandler}
+                    placeholder="Enter City name Here"
+                  >
+                    <option value="">Select service</option>
+
+                    {industries &&
+                      industries.map((industry) => {
+                        return (
+                          <option key={industry.id} value={industry.id}>
+                            {industry.industry_name}
+                          </option>
+                        );
+                      })}
+                  </select>
                 </div>
 
                 <div
@@ -341,7 +451,6 @@ const Portfolio = () => {
                       padding: "7px 10px",
                       borderRadius: "5px",
                     }}
-                    // onClick={updateIndustry}
                   >
                     Save
                   </button>

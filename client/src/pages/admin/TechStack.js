@@ -171,8 +171,6 @@ const TechStack = () => {
             <div className="order">
               <div className="head">
                 <h3>Tech stack Data</h3>
-                <i className="bx bx-search"></i>
-                <i className="bx bx-filter"></i>
               </div>
               <table>
                 <thead>

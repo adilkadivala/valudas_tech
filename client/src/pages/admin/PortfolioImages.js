@@ -3,6 +3,7 @@ import Navbar from "../admin/layout/Navbar";
 import Sidebar from "../admin/layout/Sidebar";
 import { useValudasData } from "../../context/Storage";
 import "../../assets/css/admin/main.css";
+import { Pencil, Trash2 } from "lucide-react";
 
 const PortImages = () => {
   const [sidebarHidden, setSidebarHidden] = useState(window.innerWidth < 768);
@@ -46,8 +47,6 @@ const PortImages = () => {
             <div className="order">
               <div className="head">
                 <h3>Recent Orders</h3>
-                <i className="bx bx-search"></i>
-                <i className="bx bx-filter"></i>
               </div>
               <table>
                 <thead>
@@ -55,6 +54,7 @@ const PortImages = () => {
                     <th>Number</th>
                     <th>portfolio Image</th>
                     <th>Portfolio id</th>
+                    <th>Operation</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -72,6 +72,32 @@ const PortImages = () => {
                             <td>
                               <p>{image.port_id}</p>
                             </td>
+                            <td>
+                              <button
+                                style={{
+                                  backgroundColor: "transparent",
+                                  border: "none",
+                                  color: "#FD7238",
+                                  marginLeft: "0.5rem",
+                                  cursor: "pointer",
+                                }}
+                                // onClick={() => openDeleteModal(industry.id)}
+                              >
+                                <Trash2 />
+                              </button>
+
+                              <button
+                                style={{
+                                  backgroundColor: "transparent",
+                                  border: "none",
+                                  color: "#3C91E6",
+                                  cursor: "pointer",
+                                }}
+                                // onClick={() => openEditModal(industry)}
+                              >
+                                <Pencil />
+                              </button>
+                            </td>
                           </tr>
                         </>
                       );
@@ -79,34 +105,78 @@ const PortImages = () => {
                 </tbody>
               </table>
             </div>
+
             <div className="todo">
               <div className="head">
-                <h3>Todos</h3>
+                <h3>Insert Industry</h3>
                 <i className="bx bx-plus"></i>
                 <i className="bx bx-filter"></i>
               </div>
-              <ul className="todo-list">
-                <li className="completed">
-                  <p>Todo List</p>
-                  <i className="bx bx-dots-vertical-rounded"></i>
-                </li>
-                <li className="completed">
-                  <p>Todo List</p>
-                  <i className="bx bx-dots-vertical-rounded"></i>
-                </li>
-                <li className="not-completed">
-                  <p>Todo List</p>
-                  <i className="bx bx-dots-vertical-rounded"></i>
-                </li>
-                <li className="completed">
-                  <p>Todo List</p>
-                  <i className="bx bx-dots-vertical-rounded"></i>
-                </li>
-                <li className="not-completed">
-                  <p>Todo List</p>
-                  <i className="bx bx-dots-vertical-rounded"></i>
-                </li>
-              </ul>
+              <div className="todo-list">
+                <form
+                  method="post"
+                  encType="multipart/form-data"
+                  name="edit form"
+                  // onSubmit={insertIndustry}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    rowGap: "10px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <label htmlFor="industry_name" className="form-label">
+                      Industry Name
+                    </label>
+                    <input
+                      style={{ padding: "12px 5px", fontSize: "15px" }}
+                      type="file"
+                      className="form-control"
+                      // value={insertIndustryData.industry_name}
+                      id="industry_name"
+                      // onChange={insertInputHandler}
+                      name="industry_name"
+                      placeholder="Enter Industry name Here"
+                    />
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      marginTop: "10px",
+                    }}
+                  >
+                    <button
+                      type="button"
+                      style={{
+                        backgroundColor: "#3c91e6",
+                        border: "none",
+                        color: "#FFF",
+                        marginRight: "5px",
+                        padding: "7px 10px",
+                        cursor: "pointer",
+                        borderRadius: "5px",
+                      }}
+                    >
+                      CANCEL
+                    </button>
+                    <button
+                      type="submit"
+                      style={{
+                        backgroundColor: "#db504a",
+                        border: "none",
+                        color: "#FFF",
+                        cursor: "pointer",
+                        marginLeft: "5px",
+                        padding: "7px 10px",
+                        borderRadius: "5px",
+                      }}
+                    >
+                      Save
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </main>
