@@ -4,11 +4,19 @@ import Sidebar from "../admin/layout/Sidebar";
 import { useValudasData } from "../../context/Storage";
 import "../../assets/css/admin/main.css";
 import { Pencil, Trash2 } from "lucide-react";
+import { DeleteModal } from "./layout/Modal";
+import axios from "axios";
+import { toast } from "react-toastify";
+
+const API = process.env.REACT_APP_API_URL;
 
 const PortImages = () => {
   const [sidebarHidden, setSidebarHidden] = useState(window.innerWidth < 768);
   const [isDarkMode, setDarkMode] = useState(false);
   const { portImages, setPortImages } = useValudasData();
+  const [imageId, setImageId] = useState(null);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [editModalOpen, setEditModalOpen] = useState(false);
 
   const toggleSidebar = () => {
     setSidebarHidden(!sidebarHidden);
@@ -17,6 +25,39 @@ const PortImages = () => {
   const toggleDarkMode = () => {
     setDarkMode(!isDarkMode);
     document.body.classList.toggle("dark");
+  };
+
+  // delete photos
+  const deletephoto = async () => {
+    console.log(imageId);
+    try {
+      const response = await axios.delete(`${API}/deletephotos/${imageId}`);
+
+      console.log(imageId, 36);
+
+      if (response.status === 200) {
+        const response = await axios.get(`${API}/getphotos`);
+        const finelData = response.data;
+        setPortImages(finelData);
+        closeDeleteModal();
+        toast.success("Portfolio Image Deleted Successfully");
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  // open Delete modal
+  const openDeleteModal = (imageId) => {
+    setDeleteModalOpen(true);
+    setImageId(imageId);
+    console.log(imageId);
+  };
+
+  // close Delete modal
+  const closeDeleteModal = () => {
+    setDeleteModalOpen(false);
+    setImageId(null);
   };
 
   useEffect(() => {
@@ -35,6 +76,13 @@ const PortImages = () => {
     <>
       <Sidebar isOpen={!sidebarHidden} />
       <Navbar toggleSidebar={toggleSidebar} toggleDarkMode={toggleDarkMode} />
+      <DeleteModal
+        isDeleteOpen={deleteModalOpen}
+        onCloseDelete={closeDeleteModal}
+        onDelete={deletephoto}
+        itemId={imageId}
+      />
+
       <section id="content">
         <main>
           <div className="head-title">
@@ -51,7 +99,6 @@ const PortImages = () => {
               <table>
                 <thead>
                   <tr>
-                    <th>Number</th>
                     <th>portfolio Image</th>
                     <th>Portfolio id</th>
                     <th>Operation</th>
@@ -63,9 +110,6 @@ const PortImages = () => {
                       return (
                         <>
                           <tr key={index}>
-                            <td>
-                              <p>{image.id}</p>
-                            </td>
                             <td>
                               <p>{image.portfolio_photo}</p>
                             </td>
@@ -81,7 +125,7 @@ const PortImages = () => {
                                   marginLeft: "0.5rem",
                                   cursor: "pointer",
                                 }}
-                                // onClick={() => openDeleteModal(industry.id)}
+                                onClick={() => openDeleteModal(image.id)}
                               >
                                 <Trash2 />
                               </button>
@@ -109,8 +153,6 @@ const PortImages = () => {
             <div className="todo">
               <div className="head">
                 <h3>Insert Industry</h3>
-                <i className="bx bx-plus"></i>
-                <i className="bx bx-filter"></i>
               </div>
               <div className="todo-list">
                 <form

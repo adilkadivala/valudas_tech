@@ -46,7 +46,8 @@ const insertPhotos = async (req, res) => {
 const updatePhotos = async (req, res) => {
   try {
     const portfolio_photo = req.file.filename;
-    const { id, port_id } = req.body;
+    const { port_id } = req.body;
+    const { id } = req.params;
 
     const Que = `UPDATE photos SET portfolio_photo =?, port_id =? WHERE id =?`;
     const data = [portfolio_photo, port_id, id];
@@ -72,7 +73,8 @@ const updatePhotos = async (req, res) => {
 // deleting photos
 const deletePhotos = async (req, res) => {
   try {
-    const { id } = req.body;
+    const { id } = req.params;
+    console.log(id);
     const Que = `DELETE FROM photos WHERE id = ?`;
 
     connectDB.query(Que, [id], (err, data) => {
