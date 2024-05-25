@@ -82,6 +82,7 @@ const PortImages = () => {
           portfolio_photo: "",
           port_id: "",
         });
+        closeEditModal();
       }
     } catch (error) {
       console.error(error.message);
@@ -402,7 +403,7 @@ const PortImages = () => {
                 method="post"
                 encType="multipart/form-data"
                 name="edit form"
-                onSubmit={insertPhoto}
+                onSubmit={updatePhotos}
                 style={{
                   display: "flex",
                   flexDirection: "column",
@@ -476,6 +477,7 @@ const PortImages = () => {
                       cursor: "pointer",
                       borderRadius: "5px",
                     }}
+                    onClick={closeEditModal}
                   >
                     CANCEL
                   </button>
