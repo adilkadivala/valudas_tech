@@ -194,7 +194,7 @@ const Services = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {services &&
+                  {services && services.length > 0 ? (
                     services.map((service, index) => {
                       return (
                         <>
@@ -237,7 +237,14 @@ const Services = () => {
                           </tr>
                         </>
                       );
-                    })}
+                    })
+                  ) : (
+                    <tr>
+                      <td colSpan="8" style={{ color: "red" }}>
+                        No portfolio data available
+                      </td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>

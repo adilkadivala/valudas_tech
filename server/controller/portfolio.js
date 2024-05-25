@@ -24,9 +24,14 @@ const insertPortfolio = async (req, res) => {
   try {
     const { title, short_description, company_name, service_id, industry_id } =
       req.body;
-    const { thumbnail, portfolio_photos } = req.file.filename;
+    const thumbnail = req.files["thumbnail"]
+      ? req.files["thumbnail"][0].filename
+      : null;
+    const portfolio_photos = req.files["portfolio_photos"]
+      ? req.files["portfolio_photos"][0].filename
+      : null;
 
-    const Que = `INSERT into portfolio (title, short_description, company_name, service_id, industry_id,thumbnail,portfolio_photos) VALUES (?,?,?,?,?,?,?)`;
+    const Que = `INSERT into portfolio (title, short_description, company_name, service_id, industry_id, thumbnail, portfolio_photos) VALUES (?,?,?,?,?,?,?)`;
 
     const data = [
       title,
@@ -43,7 +48,7 @@ const insertPortfolio = async (req, res) => {
         console.error(err.message);
         return res
           .status(500)
-          .json({ message: "error got from inserting portfoliko data" });
+          .json({ message: "Error inserting portfolio data" });
       }
       return res.json(data);
     });

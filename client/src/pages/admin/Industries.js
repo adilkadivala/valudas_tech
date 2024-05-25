@@ -195,7 +195,7 @@ const Industries = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {industries &&
+                  {industries && industries.length > 0 ? (
                     industries.map((industry, index) => {
                       return (
                         <tr key={index}>
@@ -233,7 +233,14 @@ const Industries = () => {
                           </td>
                         </tr>
                       );
-                    })}
+                    })
+                  ) : (
+                    <tr>
+                      <td colSpan="8" style={{ color: "red" }}>
+                        No portfolio data available
+                      </td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>

@@ -5,20 +5,22 @@ const Middleware = require("../middleware/FileHandler");
 
 router.route("/getportfolio").get(portfolioData.getPortfolio);
 
-router
-  .route("/insertportfolio")
-  .post(
-    Middleware.uploads.single("thumbnail,portfolio_photos"),
-    portfolioData.insertPortfolio
-  );
+router.route("/insertportfolio").post(
+  Middleware.uploads.fields([
+    { name: "thumbnail", maxCount: 1 },
+    { name: "portfolio_photos", maxCount: 1 },
+  ]),
+  portfolioData.insertPortfolio
+);
 
-router
-  .route("/updateportfolio/:id")
-  .put(
-    Middleware.uploads.single("thumbnail,portfolio_photos"),
-    portfolioData.updatePortfolio
-  );
+router.route("/updateportfolio/:id").put(
+  Middleware.uploads.fields([
+    { name: "thumbnail", maxCount: 1 },
+    { name: "portfolio_photos", maxCount: 1 },
+  ]),
+  portfolioData.updatePortfolio
+);
 
-router.route("/deleteportfoli/:id").delete(portfolioData.deletePortfolio);
+router.route("/deleteportfolio/:id").delete(portfolioData.deletePortfolio);
 
 module.exports = router;

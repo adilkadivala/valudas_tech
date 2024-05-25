@@ -181,7 +181,7 @@ const TechStack = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {stack &&
+                  {stack && stack.length > 0 ? (
                     stack.map((tech, index) => {
                       return (
                         <>
@@ -221,7 +221,14 @@ const TechStack = () => {
                           </tr>
                         </>
                       );
-                    })}
+                    })
+                  ) : (
+                    <tr>
+                      <td colSpan="10" style={{ color: "red" }}>
+                        No portfolio data available
+                      </td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>

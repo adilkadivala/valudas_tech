@@ -102,7 +102,7 @@ const Users = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {users &&
+                  {users && users.length > 0 ? (
                     users.map((user, index) => {
                       return (
                         <>
@@ -135,7 +135,14 @@ const Users = () => {
                           </tr>
                         </>
                       );
-                    })}
+                    })
+                  ) : (
+                    <tr>
+                      <td colSpan="8" style={{ color: "red" }}>
+                        No portfolio data available
+                      </td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>

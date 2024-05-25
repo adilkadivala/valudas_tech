@@ -195,7 +195,7 @@ const PortImages = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {portImages &&
+                  {portImages && portImages.length > 0 ? (
                     portImages.map((image, index) => {
                       const portfolioData = portfolio.find(
                         (port_data) => port_data.id === image.port_id
@@ -237,7 +237,14 @@ const PortImages = () => {
                           </td>
                         </tr>
                       );
-                    })}
+                    })
+                  ) : (
+                    <tr>
+                      <td colSpan="8" style={{ color: "red" }}>
+                        No portfolio data available
+                      </td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>
