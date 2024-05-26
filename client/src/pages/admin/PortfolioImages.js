@@ -203,7 +203,7 @@ const PortImages = () => {
                       return (
                         <tr key={index}>
                           <td>
-                            <p>{`/public/upload/${image.portfolio_photo}`}</p>
+                            <p>{`/upload/${image.portfolio_photo}`}</p>
                           </td>
                           <td>
                             <p>

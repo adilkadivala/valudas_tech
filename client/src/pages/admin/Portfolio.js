@@ -13,8 +13,13 @@ const API = process.env.REACT_APP_API_URL;
 const Portfolio = () => {
   const [sidebarHidden, setSidebarHidden] = useState(window.innerWidth < 768);
   const [isDarkMode, setDarkMode] = useState(false);
-  const { portfolio, setPortfolio, industries, services, portImages } =
-    useValudasData();
+  const {
+    portfolio,
+    setPortfolio,
+    industries = [],
+    services = [],
+    portImages = [],
+  } = useValudasData();
 
   const [insertModalOpen, setInsertModalOpen] = useState(false);
   const [insertPortfolio, setInsertPortfolio] = useState({
@@ -31,49 +36,47 @@ const Portfolio = () => {
   const insertData = async (e) => {
     e.preventDefault();
 
-    const fromData = new FormData();
-    fromData.append("thumbnail", insertPortfolio.thumbnail);
-    fromData.append("title", insertPortfolio.title);
-    fromData.append("short_description", insertPortfolio.short_description);
-    fromData.append("company_name", insertPortfolio.company_name);
-    fromData.append("portfolio_photos", insertPortfolio.portfolio_photos);
-    fromData.append("service_id", insertPortfolio.service_id);
-    fromData.append("industry_id", insertPortfolio.industry_id);
+    const formData = new FormData();
+    formData.append("thumbnail", insertPortfolio.thumbnail);
+    formData.append("title", insertPortfolio.title);
+    formData.append("short_description", insertPortfolio.short_description);
+    formData.append("company_name", insertPortfolio.company_name);
+    formData.append("portfolio_photos", insertPortfolio.portfolio_photos);
+    formData.append("service_id", insertPortfolio.service_id);
+    formData.append("industry_id", insertPortfolio.industry_id);
 
     try {
-      const response = await axios.post(`${API}/insertportfolio`, fromData);
+      const response = await axios.post(`${API}/insertportfolio`, formData);
 
       if (response.status === 200) {
-        const response = axios.get(`${API}/getportfolio`);
-        const finelData = response.data;
-        setPortfolio(finelData);
+        const response = await axios.get(`${API}/getportfolio`);
+        const finalData = response.data;
+        setPortfolio(finalData);
         setInsertPortfolio({
-          thumbnail: "",
+          thumbnail: null,
           title: "",
           short_description: "",
           company_name: "",
-          portfolio_photos: "",
+          portfolio_photos: null,
           service_id: "",
           industry_id: "",
         });
         closeInsertModal();
         toast.success("Portfolio Inserted successfully");
       } else {
-        console.error("error form inserting new industry");
-        toast.error("industry failed due to some reason");
+        console.error("Error inserting new portfolio");
+        toast.error("Portfolio insertion failed due to some reason");
       }
     } catch (error) {
-      console.error("Skill Update", error.message);
+      console.error("Portfolio Insert Error", error.message);
     }
   };
 
-  // insert input handler
-  const insertInputhandler = (e) => {
+  const insertInputHandler = (e) => {
     const { name, value, files } = e.target;
     setInsertPortfolio({
       ...insertPortfolio,
-      [name]:
-        name === "thumbnail" || name === "portfolio_photos" ? files[0] : value,
+      [name]: files ? files[0] : value,
     });
   };
 
@@ -288,7 +291,7 @@ const Portfolio = () => {
                   type="file"
                   className="form-control"
                   id="thumbnail"
-                  onChange={insertInputhandler}
+                  onChange={insertInputHandler}
                   name="thumbnail"
                   placeholder="Enter Industry name Here"
                 />
@@ -304,7 +307,7 @@ const Portfolio = () => {
                   className="form-control"
                   value={insertPortfolio.title}
                   id="title"
-                  onChange={insertInputhandler}
+                  onChange={insertInputHandler}
                   name="title"
                   placeholder="Enter Portfolio Title Here"
                 />
@@ -320,7 +323,7 @@ const Portfolio = () => {
                   className="form-control"
                   value={insertPortfolio.short_description}
                   id="short_description"
-                  onChange={insertInputhandler}
+                  onChange={insertInputHandler}
                   name="short_description"
                   placeholder="Enter short_description Here"
                 />
@@ -336,7 +339,7 @@ const Portfolio = () => {
                   className="form-control"
                   value={insertPortfolio.company_name}
                   id="company_name"
-                  onChange={insertInputhandler}
+                  onChange={insertInputHandler}
                   name="company_name"
                   placeholder="Enter company_name Here"
                 />
@@ -355,7 +358,7 @@ const Portfolio = () => {
                   className="form-control"
                   id="service_id"
                   name="service_id"
-                  onChange={insertInputhandler}
+                  onChange={insertInputHandler}
                   placeholder="Enter City name Here"
                 >
                   <option value="">Select service</option>
@@ -385,7 +388,7 @@ const Portfolio = () => {
                   value={insertPortfolio.service_id}
                   id="service_id"
                   name="service_id"
-                  onChange={insertInputhandler}
+                  onChange={insertInputHandler}
                   placeholder="Enter City name Here"
                 >
                   <option value="">Select service</option>
@@ -415,7 +418,7 @@ const Portfolio = () => {
                   value={insertPortfolio.service_id}
                   id="service_id"
                   name="service_id"
-                  onChange={insertInputhandler}
+                  onChange={insertInputHandler}
                   placeholder="Enter City name Here"
                 >
                   <option value="">Select service</option>

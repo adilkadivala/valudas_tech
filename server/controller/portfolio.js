@@ -24,12 +24,8 @@ const insertPortfolio = async (req, res) => {
   try {
     const { title, short_description, company_name, service_id, industry_id } =
       req.body;
-    const thumbnail = req.files["thumbnail"]
-      ? req.files["thumbnail"][0].filename
-      : null;
-    const portfolio_photos = req.files["portfolio_photos"]
-      ? req.files["portfolio_photos"][0].filename
-      : null;
+    const thumbnail = req.file ? req.file.filename : "thumbnail";
+    const portfolio_photos = req.file ? req.file.filename : "portfolio_photos";
 
     const Que = `INSERT into portfolio (title, short_description, company_name, service_id, industry_id, thumbnail, portfolio_photos) VALUES (?,?,?,?,?,?,?)`;
 
