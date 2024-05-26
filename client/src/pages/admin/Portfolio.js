@@ -27,12 +27,12 @@ const Portfolio = () => {
     title: "",
     short_description: "",
     company_name: "",
-    portfolio_photos: null,
+    portfolio_photos: "",
     service_id: "",
     industry_id: "",
   });
 
-  // insert portfolio data
+  // Insert portfolio data
   const insertData = async (e) => {
     e.preventDefault();
 
@@ -57,7 +57,7 @@ const Portfolio = () => {
           title: "",
           short_description: "",
           company_name: "",
-          portfolio_photos: null,
+          portfolio_photos: "",
           service_id: "",
           industry_id: "",
         });
@@ -80,11 +80,11 @@ const Portfolio = () => {
     });
   };
 
-  // insert modal
+  // Insert modal
   const openInsertModal = () => {
     setInsertModalOpen(true);
   };
-  // closing insert modal
+
   const closeInsertModal = () => {
     setInsertModalOpen(false);
   };
@@ -173,7 +173,7 @@ const Portfolio = () => {
                           <td>
                             <p>
                               {portImage
-                                ? portImage.portfolio_photos
+                                ? portImage.portfolio_photo
                                 : "unknown"}
                             </p>
                           </td>
@@ -315,7 +315,7 @@ const Portfolio = () => {
 
               <div style={{ display: "flex", flexDirection: "column" }}>
                 <label htmlFor="short_description " className="form-label">
-                  short_description
+                  Short Description
                 </label>
                 <input
                   style={{ padding: "12px 5px", fontSize: "15px" }}
@@ -325,13 +325,13 @@ const Portfolio = () => {
                   id="short_description"
                   onChange={insertInputHandler}
                   name="short_description"
-                  placeholder="Enter short_description Here"
+                  placeholder="Enter Short Description Here"
                 />
               </div>
 
               <div style={{ display: "flex", flexDirection: "column" }}>
                 <label htmlFor="company_name " className="form-label">
-                  company_name
+                  Company Name
                 </label>
                 <input
                   style={{ padding: "12px 5px", fontSize: "15px" }}
@@ -341,7 +341,7 @@ const Portfolio = () => {
                   id="company_name"
                   onChange={insertInputHandler}
                   name="company_name"
-                  placeholder="Enter company_name Here"
+                  placeholder="Enter Company Name Here"
                 />
               </div>
 
@@ -349,20 +349,18 @@ const Portfolio = () => {
                 className="mb-3"
                 style={{ display: "flex", flexDirection: "column" }}
               >
-                <label htmlFor="service_id" className="form-label">
-                  Choose Portfolio image
+                <label htmlFor="portfolio_photos" className="form-label">
+                  Choose Portfolio Image
                 </label>
                 <select
                   style={{ padding: "12px 5px", fontSize: "15px" }}
                   type="text"
                   className="form-control"
-                  id="service_id"
-                  name="service_id"
+                  id="portfolio_photos"
+                  name="portfolio_photos"
                   onChange={insertInputHandler}
-                  placeholder="Enter City name Here"
                 >
-                  <option value="">Select service</option>
-
+                  <option value="">Select Portfolio Image</option>
                   {portImages &&
                     portImages.map((portImg) => {
                       return (
@@ -379,7 +377,7 @@ const Portfolio = () => {
                 style={{ display: "flex", flexDirection: "column" }}
               >
                 <label htmlFor="service_id" className="form-label">
-                  Choose service
+                  Choose Service
                 </label>
                 <select
                   style={{ padding: "12px 5px", fontSize: "15px" }}
@@ -389,10 +387,8 @@ const Portfolio = () => {
                   id="service_id"
                   name="service_id"
                   onChange={insertInputHandler}
-                  placeholder="Enter City name Here"
                 >
-                  <option value="">Select service</option>
-
+                  <option value="">Select Service</option>
                   {services &&
                     services.map((service) => {
                       return (
@@ -408,21 +404,19 @@ const Portfolio = () => {
                 className="mb-3"
                 style={{ display: "flex", flexDirection: "column" }}
               >
-                <label htmlFor="service_id" className="form-label">
+                <label htmlFor="industry_id" className="form-label">
                   Choose Industry
                 </label>
                 <select
                   style={{ padding: "12px 5px", fontSize: "15px" }}
                   type="text"
                   className="form-control"
-                  value={insertPortfolio.service_id}
-                  id="service_id"
-                  name="service_id"
+                  value={insertPortfolio.industry_id}
+                  id="industry_id"
+                  name="industry_id"
                   onChange={insertInputHandler}
-                  placeholder="Enter City name Here"
                 >
-                  <option value="">Select service</option>
-
+                  <option value="">Select Industry</option>
                   {industries &&
                     industries.map((industry) => {
                       return (
