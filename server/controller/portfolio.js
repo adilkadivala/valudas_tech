@@ -67,11 +67,6 @@ const insertPortfolio = async (req, res) => {
 const updatePortfolio = async (req, res) => {
   try {
     const { id } = req.params;
-
-    const thumbnail = req.files.thumbnail
-      ? req.files.thumbnail[0].filename
-      : null;
-
     const {
       title,
       short_description,
@@ -81,7 +76,15 @@ const updatePortfolio = async (req, res) => {
       portfolio_photos,
     } = req.body;
 
-    const Que = `UPDATE portfolio SET thumbnail =?, title =?, short_description =?, company_name =?, service_id =?, industry_id =?, portfolio_photos =? WHERE id =?`;
+    let thumbnail;
+
+    if (req.files && req.files.thumbnail) {
+      thumbnail = req.files.thumbnail[0].filename;
+    } else {
+      thumbnail = req.body.thumbnail || null;
+    }
+
+    const query = `UPDATE portfolio SET thumbnail =?, title =?, short_description =?, company_name =?, service_id =?, industry_id =?, portfolio_photos =? WHERE id =?`;
 
     const data = [
       thumbnail,
@@ -94,17 +97,16 @@ const updatePortfolio = async (req, res) => {
       id,
     ];
 
-    connectDB.query(Que, data, (err, data) => {
+    connectDB.query(query, data, (err) => {
       if (err) {
         console.error(err.message);
-        return res
-          .status(500)
-          .json({ message: "error got from updating portfolio" });
+        return res.status(500).json({ message: "Error updating portfolio" });
       }
       return res.sendStatus(200);
     });
   } catch (error) {
-    error.message;
+    console.error(error.message);
+    return res.status(500).json({ message: "Server error" });
   }
 };
 

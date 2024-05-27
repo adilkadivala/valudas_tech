@@ -173,14 +173,14 @@ const PortImages = () => {
         <main>
           <div className="head-title">
             <div className="left">
-              <h1>Services Page</h1>
+              <h1>Portfolio Images</h1>
             </div>
           </div>
 
           <div className="table-data">
             <div className="order">
               <div className="head">
-                <h3>Recent Orders</h3>
+                <h3>Images </h3>
               </div>
               <table>
                 <thead>
@@ -398,6 +398,11 @@ const PortImages = () => {
                     onChange={updateHandler}
                     name="portfolio_photo"
                     placeholder="Enter Industry name Here"
+                  />
+                  <img
+                    src={`/upload/${updatePortImg.portfolio_photo}`}
+                    alt="portfolio"
+                    style={{ width: "10rem" }}
                   />
                 </div>
 
