@@ -4,9 +4,10 @@ import Sidebar from "../admin/layout/Sidebar";
 import { useValudasData } from "../../context/Storage";
 import "../../assets/css/admin/main.css";
 import { Pencil, Plus, Trash2, X } from "lucide-react";
-import { DeleteModal } from "./layout/Modal";
+import { DeleteModal, PhotosGallery } from "./layout/Modal";
 import { toast } from "react-toastify";
 import { NavLink } from "react-router-dom";
+
 import axios from "axios";
 
 const API = process.env.REACT_APP_API_URL;
@@ -14,6 +15,27 @@ const API = process.env.REACT_APP_API_URL;
 const Portfolio = () => {
   const [sidebarHidden, setSidebarHidden] = useState(window.innerWidth < 768);
   const [isDarkMode, setDarkMode] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [openPhotoGallary, setOpenPhotoGallery] = useState(false);
+  const [insertModalOpen, setInsertModalOpen] = useState(false);
+  const [updateModalOpen, setUpdateModalOpen] = useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [PortfolioId, setPortfolioId] = useState(null);
+
+  const openInsertModal = () => setInsertModalOpen(true);
+  const closeInsertModal = () => setInsertModalOpen(false);
+  const closeUpdateModal = () => setUpdateModalOpen(false);
+  const toggleSidebar = () => setSidebarHidden(!sidebarHidden);
+  const openGalleryModal = () => setOpenPhotoGallery(true);
+  const closeGalleryModal = () => setOpenPhotoGallery(false);
+
+  const handleImageClick = (index) => {
+    setSelectedImage(index);
+    console.log(index);
+    console.log(index.id);
+    // closeGalleryModal();
+  };
+
   const {
     portfolio,
     setPortfolio,
@@ -22,8 +44,6 @@ const Portfolio = () => {
     portImages = [],
   } = useValudasData();
 
-  const [insertModalOpen, setInsertModalOpen] = useState(false);
-  const [updateModalOpen, setUpdateModalOpen] = useState(false);
   const [insertPortfolio, setInsertPortfolio] = useState({
     thumbnail: null,
     title: "",
@@ -43,9 +63,6 @@ const Portfolio = () => {
     service_id: "",
     industry_id: "",
   });
-
-  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-  const [PortfolioId, setPortfolioId] = useState(null);
 
   // insertig data
   const insertData = async (e) => {
@@ -95,16 +112,6 @@ const Portfolio = () => {
       ...insertPortfolio,
       [name]: files ? files[0] : value,
     });
-  };
-
-  // insert modal
-  const openInsertModal = () => {
-    setInsertModalOpen(true);
-  };
-
-  // close insert modal
-  const closeInsertModal = () => {
-    setInsertModalOpen(false);
   };
 
   // delete portfolio
@@ -201,19 +208,13 @@ const Portfolio = () => {
     });
   };
 
-  // close update modal
-  const closeUpdateModal = () => {
-    setUpdateModalOpen(false);
-  };
-
-  const toggleSidebar = () => {
-    setSidebarHidden(!sidebarHidden);
-  };
-
+  // darkmode handler
   const toggleDarkMode = () => {
     setDarkMode(!isDarkMode);
     document.body.classList.toggle("dark");
   };
+
+  // gallery modal openning and closing
 
   useEffect(() => {
     const handleResize = () => {
@@ -236,6 +237,11 @@ const Portfolio = () => {
         onCloseDelete={closeDeleteModal}
         onDelete={deletePortfolio}
         itemId={PortfolioId}
+      />
+      <PhotosGallery
+        isGalleryOpen={openPhotoGallary}
+        onGalleryClose={closeGalleryModal}
+        onSelectImage={handleImageClick}
       />
       <section id="content">
         <main>
@@ -426,6 +432,11 @@ const Portfolio = () => {
                 name="thumbnail"
                 placeholder="Enter Industry name Here"
               />
+              <img
+                src={`/upload/${insertPortfolio.thumbnail}`}
+                alt="thumbnail"
+                style={{ width: "15rem" }}
+              />
             </div>
 
             <div style={{ display: "flex", flexDirection: "column" }}>
@@ -476,6 +487,7 @@ const Portfolio = () => {
               />
             </div>
 
+            {/* 
             <div
               className="mb-3"
               style={{ display: "flex", flexDirection: "column" }}
@@ -501,6 +513,37 @@ const Portfolio = () => {
                     );
                   })}
               </select>
+            </div> */}
+
+            <div
+              className="mb-3"
+              style={{ display: "flex", flexDirection: "column" }}
+            >
+              <label htmlFor="portfolio_photos" className="form-label">
+                Choose Portfolio Image
+              </label>
+              <button
+                type="button"
+                style={{
+                  backgroundColor: "#3c91e6",
+                  border: "none",
+                  color: "#FFF",
+                  marginRight: "5px",
+                  padding: "7px 10px",
+                  cursor: "pointer",
+                  borderRadius: "5px",
+                }}
+                onClick={openGalleryModal}
+              >
+                Choose Portfolio Image
+              </button>
+              {selectedImage !== null && portImages[selectedImage] && (
+                <img
+                  src={`/upload/${portImages[selectedImage].portfolio_photo}`}
+                  alt="Selected Portfolio"
+                  style={{ width: "15rem", marginTop: "10px" }}
+                />
+              )}
             </div>
 
             <div
@@ -614,10 +657,11 @@ const Portfolio = () => {
           border: "1px solid #000",
           fontWeight: "bolder",
           borderRadius: "5px",
-          overflow: "hidden",
+          overflowY: "auto",
+          overflowX: "hidden",
           left: "480px",
           width: "35%",
-          height: "auto",
+          height: "35rem",
         }}
       >
         <div
@@ -658,18 +702,23 @@ const Portfolio = () => {
               rowGap: "10px",
             }}
           >
-            <div style={{ display: "flex", flexDirection: "column" }}>
+            <div style={{ display: "flex", flexDirection: "row" }}>
               <label htmlFor="thumbnail" className="form-label">
                 Thumbnail Photo
               </label>
               <input
-                style={{ padding: "12px 5px", fontSize: "15px" }}
+                style={{ fontSize: "15px" }}
                 type="file"
                 className="form-control"
                 id="thumbnail"
                 onChange={updateInputhandler}
                 name="thumbnail"
                 placeholder="Enter Industry name Here"
+              />
+              <img
+                src={`/upload/${updatePortfolio.thumbnail}`}
+                alt="thumbnail"
+                style={{ width: "15rem" }}
               />
             </div>
 

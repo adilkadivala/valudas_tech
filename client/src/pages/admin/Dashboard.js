@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../admin/layout/Navbar";
 import Sidebar from "../admin/layout/Sidebar";
 import { NavLink } from "react-router-dom";
+import { PhotosGallery } from "./layout/Modal";
 import {
   CalendarDays,
   UsersRound,
@@ -17,6 +18,17 @@ import "../../assets/css/admin/main.css";
 const Main = () => {
   const [sidebarHidden, setSidebarHidden] = useState(window.innerWidth < 768);
   const [isDarkMode, setDarkMode] = useState(false);
+  const [openPhotoGallary, setOpenPhotoGallery] = useState(false);
+
+  // open Delete modal
+  const openGalleryModal = () => {
+    setOpenPhotoGallery(true);
+  };
+
+  // close Delete modal
+  const closeGalleryModal = () => {
+    setOpenPhotoGallery(false);
+  };
 
   const toggleSidebar = () => {
     setSidebarHidden(!sidebarHidden);
@@ -43,6 +55,10 @@ const Main = () => {
     <>
       <Sidebar isOpen={!sidebarHidden} />
       <Navbar toggleSidebar={toggleSidebar} toggleDarkMode={toggleDarkMode} />
+      <PhotosGallery
+        isGalleryOpen={openPhotoGallary}
+        onGalleryClose={closeGalleryModal}
+      />
       <section id="content">
         <main>
           <div className="head-title">
@@ -62,10 +78,18 @@ const Main = () => {
                 </li>
               </ul>
             </div>
-            <NavLink className="btn-download">
+            <button
+              className="btn-download"
+              style={{
+                border: "none",
+                color: "white",
+                cursor: "pointer",
+              }}
+              onClick={openGalleryModal}
+            >
               <CloudDownload />
-              <span className="text">Download PDF</span>
-            </NavLink>
+              <span className="text">Open Gallery</span>
+            </button>
           </div>
 
           <ul className="box-info">
