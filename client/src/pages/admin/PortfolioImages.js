@@ -13,18 +13,16 @@ const API = process.env.REACT_APP_API_URL;
 const PortImages = () => {
   const [sidebarHidden, setSidebarHidden] = useState(window.innerWidth < 768);
   const [isDarkMode, setDarkMode] = useState(false);
-  const { portImages, setPortImages, portfolio } = useValudasData();
+  const { portImages, setPortImages } = useValudasData();
   const [imageId, setImageId] = useState(null);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [insertPortImg, setInsertPortImg] = useState({
     portfolio_photo: null,
-    port_id: "",
   });
 
   const [updatePortImg, setUpdatePortImg] = useState({
     portfolio_photo: null,
-    port_id: "",
   });
 
   // Inserting data in photos
@@ -33,7 +31,6 @@ const PortImages = () => {
 
     const formData = new FormData();
     formData.append("portfolio_photo", insertPortImg.portfolio_photo);
-    formData.append("port_id", insertPortImg.port_id);
 
     try {
       const response = await axios.post(`${API}/insertphotos`, formData);
@@ -44,7 +41,6 @@ const PortImages = () => {
         setPortImages(finalData);
         setInsertPortImg({
           portfolio_photo: "",
-          port_id: "",
         });
         toast.success("Photos Inserted Successfully");
       }
@@ -58,7 +54,7 @@ const PortImages = () => {
     const { name, value, files } = e.target;
     setInsertPortImg({
       ...insertPortImg,
-      [name]: name === "portfolio_photo" ? files[0] : value,
+      [name]: files ? files[0] : value,
     });
   };
 
@@ -94,7 +90,7 @@ const PortImages = () => {
     const { name, value, files } = e.target;
     setUpdatePortImg({
       ...updatePortImg,
-      [name]: name === "portfolio_photo" ? files[0] : value,
+      [name]: files ? files[0] : value,
     });
   };
 
@@ -190,26 +186,21 @@ const PortImages = () => {
                 <thead>
                   <tr>
                     <th>Portfolio Image</th>
-                    <th>Portfolio ID</th>
                     <th>Operation</th>
                   </tr>
                 </thead>
                 <tbody>
                   {portImages && portImages.length > 0 ? (
                     portImages.map((image, index) => {
-                      const portfolioData = portfolio.find(
-                        (port_data) => port_data.id === image.port_id
-                      );
                       return (
                         <tr key={index}>
                           <td>
-                            <p>{`/upload/${image.portfolio_photo}`}</p>
+                            <img
+                              src={`/upload/${image.portfolio_photo}`}
+                              alt="portfolio"
+                            />
                           </td>
-                          <td>
-                            <p>
-                              {portfolioData ? portfolioData.title : "unknown"}
-                            </p>
-                          </td>
+
                           <td>
                             <button
                               style={{
@@ -284,34 +275,6 @@ const PortImages = () => {
                       name="portfolio_photo"
                       placeholder="Enter Industry name Here"
                     />
-                  </div>
-
-                  <div
-                    className="mb-3"
-                    style={{ display: "flex", flexDirection: "column" }}
-                  >
-                    <label htmlFor="port_id" className="form-label">
-                      Choose Portfolio
-                    </label>
-                    <select
-                      style={{ padding: "12px 5px", fontSize: "15px" }}
-                      className="form-control"
-                      value={insertPortImg.port_id}
-                      id="port_id"
-                      name="port_id"
-                      onChange={insertHandler}
-                      placeholder="Select Portfolio Here"
-                    >
-                      <option value="">Select Portfolio</option>
-                      {portfolio &&
-                        portfolio.map((port) => {
-                          return (
-                            <option key={port.id} value={port.id}>
-                              {port.title}
-                            </option>
-                          );
-                        })}
-                    </select>
                   </div>
 
                   <div
@@ -436,34 +399,6 @@ const PortImages = () => {
                     name="portfolio_photo"
                     placeholder="Enter Industry name Here"
                   />
-                </div>
-
-                <div
-                  className="mb-3"
-                  style={{ display: "flex", flexDirection: "column" }}
-                >
-                  <label htmlFor="port_id" className="form-label">
-                    Choose Portfolio
-                  </label>
-                  <select
-                    style={{ padding: "12px 5px", fontSize: "15px" }}
-                    className="form-control"
-                    value={updatePortImg.port_id}
-                    id="port_id"
-                    name="port_id"
-                    onChange={updateHandler}
-                    placeholder="Select Portfolio Here"
-                  >
-                    <option value="">Select Portfolio</option>
-                    {portfolio &&
-                      portfolio.map((port) => {
-                        return (
-                          <option key={port.id} value={port.id}>
-                            {port.title}
-                          </option>
-                        );
-                      })}
-                  </select>
                 </div>
 
                 <div

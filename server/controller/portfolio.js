@@ -20,12 +20,20 @@ const getPortfolio = async (req, res) => {
 };
 
 // inserting portfolio data
+
 const insertPortfolio = async (req, res) => {
   try {
-    const { title, short_description, company_name, service_id, industry_id } =
-      req.body;
-    const thumbnail = req.file ? req.file.filename : "thumbnail";
-    const portfolio_photos = req.file ? req.file.filename : "portfolio_photos";
+    const {
+      title,
+      short_description,
+      company_name,
+      portfolio_photos,
+      service_id,
+      industry_id,
+    } = req.body;
+    const thumbnail = req.files.thumbnail
+      ? req.files.thumbnail[0].filename
+      : null;
 
     const Que = `INSERT into portfolio (title, short_description, company_name, service_id, industry_id, thumbnail, portfolio_photos) VALUES (?,?,?,?,?,?,?)`;
 
@@ -44,32 +52,45 @@ const insertPortfolio = async (req, res) => {
         console.error(err.message);
         return res
           .status(500)
-          .json({ message: "Error inserting portfolio data" });
+          .json({ message: "error got from portfoilio insertion" });
       }
-      return res.json(data);
+      return res.sendStatus(200);
     });
   } catch (error) {
-    console.error(error.message);
+    console.error("Error inserting portfolio", error);
+    res.status(500).json({ message: "Error inserting portfolio" });
   }
 };
 
 // updating portfolio
+
 const updatePortfolio = async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, short_description, company_name, service_id, industry_id } =
-      req.body;
-    const image = req.file.filename;
 
-    const Que = `UPDATE portfolio SET image =?, title =?, short_description =?, company_name =?, service_id =?, industry_id =? WHERE id =?`;
+    const thumbnail = req.files.thumbnail
+      ? req.files.thumbnail[0].filename
+      : null;
 
-    const data = [
+    const {
       title,
       short_description,
       company_name,
       service_id,
       industry_id,
-      image,
+      portfolio_photos,
+    } = req.body;
+
+    const Que = `UPDATE portfolio SET thumbnail =?, title =?, short_description =?, company_name =?, service_id =?, industry_id =?, portfolio_photos =? WHERE id =?`;
+
+    const data = [
+      thumbnail,
+      title,
+      short_description,
+      company_name,
+      service_id,
+      industry_id,
+      portfolio_photos,
       id,
     ];
 
@@ -80,7 +101,7 @@ const updatePortfolio = async (req, res) => {
           .status(500)
           .json({ message: "error got from updating portfolio" });
       }
-      return res.json(data);
+      return res.sendStatus(200);
     });
   } catch (error) {
     error.message;
@@ -88,20 +109,20 @@ const updatePortfolio = async (req, res) => {
 };
 
 // deleting portfolio
-const deletePortfolio = async () => {
+const deletePortfolio = async (req, res) => {
   try {
     const { id } = req.params;
 
     const Que = `DELETE FROM portfolio WHERE id = ?`;
 
-    connectDB.query(Que, [id], (err, data) => {
+    connectDB.query(Que, [id], (err) => {
       if (err) {
         console.error(err.message);
         return res
           .status(500)
           .json({ message: "error got from deleting portfolio" });
       }
-      return res.json(data);
+      return res.sendStatus(200);
     });
   } catch (error) {
     console.error(error.message);

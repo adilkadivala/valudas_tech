@@ -23,9 +23,9 @@ const getPhotos = async (req, res) => {
 const insertPhotos = async (req, res) => {
   try {
     const portfolio_photo = req.file.filename;
-    const { port_id } = req.body;
-    const Que = `INSERT INTO photos (portfolio_photo,port_id) VALUES (?,?)`;
-    const data = [portfolio_photo, port_id];
+
+    const Que = `INSERT INTO photos (portfolio_photo) VALUES (?)`;
+    const data = [portfolio_photo];
 
     connectDB.query(Que, data, (err, data) => {
       if (err) {
@@ -46,11 +46,11 @@ const insertPhotos = async (req, res) => {
 const updatePhotos = async (req, res) => {
   try {
     const portfolio_photo = req.file.filename;
-    const { port_id } = req.body;
+
     const { id } = req.params;
 
-    const Que = `UPDATE photos SET portfolio_photo =?, port_id =? WHERE id =?`;
-    const data = [portfolio_photo, port_id, id];
+    const Que = `UPDATE photos SET portfolio_photo =?  WHERE id =?`;
+    const data = [portfolio_photo, id];
 
     connectDB.query(Que, data, (err, data) => {
       if (err) {
