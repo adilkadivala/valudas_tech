@@ -140,121 +140,67 @@ const DeleteModal = ({ isDeleteOpen, onCloseDelete, onDelete, itemId }) => {
 // PhotosGallery component
 const PhotosGallery = ({ isGalleryOpen, onGalleryClose, onSelectImage }) => {
   const { portImages } = useValudasData([]);
-  const [selectedImage, setSelectedImage] = useState(null);
 
   const handleImageClick = (index) => {
-    setSelectedImage(index);
-    onSelectImage(portImages[index].portfolio_photo);
+    onSelectImage(portImages[index].portfolio_photo, portImages[index].id);
   };
 
   return (
     <>
-      {isGalleryOpen && (
-        <div
+      <div
+        style={{
+          display: isGalleryOpen ? "block" : "none",
+          zIndex: 4,
+          fontSize: "15px",
+          padding: "25px",
+          position: "fixed",
+          top: "10rem",
+          backgroundColor: "#f9f9f9",
+          border: "1px solid #000",
+          fontWeight: "bolder",
+          borderRadius: "5px",
+          overflowX: "hidden",
+          overflowY: "auto",
+          right: "2rem",
+          width: "35%",
+          height: "30rem",
+        }}
+      >
+        <button
+          onClick={onGalleryClose}
           style={{
-            display: "block",
-            zIndex: 5,
-            fontSize: "15px",
-            padding: "25px",
-            position: "fixed",
-            top: "195px",
-            backgroundColor: "#f9f9f9",
-            border: "1px solid #000",
-            fontWeight: "bolder",
-            borderRadius: "5px",
-            overflowX: "hidden",
-            overflowY: "auto",
-            left: "480px",
-            width: "35%",
-            height: "auto",
+            backgroundColor: "#db504a",
+            color: "#fff",
+            border: "none",
+            position: "absolute",
+            top: "0",
+            right: "0",
+            padding: "3px 8px",
+            cursor: "pointer",
           }}
         >
-          <button
-            type="button"
-            style={{
-              backgroundColor: "#db504a",
-              color: "#fff",
-              border: "none",
-              position: "absolute",
-              top: "0",
-              right: "0",
-              padding: "3px 8px",
-              cursor: "pointer",
-            }}
-            onClick={onGalleryClose}
-          >
-            <X />
-          </button>
-          <div
-            className="sub_container"
-            style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}
-          >
-            {portImages &&
-              portImages.map((gallery, index) => (
-                <div
-                  key={index}
-                  onClick={() => handleImageClick(index)}
-                  style={{
-                    width: "5rem",
-                    height: "5rem",
-                    border: selectedImage === index ? "2px solid blue" : "none",
-                    cursor: "pointer",
-                  }}
-                >
-                  <img
-                    src={`/upload/${gallery.portfolio_photo}`}
-                    alt="Gallery Images"
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                      borderRadius: "5px",
-                    }}
-                  />
-                </div>
-              ))}
-          </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              marginTop: "25px",
-            }}
-          >
-            <button
-              type="button"
+          Close
+        </button>
+        <div
+          className="gallery"
+          style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}
+        >
+          {portImages.map((image, index) => (
+            <img
+              key={index}
+              src={`/upload/${image.portfolio_photo}`}
+              alt={`portfolio ${index}`}
+              onClick={() => handleImageClick(index)}
               style={{
-                backgroundColor: "#db504a",
-                border: "none",
-                color: "#FFF",
-                marginTop: "5px",
-                padding: "5px 10px",
-                marginRight: "5px",
-                cursor: "pointer",
+                width: "12rem",
+                height: "12rem",
+                objectFit: "cover",
                 borderRadius: "5px",
               }}
-              onClick={onGalleryClose}
-            >
-              CANCEL
-            </button>
-            <button
-              type="button"
-              style={{
-                backgroundColor: "#3c91e6",
-                border: "none",
-                color: "#FFF",
-                cursor: "pointer",
-                marginTop: "5px",
-                padding: "5px 10px",
-                marginLeft: "5px",
-                borderRadius: "5px",
-              }}
-            >
-              NEXT
-            </button>
-          </div>
+            />
+          ))}
         </div>
-      )}
+      </div>
     </>
   );
 };

@@ -29,11 +29,13 @@ const Portfolio = () => {
   const openGalleryModal = () => setOpenPhotoGallery(true);
   const closeGalleryModal = () => setOpenPhotoGallery(false);
 
-  const handleImageClick = (index) => {
-    setSelectedImage(index);
-    console.log(index);
-    console.log(index.id);
-    // closeGalleryModal();
+  const handleImageClick = (imageURL, imageId) => {
+    setSelectedImage(imageURL);
+    setInsertPortfolio((prevState) => ({
+      ...prevState,
+      portfolio_photos: imageId,
+    }));
+    closeGalleryModal();
   };
 
   const {
@@ -214,8 +216,6 @@ const Portfolio = () => {
     document.body.classList.toggle("dark");
   };
 
-  // gallery modal openning and closing
-
   useEffect(() => {
     const handleResize = () => {
       setSidebarHidden(window.innerWidth < 768);
@@ -276,21 +276,32 @@ const Portfolio = () => {
                 <tbody>
                   {portfolio && portfolio.length > 0 ? (
                     portfolio.map((port, index) => {
-                      const industry = industries.find(
-                        (industry) => industry.id === port.industry_id
-                      );
-                      const service = services.find(
-                        (service) => service.id === port.service_id
-                      );
-                      const portImage = portImages.find(
-                        (portImage) => portImage.id === port.portfolio_photos
-                      );
+                      const industry =
+                        industries &&
+                        industries.find(
+                          (industry) => industry.id === port.industry_id
+                        );
+                      const service =
+                        services &&
+                        services.find(
+                          (service) => service.id === port.service_id
+                        );
+                      const portImage =
+                        portImages &&
+                        portImages.find(
+                          (portImage) => portImage.id === port.portfolio_photos
+                        );
                       return (
                         <tr key={index}>
                           <td>
                             <img
                               src={`/upload/${port.thumbnail}`}
                               alt="thumbnail"
+                              style={{
+                                width: "4rem",
+                                height: "4rem",
+                                borderRadius: "0",
+                              }}
                             />
                           </td>
                           <td>
@@ -307,6 +318,11 @@ const Portfolio = () => {
                               <img
                                 src={`/upload/${portImage.portfolio_photo}`}
                                 alt="portfolio_img"
+                                style={{
+                                  width: "4rem",
+                                  height: "4rem",
+                                  borderRadius: "0",
+                                }}
                               />
                             ) : (
                               "No image"
@@ -375,10 +391,11 @@ const Portfolio = () => {
           border: "1px solid #000",
           fontWeight: "bolder",
           borderRadius: "5px",
-          overflow: "hidden",
+          overflowY: "auto",
+          overflowX: "hidden",
           left: "480px",
           width: "35%",
-          height: "auto",
+          height: "30rem",
         }}
       >
         <div
@@ -432,11 +449,6 @@ const Portfolio = () => {
                 name="thumbnail"
                 placeholder="Enter Industry name Here"
               />
-              <img
-                src={`/upload/${insertPortfolio.thumbnail}`}
-                alt="thumbnail"
-                style={{ width: "15rem" }}
-              />
             </div>
 
             <div style={{ display: "flex", flexDirection: "column" }}>
@@ -487,34 +499,6 @@ const Portfolio = () => {
               />
             </div>
 
-            {/* 
-            <div
-              className="mb-3"
-              style={{ display: "flex", flexDirection: "column" }}
-            >
-              <label htmlFor="portfolio_photos" className="form-label">
-                Choose Portfolio Image
-              </label>
-              <select
-                style={{ padding: "12px 5px", fontSize: "15px" }}
-                className="form-control"
-                value={insertPortfolio.portfolio_photos}
-                id="portfolio_photos"
-                name="portfolio_photos"
-                onChange={insertInputHandler}
-              >
-                <option value="">Select Portfolio Image</option>
-                {portImages &&
-                  portImages.map((portImg) => {
-                    return (
-                      <option key={portImg.id} value={portImg.id}>
-                        {portImg.portfolio_photo}
-                      </option>
-                    );
-                  })}
-              </select>
-            </div> */}
-
             <div
               className="mb-3"
               style={{ display: "flex", flexDirection: "column" }}
@@ -537,9 +521,9 @@ const Portfolio = () => {
               >
                 Choose Portfolio Image
               </button>
-              {selectedImage !== null && portImages[selectedImage] && (
+              {selectedImage && (
                 <img
-                  src={`/upload/${portImages[selectedImage].portfolio_photo}`}
+                  src={`/upload/${selectedImage}`}
                   alt="Selected Portfolio"
                   style={{ width: "15rem", marginTop: "10px" }}
                 />
@@ -775,26 +759,30 @@ const Portfolio = () => {
               style={{ display: "flex", flexDirection: "column" }}
             >
               <label htmlFor="portfolio_photos" className="form-label">
-                Choose Portfolio Image
+                Update Portfolio Image
               </label>
-              <select
-                style={{ padding: "12px 5px", fontSize: "15px" }}
-                className="form-control"
-                value={updatePortfolio.portfolio_photos}
-                id="portfolio_photos"
-                name="portfolio_photos"
-                onChange={updateInputhandler}
+              <button
+                type="button"
+                style={{
+                  backgroundColor: "#3c91e6",
+                  border: "none",
+                  color: "#FFF",
+                  marginRight: "5px",
+                  padding: "7px 10px",
+                  cursor: "pointer",
+                  borderRadius: "5px",
+                }}
+                onClick={openGalleryModal}
               >
-                <option value="">Select Portfolio Image</option>
-                {portImages &&
-                  portImages.map((portImg) => {
-                    return (
-                      <option key={portImg.id} value={portImg.id}>
-                        {portImg.portfolio_photo}
-                      </option>
-                    );
-                  })}
-              </select>
+                Update Portfolio Image
+              </button>
+              {selectedImage && (
+                <img
+                  src={`/upload/${selectedImage}`}
+                  alt="Selected Portfolio"
+                  style={{ width: "15rem", marginTop: "10px" }}
+                />
+              )}
             </div>
 
             <div
