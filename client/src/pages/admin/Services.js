@@ -13,18 +13,25 @@ const API = process.env.REACT_APP_API_URL;
 const Services = () => {
   const [sidebarHidden, setSidebarHidden] = useState(window.innerWidth < 768);
   const [isDarkMode, setDarkMode] = useState(false);
-  const { services, setServices } = useValudasData();
+  const { services, setServices, serviceParent, setServicesParent } =
+    useValudasData();
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [insertService, setInsertService] = useState({
     service_name: "",
     services_id: "",
   });
+
   const [updateService, setUpdateService] = useState({
     service_name: "",
     services_id: "",
   });
   const [serviceId, setServiceId] = useState(null);
+  const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
+
+  const handleCheckboxChange = () => setIsCheckboxChecked(!isCheckboxChecked);
+  const closeEditModal = () => setEditModalOpen(false);
+  const toggleSidebar = () => setSidebarHidden(!sidebarHidden);
 
   // inserting service
   const insertServiceData = async (e) => {
@@ -36,6 +43,7 @@ const Services = () => {
         const response = await axios.get(`${API}/getservice`);
         const finelData = response.data;
         setServices(finelData);
+        setServicesParent(finelData);
         setInsertService({
           service_name: "",
           services_id: "",
@@ -49,6 +57,7 @@ const Services = () => {
       console.error("service Insert", error.message);
     }
   };
+
   // insert input handler
   const insertHandler = (e) => {
     const { name, value } = e.target;
@@ -106,16 +115,12 @@ const Services = () => {
     });
   };
 
-  // close update modal
-  const closeEditModal = () => {
-    setEditModalOpen(false);
-  };
-
   // open Delete modal
   const openDeleteModal = (serviceId) => {
     setDeleteModalOpen(true);
     setServiceId(serviceId);
   };
+
   // close Delete modal
   const closeDeleteModal = () => {
     setDeleteModalOpen(false);
@@ -137,10 +142,6 @@ const Services = () => {
     } catch (error) {
       console.error(error.message);
     }
-  };
-
-  const toggleSidebar = () => {
-    setSidebarHidden(!sidebarHidden);
   };
 
   const toggleDarkMode = () => {
@@ -187,26 +188,28 @@ const Services = () => {
               <table>
                 <thead>
                   <tr>
-                    <th>Number</th>
                     <th>Service Name</th>
-                    <th>Service Id</th>
+                    <th>Parent Service</th>
                     <th>Operation</th>
                   </tr>
                 </thead>
                 <tbody>
                   {services && services.length > 0 ? (
                     services.map((service, index) => {
+                      const parent =
+                        serviceParent &&
+                        serviceParent.find(
+                          (parent) => parent.id === service.services_id
+                        );
+
                       return (
                         <>
                           <tr key={index}>
                             <td>
-                              <p>{service.id}</p>
-                            </td>
-                            <td>
                               <p>{service.service_name}</p>
                             </td>
                             <td>
-                              <p>{service.services_id}</p>
+                              <p>{parent ? parent.service_name : "NULL"}</p>
                             </td>
                             <td>
                               <button
@@ -241,18 +244,17 @@ const Services = () => {
                   ) : (
                     <tr>
                       <td colSpan="8" style={{ color: "red" }}>
-                        No portfolio data available
+                        No services data available
                       </td>
                     </tr>
                   )}
                 </tbody>
               </table>
             </div>
+
             <div className="todo">
               <div className="head">
                 <h3>Insert Services</h3>
-                <i className="bx bx-plus"></i>
-                <i className="bx bx-filter"></i>
               </div>
               <div className="todo-list">
                 <form
@@ -278,24 +280,59 @@ const Services = () => {
                       id="service_name"
                       onChange={insertHandler}
                       name="service_name"
-                      placeholder="Enter Industry name Here"
+                      placeholder="Enter Service name Here"
                     />
                   </div>
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <label htmlFor="services_id" className="form-label">
-                      Industry Id
-                    </label>
+
+                  {isCheckboxChecked && (
+                    <div
+                      className="mb-3"
+                      style={{ display: "flex", flexDirection: "column" }}
+                    >
+                      <label htmlFor="service_id" className="form-label">
+                        Choose Service
+                      </label>
+                      <select
+                        style={{ padding: "12px 5px", fontSize: "15px" }}
+                        type="text"
+                        className="form-control"
+                        value={insertService.services_id}
+                        id="service_id"
+                        name="services_id"
+                        onChange={insertHandler}
+                      >
+                        <option value="" selected={"Select Parent Service"}>
+                          Select Parent Service
+                        </option>
+                        {serviceParent &&
+                          serviceParent.map((parent) => {
+                            return (
+                              <option key={parent.id} value={parent.id}>
+                                {parent.service_name}
+                              </option>
+                            );
+                          })}
+                      </select>
+                    </div>
+                  )}
+
+                  <div className=" ">
+                    <br />
                     <input
-                      style={{ padding: "12px 5px", fontSize: "15px" }}
-                      type="text"
-                      className="form-control"
-                      value={insertService.services_id}
-                      id="services_id"
-                      onChange={insertHandler}
-                      name="services_id"
-                      placeholder="Enter Industry name Here"
+                      id="check"
+                      name="check"
+                      type="checkbox"
+                      onChange={handleCheckboxChange}
                     />
+                    <label
+                      id="check"
+                      htmlFor="check"
+                      style={{ cursor: "pointer" }}
+                    >
+                      Save As a Child
+                    </label>
                   </div>
+
                   <div
                     style={{
                       display: "flex",
@@ -314,7 +351,9 @@ const Services = () => {
                         cursor: "pointer",
                         borderRadius: "5px",
                       }}
-                      onClick={closeEditModal}
+                      onClick={() =>
+                        setInsertService({ service_name: "", services_id: "" })
+                      }
                     >
                       CANCEL
                     </button>
@@ -390,11 +429,33 @@ const Services = () => {
             <div>
               <p>Update Services</p>
               <br />
+              {/* 
+                
+                  
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <label htmlFor="services_id" className="form-label">
+                    Industry Id
+                  </label>
+                  <input
+                    style={{ padding: "12px 5px", fontSize: "15px" }}
+                    type="text"
+                    className="form-control"
+                    value={updateService.services_id}
+                    id="services_id"
+                    onChange={updateHandler}
+                    name="services_id"
+                    placeholder="Enter services id Here"
+                  />
+                </div>
+                
+                </div>
+              </form> */}
+
               <form
                 method="post"
                 encType="multipart/form-data"
                 name="edit form"
-                // onSubmit={updateServicesData}
+                onSubmit={insertServiceData}
                 style={{
                   display: "flex",
                   flexDirection: "column",
@@ -416,21 +477,56 @@ const Services = () => {
                     placeholder="Enter Service name Here"
                   />
                 </div>
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                  <label htmlFor="services_id" className="form-label">
-                    Industry Id
-                  </label>
+
+                {isCheckboxChecked && (
+                  <div
+                    className="mb-3"
+                    style={{ display: "flex", flexDirection: "column" }}
+                  >
+                    <label htmlFor="service_id" className="form-label">
+                      Choose Service
+                    </label>
+                    <select
+                      style={{ padding: "12px 5px", fontSize: "15px" }}
+                      type="text"
+                      className="form-control"
+                      value={updateService.services_id}
+                      id="services_id"
+                      onChange={updateHandler}
+                      name="services_id"
+                    >
+                      <option value="" selected={"Select Parent Service"}>
+                        Select Parent Service
+                      </option>
+                      {serviceParent &&
+                        serviceParent.map((parent) => {
+                          return (
+                            <option key={parent.id} value={parent.id}>
+                              {parent.service_name}
+                            </option>
+                          );
+                        })}
+                    </select>
+                  </div>
+                )}
+
+                <div className=" ">
+                  <br />
                   <input
-                    style={{ padding: "12px 5px", fontSize: "15px" }}
-                    type="text"
-                    className="form-control"
-                    value={updateService.services_id}
-                    id="services_id"
-                    onChange={updateHandler}
-                    name="services_id"
-                    placeholder="Enter services id Here"
+                    id="check"
+                    name="check"
+                    type="checkbox"
+                    onChange={handleCheckboxChange}
                   />
+                  <label
+                    id="check"
+                    htmlFor="check"
+                    style={{ cursor: "pointer" }}
+                  >
+                    Save As a Child
+                  </label>
                 </div>
+
                 <div
                   style={{
                     display: "flex",

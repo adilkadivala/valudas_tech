@@ -78,18 +78,7 @@ const Sidebar = ({ isOpen }) => {
                           <span className="text">Industries</span>
                         </Link>
                       </li>
-                      <li
-                        className={
-                          location.pathname === "/dashboard/users"
-                            ? "active"
-                            : ""
-                        }
-                      >
-                        <Link to="/dashboard/portfolio">
-                          <BookUser />
-                          <span className="text">Portfolio</span>
-                        </Link>
-                      </li>
+
                       <li
                         className={
                           location.pathname === "/dashboard/services"
@@ -102,6 +91,19 @@ const Sidebar = ({ isOpen }) => {
                           <span className="text">Services</span>
                         </Link>
                       </li>
+                      <li
+                        className={
+                          location.pathname === "/dashboard/users"
+                            ? "active"
+                            : ""
+                        }
+                      >
+                        <Link to="/dashboard/portfolio">
+                          <BookUser />
+                          <span className="text">Portfolio</span>
+                        </Link>
+                      </li>
+
                       <li
                         className={
                           location.pathname === "/dashboard/techstack"
@@ -173,11 +175,11 @@ const Sidebar = ({ isOpen }) => {
                       <Link to="/dashboard/industries">
                         <LandPlot />
                       </Link>
-                      <Link to="/dashboard/portfolio">
-                        <BookUser />
-                      </Link>
                       <Link to="/dashboard/services">
                         <ShowerHead />
+                      </Link>
+                      <Link to="/dashboard/portfolio">
+                        <BookUser />
                       </Link>
                       <Link to="/dashboard/techstack">
                         <Cpu />
