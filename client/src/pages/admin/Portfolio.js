@@ -21,6 +21,13 @@ const Portfolio = () => {
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [PortfolioId, setPortfolioId] = useState(null);
+  const {
+    portfolio,
+    setPortfolio,
+    industries = [],
+    services = [],
+    portImages = [],
+  } = useValudasData();
 
   const openInsertModal = () => setInsertModalOpen(true);
   const closeInsertModal = () => setInsertModalOpen(false);
@@ -35,16 +42,12 @@ const Portfolio = () => {
       ...prevState,
       portfolio_photos: imageId,
     }));
+    setUpdatePortfolio((prevState) => ({
+      ...prevState,
+      portfolio_photos: imageId,
+    }));
     closeGalleryModal();
   };
-
-  const {
-    portfolio,
-    setPortfolio,
-    industries = [],
-    services = [],
-    portImages = [],
-  } = useValudasData();
 
   const [insertPortfolio, setInsertPortfolio] = useState({
     thumbnail: null,

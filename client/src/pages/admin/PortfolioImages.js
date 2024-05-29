@@ -39,23 +39,12 @@ const PortImages = () => {
         const response = await axios.get(`${API}/getphotos`);
         const finalData = response.data;
         setPortImages(finalData);
-        setInsertPortImg({
-          portfolio_photo: "",
-        });
+        setInsertPortImg(null);
         toast.success("Photos Inserted Successfully");
       }
     } catch (error) {
       console.error(error.message);
     }
-  };
-
-  // Insert input handler
-  const insertHandler = (e) => {
-    const { name, value, files } = e.target;
-    setInsertPortImg({
-      ...insertPortImg,
-      [name]: files ? files[0] : value,
-    });
   };
 
   // updating data in photos
@@ -64,6 +53,7 @@ const PortImages = () => {
     const formData = new FormData();
     formData.append("portfolio_photo", updatePortImg.portfolio_photo);
     formData.append("port_id", updatePortImg.port_id);
+
     try {
       const response = await axios.put(
         `${API}/updatephotos/${updatePortImg.id}`,
@@ -72,26 +62,27 @@ const PortImages = () => {
 
       if (response.status === 200) {
         const response = await axios.get(`${API}/getphotos`);
-        const finelData = response.data;
-        setPortImages(finelData);
+        const finalData = response.data;
+        setPortImages(finalData);
         setUpdatePortImg({
-          portfolio_photo: "",
+          portfolio_photo: null,
           port_id: "",
         });
         closeEditModal();
+        toast.success("image updated successfully");
       }
     } catch (error) {
       console.error(error.message);
     }
   };
 
-  // Update input handler
-  const updateHandler = (e) => {
-    const { name, value, files } = e.target;
-    setUpdatePortImg({
-      ...updatePortImg,
-      [name]: files ? files[0] : value,
-    });
+  //  input handler
+  const handleInputChange = (e, setState) => {
+    const { name, files } = e.target;
+    setState((prevState) => ({
+      ...prevState,
+      [name]: files[0],
+    }));
   };
 
   // open update modal
@@ -271,7 +262,7 @@ const PortImages = () => {
                       type="file"
                       className="form-control"
                       id="portfolio_photo"
-                      onChange={insertHandler}
+                      onChange={(e) => handleInputChange(e, setInsertPortImg)}
                       name="portfolio_photo"
                       placeholder="Enter Industry name Here"
                     />
@@ -395,7 +386,7 @@ const PortImages = () => {
                     type="file"
                     className="form-control"
                     id="portfolio_photo"
-                    onChange={updateHandler}
+                    onChange={(e) => handleInputChange(e, setUpdatePortImg)}
                     name="portfolio_photo"
                     placeholder="Enter Industry name Here"
                   />
