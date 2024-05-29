@@ -24,7 +24,7 @@ const Services = () => {
     service_tagline: "",
     service_description: "",
     services_id: "",
-    tech_stack_id: "",
+    technologies: "",
   });
 
   const [updateService, setUpdateService] = useState({
@@ -59,7 +59,7 @@ const Services = () => {
           service_tagline: "",
           service_description: "",
           services_id: "",
-          tech_stack_id: "",
+          technologies: "",
         });
         closeInsertModal();
         toast.success("industry added successfully");
@@ -238,9 +238,9 @@ const Services = () => {
                           (parent) => parent.id === service.services_id
                         );
 
-                      const technology =
-                        stack &&
-                        stack.find((tech) => tech.id === service.tech_stack_id);
+                      // const technology =
+                      //   stack &&
+                      //   stack.find((tech) => tech.id === service.tech_stack_id);
 
                       return (
                         <>
@@ -252,17 +252,17 @@ const Services = () => {
                               <p>{service.service_tagline}</p>
                             </td>
                             <td>
-                              <p>{service.service_description}</p>
+                              <p
+                                dangerouslySetInnerHTML={{
+                                  __html: service.service_description || "null",
+                                }}
+                              />
                             </td>
                             <td>
                               <p>{parent ? parent.service_name : "NULL"}</p>
                             </td>
                             <td>
-                              <p>
-                                {technology
-                                  ? technology.technology_name
-                                  : "NULL"}
-                              </p>
+                              <p>{service.technologies}</p>
                             </td>
                             <td>
                               <button
@@ -448,6 +448,22 @@ const Services = () => {
                   </select>
                 </div>
 
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <label htmlFor="technologies" className="form-label">
+                    technologies
+                  </label>
+                  <input
+                    style={{ padding: "12px 5px", fontSize: "15px" }}
+                    type="text"
+                    className="form-control"
+                    value={insertService.technologies}
+                    id="technologies"
+                    onChange={(e) => handleInputChange(e, setInsertService)}
+                    name="technologies"
+                    placeholder="Enter technologies Tagline Here"
+                  />
+                </div>
+
                 {isCheckboxChecked && (
                   <div
                     className="mb-3"
@@ -515,9 +531,7 @@ const Services = () => {
                       cursor: "pointer",
                       borderRadius: "5px",
                     }}
-                    onClick={() =>
-                      setInsertService({ service_name: "", services_id: "" })
-                    }
+                    onClick={closeInsertModal}
                   >
                     CANCEL
                   </button>
@@ -551,15 +565,15 @@ const Services = () => {
           fontSize: "15px",
           padding: "25px",
           position: "fixed",
-          top: "10rem",
+          top: "5rem",
           backgroundColor: "#f9f9f9",
           border: "1px solid #000",
           fontWeight: "bolder",
           borderRadius: "5px",
-          overflow: "hidden",
+          overflowX: "auto",
           left: "480px",
           width: "35%",
-          height: "auto",
+          height: "35rem",
         }}
       >
         <div
@@ -641,15 +655,17 @@ const Services = () => {
                   <label htmlFor="service_description" className="form-label">
                     Service description
                   </label>
-                  <textarea
-                    style={{ padding: "12px 5px", fontSize: "15px" }}
-                    type="text"
-                    className="form-control"
-                    value={updateService.service_description}
-                    id="service_description"
-                    onChange={(e) => handleInputChange(e, setUpdateService)}
-                    name="service_description"
-                    placeholder="Enter Service description name Here"
+
+                  <CKEditor
+                    content={updateService.service_description}
+                    events={{
+                      change: (e) =>
+                        handleEditorChange(
+                          e.editor.getData(),
+                          setInsertService
+                        ),
+                    }}
+                    config={{ enterMode: 2, shiftEnterMode: 1 }}
                   />
                 </div>
 

@@ -27,15 +27,15 @@ const postServices = async (req, res) => {
       service_tagline,
       service_description,
       services_id,
-      tech_stack_id,
+      technologies,
     } = req.body;
-    const Que = `INSERT INTO services (service_name, service_tagline, service_description, services_id,tech_stack_id) VALUES (?,?,?,?,?)`;
+    const Que = `INSERT INTO services (service_name, service_tagline, service_description, services_id,technologies) VALUES (?,?,?,?,?)`;
     const data = [
       service_name,
       service_tagline,
       service_description,
       services_id,
-      tech_stack_id,
+      technologies,
     ];
 
     connectDB.query(Que, data, (err) => {
