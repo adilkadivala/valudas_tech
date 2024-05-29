@@ -42,6 +42,27 @@ const postUsers = async (req, res) => {
   }
 };
 
+// updating user data
+const updateUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { first_name, last_name, email, mobile_no } = req.body;
+
+    const Que = `UPDATE users SET first_name =?, last_name =?, email =?, mobile_no =? WHERE id = ?`;
+    const data = [first_name, last_name, email, mobile_no, id];
+
+    connectDB.query(Que, data, (err) => {
+      if (err) {
+        console.error(err.message);
+        return res.status(500).json({ message: "update user" });
+      }
+      return res.sendStatus(200);
+    });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
 // deleteing users data
 const deleteUsers = async (req, res) => {
   try {
@@ -66,5 +87,6 @@ const deleteUsers = async (req, res) => {
 module.exports = {
   getUsers,
   postUsers,
+  updateUser,
   deleteUsers,
 };

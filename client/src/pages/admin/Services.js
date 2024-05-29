@@ -19,11 +19,15 @@ const Services = () => {
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [insertService, setInsertService] = useState({
     service_name: "",
+    service_tagline: "",
+    service_description: "",
     services_id: "",
   });
 
   const [updateService, setUpdateService] = useState({
     service_name: "",
+    service_tagline: "",
+    service_description: "",
     services_id: "",
   });
   const [serviceId, setServiceId] = useState(null);
@@ -46,6 +50,8 @@ const Services = () => {
         setServicesParent(finelData);
         setInsertService({
           service_name: "",
+          service_tagline: "",
+          service_description: "",
           services_id: "",
         });
         toast.success("industry added successfully");
@@ -80,8 +86,11 @@ const Services = () => {
         const response = await axios.get(`${API}/getservice`);
         const finelData = response.data;
         setServices(finelData);
+        setServicesParent(finelData);
         setUpdateService({
           service_name: "",
+          service_tagline: "",
+          service_description: "",
           services_id: "",
         });
         closeEditModal();
@@ -111,6 +120,8 @@ const Services = () => {
     setUpdateService({
       id: service.id,
       service_name: service.service_name,
+      service_tagline: service.service_tagline,
+      service_description: service.service_description,
       services_id: service.services_id,
     });
   };
@@ -136,6 +147,7 @@ const Services = () => {
         const response = await axios.get(`${API}/getservice`);
         const refresh = await response.data;
         setServices(refresh);
+        setServicesParent(refresh);
         closeDeleteModal();
         toast.success("Deleted Successfully");
       }
@@ -160,6 +172,13 @@ const Services = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  // const truncateString = (text, maxLength) => {
+  //   if (text.length > maxLength) {
+  //     return text.substring(0, maxLength) + "...";
+  //   }
+  //   return text;
+  // };
 
   return (
     <>
@@ -189,6 +208,8 @@ const Services = () => {
                 <thead>
                   <tr>
                     <th>Service Name</th>
+                    <th>Tagline</th>
+                    <th>Service Description</th>
                     <th>Parent Service</th>
                     <th>Operation</th>
                   </tr>
@@ -207,6 +228,12 @@ const Services = () => {
                           <tr key={index}>
                             <td>
                               <p>{service.service_name}</p>
+                            </td>
+                            <td>
+                              <p>{service.service_tagline}</p>
+                            </td>
+                            <td>
+                              <p>{service.service_description}</p>
                             </td>
                             <td>
                               <p>{parent ? parent.service_name : "NULL"}</p>
@@ -281,6 +308,38 @@ const Services = () => {
                       onChange={insertHandler}
                       name="service_name"
                       placeholder="Enter Service name Here"
+                    />
+                  </div>
+
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <label htmlFor="service_tagline" className="form-label">
+                      Service Tagline
+                    </label>
+                    <input
+                      style={{ padding: "12px 5px", fontSize: "15px" }}
+                      type="text"
+                      className="form-control"
+                      value={insertService.service_tagline}
+                      id="service_tagline"
+                      onChange={insertHandler}
+                      name="service_tagline"
+                      placeholder="Enter Service Tagline Here"
+                    />
+                  </div>
+
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <label htmlFor="service_description" className="form-label">
+                      Service description
+                    </label>
+                    <textarea
+                      style={{ padding: "12px 5px", fontSize: "15px" }}
+                      type="text"
+                      className="form-control"
+                      value={insertService.service_description}
+                      id="service_description"
+                      onChange={insertHandler}
+                      name="service_description"
+                      placeholder="Enter Service description name Here"
                     />
                   </div>
 
@@ -429,27 +488,6 @@ const Services = () => {
             <div>
               <p>Update Services</p>
               <br />
-              {/* 
-                
-                  
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                  <label htmlFor="services_id" className="form-label">
-                    Industry Id
-                  </label>
-                  <input
-                    style={{ padding: "12px 5px", fontSize: "15px" }}
-                    type="text"
-                    className="form-control"
-                    value={updateService.services_id}
-                    id="services_id"
-                    onChange={updateHandler}
-                    name="services_id"
-                    placeholder="Enter services id Here"
-                  />
-                </div>
-                
-                </div>
-              </form> */}
 
               <form
                 method="post"
@@ -478,6 +516,38 @@ const Services = () => {
                   />
                 </div>
 
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <label htmlFor="service_tagline" className="form-label">
+                    Service Tagline
+                  </label>
+                  <input
+                    style={{ padding: "12px 5px", fontSize: "15px" }}
+                    type="text"
+                    className="form-control"
+                    value={updateService.service_tagline}
+                    id="service_tagline"
+                    onChange={updateHandler}
+                    name="service_tagline"
+                    placeholder="Enter Service Tagline Here"
+                  />
+                </div>
+
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <label htmlFor="service_description" className="form-label">
+                    Service description
+                  </label>
+                  <textarea
+                    style={{ padding: "12px 5px", fontSize: "15px" }}
+                    type="text"
+                    className="form-control"
+                    value={updateService.service_description}
+                    id="service_description"
+                    onChange={updateHandler}
+                    name="service_description"
+                    placeholder="Enter Service description name Here"
+                  />
+                </div>
+
                 {isCheckboxChecked && (
                   <div
                     className="mb-3"
@@ -495,8 +565,8 @@ const Services = () => {
                       onChange={updateHandler}
                       name="services_id"
                     >
-                      <option value="" selected={"Select Parent Service"}>
-                        Select Parent Service
+                      <option value="" selected={"Remove Parent"}>
+                        Remove Parent
                       </option>
                       {serviceParent &&
                         serviceParent.map((parent) => {

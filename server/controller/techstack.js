@@ -26,7 +26,7 @@ const postTechStack = async (req, res) => {
     const Que = `INSERT INTO tech_stack (technology_name) VALUES (?)`;
     const data = [technology_name];
 
-    connectDB.query(Que, data, (err, data) => {
+    connectDB.query(Que, data, (err) => {
       if (err) {
         console.error(err.message);
         return res
@@ -34,7 +34,7 @@ const postTechStack = async (req, res) => {
           .json({ message: "error got from post techstack" });
       }
 
-      return res.json(data);
+      return res.sendStatus(200);
     });
   } catch (error) {
     console.error(error.message);
@@ -57,7 +57,7 @@ const updateTechStack = async (req, res) => {
           .status(500)
           .json({ message: "error got from update teh stack" });
       }
-      return res.json(data);
+      return res.sendStatus(200);
     });
   } catch (error) {
     console.error(error.message);
@@ -71,14 +71,14 @@ const deleteTechStack = async (req, res) => {
     const { id } = req.params;
     const Que = `DELETE FROM tech_stack WHERE id = ?`;
 
-    connectDB.query(Que, [id], (err, data) => {
+    connectDB.query(Que, [id], (err) => {
       if (err) {
         console.error(err.message);
         return res
           .status(500)
           .json({ message: "error got from dleting tech stack" });
       }
-      return res.json(data);
+      return res.sendStatus(200);
     });
   } catch (error) {
     console.error(error.message);

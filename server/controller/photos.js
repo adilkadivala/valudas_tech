@@ -27,14 +27,14 @@ const insertPhotos = async (req, res) => {
     const Que = `INSERT INTO photos (portfolio_photo) VALUES (?)`;
     const data = [portfolio_photo];
 
-    connectDB.query(Que, data, (err, data) => {
+    connectDB.query(Que, data, (err) => {
       if (err) {
         console.error(err.message);
         return res
           .status(500)
           .json({ message: "error got from inserting image" });
       }
-      return res.json(data);
+      return res.sendStatus(200);
     });
   } catch (error) {
     console.error(error.message);
@@ -57,7 +57,7 @@ const updatePhotos = async (req, res) => {
     const Que = `UPDATE photos SET portfolio_photo =?  WHERE id =?`;
     const data = [portfolio_photo, id];
 
-    connectDB.query(Que, data, (err, data) => {
+    connectDB.query(Que, data, (err) => {
       if (err) {
         console.error(err.message);
         return res
@@ -65,7 +65,7 @@ const updatePhotos = async (req, res) => {
           .json({ message: "error got from updating photos" });
       }
 
-      return res.json(data);
+      return res.sendStatus(200);
     });
   } catch (error) {
     console.error(error.message);
@@ -81,14 +81,14 @@ const deletePhotos = async (req, res) => {
     const { id } = req.params;
     const Que = `DELETE FROM photos WHERE id = ?`;
 
-    connectDB.query(Que, [id], (err, data) => {
+    connectDB.query(Que, [id], (err) => {
       if (err) {
         console.error(err.message);
         return res
           .status(500)
           .json({ message: "error got from deleting photosw" });
       }
-      return res.json(data);
+      return res.sendStatus(200);
     });
   } catch (error) {
     console.error(error.message);
