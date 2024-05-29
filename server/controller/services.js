@@ -22,14 +22,20 @@ const getServices = async (req, res) => {
 //post
 const postServices = async (req, res) => {
   try {
-    const { service_name, service_tagline, service_description, services_id } =
-      req.body;
-    const Que = `INSERT INTO services (service_name, service_tagline, service_description, services_id) VALUES (?,?,?,?)`;
+    const {
+      service_name,
+      service_tagline,
+      service_description,
+      services_id,
+      tech_stack_id,
+    } = req.body;
+    const Que = `INSERT INTO services (service_name, service_tagline, service_description, services_id,tech_stack_id) VALUES (?,?,?,?,?)`;
     const data = [
       service_name,
       service_tagline,
       service_description,
       services_id,
+      tech_stack_id,
     ];
 
     connectDB.query(Que, data, (err) => {
@@ -51,16 +57,22 @@ const postServices = async (req, res) => {
 const updateServices = async (req, res) => {
   try {
     const { id } = req.params;
-    const { service_name, service_tagline, service_description, services_id } =
-      req.body;
+    const {
+      service_name,
+      service_tagline,
+      service_description,
+      services_id,
+      tech_stack_id,
+    } = req.body;
     const Que =
-      "UPDATE `services` SET `service_name`=?, `service_tagline` =?, `service_description` =?, `services_id`=? WHERE `id`=?";
+      "UPDATE `services` SET `service_name`=?, `service_tagline` =?, `service_description` =?, `services_id`=?, `tech_stack_id` =? WHERE `id`=?";
 
     const data = [
       service_name,
       service_tagline,
       service_description,
       services_id,
+      tech_stack_id,
       id,
     ];
 

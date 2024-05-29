@@ -13,7 +13,7 @@ const API = process.env.REACT_APP_API_URL;
 const Services = () => {
   const [sidebarHidden, setSidebarHidden] = useState(window.innerWidth < 768);
   const [isDarkMode, setDarkMode] = useState(false);
-  const { services, setServices, serviceParent, setServicesParent } =
+  const { services, setServices, serviceParent, setServicesParent, stack } =
     useValudasData();
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
@@ -22,6 +22,7 @@ const Services = () => {
     service_tagline: "",
     service_description: "",
     services_id: "",
+    tech_stack_id: "",
   });
 
   const [updateService, setUpdateService] = useState({
@@ -29,6 +30,7 @@ const Services = () => {
     service_tagline: "",
     service_description: "",
     services_id: "",
+    tech_stack_id: "",
   });
   const [serviceId, setServiceId] = useState(null);
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
@@ -53,6 +55,7 @@ const Services = () => {
           service_tagline: "",
           service_description: "",
           services_id: "",
+          tech_stack_id: "",
         });
         toast.success("industry added successfully");
       } else {
@@ -65,12 +68,12 @@ const Services = () => {
   };
 
   // insert input handler
-  const insertHandler = (e) => {
+  const handleInputChange = (e, setState) => {
     const { name, value } = e.target;
-    setInsertService({
-      ...insertService,
+    setState((prevState) => ({
+      ...prevState,
       [name]: value,
-    });
+    }));
   };
 
   // updating services
@@ -92,6 +95,7 @@ const Services = () => {
           service_tagline: "",
           service_description: "",
           services_id: "",
+          tech_stack_id: "",
         });
         closeEditModal();
         toast.success("Services Updated successfully");
@@ -105,15 +109,6 @@ const Services = () => {
     }
   };
 
-  // update input handler
-  const updateHandler = (e) => {
-    const { name, value } = e.target;
-    setUpdateService({
-      ...updateService,
-      [name]: value,
-    });
-  };
-
   // open update modal
   const openEditModal = (service) => {
     setEditModalOpen(true);
@@ -123,6 +118,7 @@ const Services = () => {
       service_tagline: service.service_tagline,
       service_description: service.service_description,
       services_id: service.services_id,
+      tech_stack_id: service.tech_stack_id,
     });
   };
 
@@ -173,13 +169,6 @@ const Services = () => {
     };
   }, []);
 
-  // const truncateString = (text, maxLength) => {
-  //   if (text.length > maxLength) {
-  //     return text.substring(0, maxLength) + "...";
-  //   }
-  //   return text;
-  // };
-
   return (
     <>
       <Sidebar isOpen={!sidebarHidden} />
@@ -211,6 +200,7 @@ const Services = () => {
                     <th>Tagline</th>
                     <th>Service Description</th>
                     <th>Parent Service</th>
+                    <th>Technologies</th>
                     <th>Operation</th>
                   </tr>
                 </thead>
@@ -222,6 +212,10 @@ const Services = () => {
                         serviceParent.find(
                           (parent) => parent.id === service.services_id
                         );
+
+                      const technology =
+                        stack &&
+                        stack.find((tech) => tech.id === service.tech_stack_id);
 
                       return (
                         <>
@@ -237,6 +231,13 @@ const Services = () => {
                             </td>
                             <td>
                               <p>{parent ? parent.service_name : "NULL"}</p>
+                            </td>
+                            <td>
+                              <p>
+                                {technology
+                                  ? technology.technology_name
+                                  : "NULL"}
+                              </p>
                             </td>
                             <td>
                               <button
@@ -305,7 +306,7 @@ const Services = () => {
                       className="form-control"
                       value={insertService.service_name}
                       id="service_name"
-                      onChange={insertHandler}
+                      onChange={(e) => handleInputChange(e, setInsertService)}
                       name="service_name"
                       placeholder="Enter Service name Here"
                     />
@@ -321,7 +322,7 @@ const Services = () => {
                       className="form-control"
                       value={insertService.service_tagline}
                       id="service_tagline"
-                      onChange={insertHandler}
+                      onChange={(e) => handleInputChange(e, setInsertService)}
                       name="service_tagline"
                       placeholder="Enter Service Tagline Here"
                     />
@@ -337,10 +338,38 @@ const Services = () => {
                       className="form-control"
                       value={insertService.service_description}
                       id="service_description"
-                      onChange={insertHandler}
+                      onChange={(e) => handleInputChange(e, setInsertService)}
                       name="service_description"
                       placeholder="Enter Service description name Here"
                     />
+                  </div>
+
+                  <div
+                    className="mb-3"
+                    style={{ display: "flex", flexDirection: "column" }}
+                  >
+                    <label htmlFor="tech_stack_id" className="form-label">
+                      Choose Technology
+                    </label>
+                    <select
+                      style={{ padding: "12px 5px", fontSize: "15px" }}
+                      type="text"
+                      className="form-control"
+                      value={insertService.tech_stack_id}
+                      id="tech_stack_id"
+                      name="tech_stack_id"
+                      onChange={(e) => handleInputChange(e, setInsertService)}
+                    >
+                      <option value="">Select Technology</option>
+                      {stack &&
+                        stack.map((tech) => {
+                          return (
+                            <option key={tech.id} value={tech.id}>
+                              {tech.technology_name}
+                            </option>
+                          );
+                        })}
+                    </select>
                   </div>
 
                   {isCheckboxChecked && (
@@ -358,7 +387,7 @@ const Services = () => {
                         value={insertService.services_id}
                         id="service_id"
                         name="services_id"
-                        onChange={insertHandler}
+                        onChange={(e) => handleInputChange(e, setInsertService)}
                       >
                         <option value="" selected={"Select Parent Service"}>
                           Select Parent Service
@@ -446,7 +475,7 @@ const Services = () => {
           fontSize: "15px",
           padding: "25px",
           position: "fixed",
-          top: "15rem",
+          top: "10rem",
           backgroundColor: "#f9f9f9",
           border: "1px solid #000",
           fontWeight: "bolder",
@@ -493,7 +522,7 @@ const Services = () => {
                 method="post"
                 encType="multipart/form-data"
                 name="edit form"
-                onSubmit={insertServiceData}
+                onSubmit={updateServicesData}
                 style={{
                   display: "flex",
                   flexDirection: "column",
@@ -510,7 +539,7 @@ const Services = () => {
                     className="form-control"
                     value={updateService.service_name}
                     id="service_name"
-                    onChange={updateHandler}
+                    onChange={(e) => handleInputChange(e, setUpdateService)}
                     name="service_name"
                     placeholder="Enter Service name Here"
                   />
@@ -526,7 +555,7 @@ const Services = () => {
                     className="form-control"
                     value={updateService.service_tagline}
                     id="service_tagline"
-                    onChange={updateHandler}
+                    onChange={(e) => handleInputChange(e, setUpdateService)}
                     name="service_tagline"
                     placeholder="Enter Service Tagline Here"
                   />
@@ -542,10 +571,38 @@ const Services = () => {
                     className="form-control"
                     value={updateService.service_description}
                     id="service_description"
-                    onChange={updateHandler}
+                    onChange={(e) => handleInputChange(e, setUpdateService)}
                     name="service_description"
                     placeholder="Enter Service description name Here"
                   />
+                </div>
+
+                <div
+                  className="mb-3"
+                  style={{ display: "flex", flexDirection: "column" }}
+                >
+                  <label htmlFor="tech_stack_id" className="form-label">
+                    Choose Technology
+                  </label>
+                  <select
+                    style={{ padding: "12px 5px", fontSize: "15px" }}
+                    type="text"
+                    className="form-control"
+                    value={updateService.tech_stack_id}
+                    id="tech_stack_id"
+                    name="tech_stack_id"
+                    onChange={(e) => handleInputChange(e, setUpdateService)}
+                  >
+                    <option value="">Select Technology</option>
+                    {stack &&
+                      stack.map((tech) => {
+                        return (
+                          <option key={tech.id} value={tech.id}>
+                            {tech.technology_name}
+                          </option>
+                        );
+                      })}
+                  </select>
                 </div>
 
                 {isCheckboxChecked && (
@@ -562,7 +619,7 @@ const Services = () => {
                       className="form-control"
                       value={updateService.services_id}
                       id="services_id"
-                      onChange={updateHandler}
+                      onChange={(e) => handleInputChange(e, setUpdateService)}
                       name="services_id"
                     >
                       <option value="" selected={"Remove Parent"}>
