@@ -108,12 +108,12 @@ const Portfolio = () => {
   };
 
   // insert handler
-  const insertInputHandler = (e) => {
+  const handleInputChange = (e, setState) => {
     const { name, value, files } = e.target;
-    setInsertPortfolio({
-      ...insertPortfolio,
+    setState((prevState) => ({
+      ...prevState,
       [name]: files ? files[0] : value,
-    });
+    }));
   };
 
   // delete portfolio
@@ -183,16 +183,6 @@ const Portfolio = () => {
     } catch (error) {
       console.error(error.message);
     }
-  };
-
-  // updatehandler
-  const updateInputhandler = (e) => {
-    const { name, value, files } = e.target;
-
-    setUpdatePortfolio({
-      ...updatePortfolio,
-      [name]: files ? files[0] : value,
-    });
   };
 
   // update modal
@@ -445,7 +435,7 @@ const Portfolio = () => {
                 type="file"
                 className="form-control"
                 id="thumbnail"
-                onChange={insertInputHandler}
+                onChange={(e) => handleInputChange(e, setInsertPortfolio)}
                 name="thumbnail"
                 placeholder="Enter Industry name Here"
               />
@@ -461,7 +451,7 @@ const Portfolio = () => {
                 className="form-control"
                 value={insertPortfolio.title}
                 id="title"
-                onChange={insertInputHandler}
+                onChange={(e) => handleInputChange(e, setInsertPortfolio)}
                 name="title"
                 placeholder="Enter Portfolio Title Here"
               />
@@ -477,7 +467,7 @@ const Portfolio = () => {
                 className="form-control"
                 value={insertPortfolio.short_description}
                 id="short_description"
-                onChange={insertInputHandler}
+                onChange={(e) => handleInputChange(e, setInsertPortfolio)}
                 name="short_description"
                 placeholder="Enter Short Description Here"
               />
@@ -493,7 +483,7 @@ const Portfolio = () => {
                 className="form-control"
                 value={insertPortfolio.company_name}
                 id="company_name"
-                onChange={insertInputHandler}
+                onChange={(e) => handleInputChange(e, setInsertPortfolio)}
                 name="company_name"
                 placeholder="Enter Company Name Here"
               />
@@ -544,7 +534,7 @@ const Portfolio = () => {
                 value={insertPortfolio.service_id}
                 id="service_id"
                 name="service_id"
-                onChange={insertInputHandler}
+                onChange={(e) => handleInputChange(e, setInsertPortfolio)}
               >
                 <option value="">Select Service</option>
                 {services &&
@@ -572,7 +562,7 @@ const Portfolio = () => {
                 value={insertPortfolio.industry_id}
                 id="industry_id"
                 name="industry_id"
-                onChange={insertInputHandler}
+                onChange={(e) => handleInputChange(e, setInsertPortfolio)}
               >
                 <option value="">Select Industry</option>
                 {industries &&
@@ -695,7 +685,7 @@ const Portfolio = () => {
                 type="file"
                 className="form-control"
                 id="thumbnail"
-                onChange={updateInputhandler}
+                onChange={(e) => handleInputChange(e, setUpdatePortfolio)}
                 name="thumbnail"
                 placeholder="Enter Industry name Here"
               />
@@ -716,7 +706,7 @@ const Portfolio = () => {
                 className="form-control"
                 value={updatePortfolio.title}
                 id="title"
-                onChange={updateInputhandler}
+                onChange={(e) => handleInputChange(e, setUpdatePortfolio)}
                 name="title"
                 placeholder="Enter Portfolio Title Here"
               />
@@ -732,7 +722,7 @@ const Portfolio = () => {
                 className="form-control"
                 value={updatePortfolio.short_description}
                 id="short_description"
-                onChange={updateInputhandler}
+                onChange={(e) => handleInputChange(e, setUpdatePortfolio)}
                 name="short_description"
                 placeholder="Enter Short Description Here"
               />
@@ -748,7 +738,7 @@ const Portfolio = () => {
                 className="form-control"
                 value={updatePortfolio.company_name}
                 id="company_name"
-                onChange={updateInputhandler}
+                onChange={(e) => handleInputChange(e, setUpdatePortfolio)}
                 name="company_name"
                 placeholder="Enter Company Name Here"
               />
@@ -799,7 +789,7 @@ const Portfolio = () => {
                 value={updatePortfolio.service_id}
                 id="service_id"
                 name="service_id"
-                onChange={updateInputhandler}
+                onChange={(e) => handleInputChange(e, setUpdatePortfolio)}
               >
                 <option value="">Select Service</option>
                 {services &&
@@ -827,7 +817,7 @@ const Portfolio = () => {
                 value={updatePortfolio.industry_id}
                 id="industry_id"
                 name="industry_id"
-                onChange={updateInputhandler}
+                onChange={(e) => handleInputChange(e, setUpdatePortfolio)}
               >
                 <option value="">Select Industry</option>
                 {industries &&
