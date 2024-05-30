@@ -14,8 +14,9 @@ export const ValudasStorage = ({ children }) => {
   const [industries, setIndustries] = useState([]);
   const [portfolio, setPortfolio] = useState([]);
   const [services, setServices] = useState([]);
-  const [stack, setStack] = useState([]);
+  const [technology, setTechnology] = useState([]);
   const [portImages, setPortImages] = useState([]);
+  const [serviceTechnology, setServicesTechnology] = useState([]);
 
   // users
   const getUsersList = async () => {
@@ -58,10 +59,10 @@ export const ValudasStorage = ({ children }) => {
   };
 
   // stack
-  const getStack = async () => {
+  const getTechnology = async () => {
     try {
       const response = await axios.get(`${API}/getstack`);
-      setStack(response.data);
+      setTechnology(response.data);
     } catch (error) {
       console.error("Error fetching city list:", error);
     }
@@ -77,13 +78,25 @@ export const ValudasStorage = ({ children }) => {
     }
   };
 
+  // service and technology
+
+  const getServiceTechnology = async () => {
+    try {
+      const response = await axios.get("http://localhost:5665/getservicetech");
+      setServicesTechnology(response.data);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   useEffect(() => {
     getUsersList();
     getIndustryData();
     getPortfolio();
     getService();
-    getStack();
+    getTechnology();
     getPortImages();
+    getServiceTechnology();
   }, []);
 
   return (
@@ -97,10 +110,12 @@ export const ValudasStorage = ({ children }) => {
         setPortfolio,
         services,
         setServices,
-        stack,
-        setStack,
+        technology,
+        setTechnology,
         portImages,
         setPortImages,
+        serviceTechnology,
+        setServicesTechnology,
       }}
     >
       {children}

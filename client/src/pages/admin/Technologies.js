@@ -13,7 +13,7 @@ const API = process.env.REACT_APP_API_URL;
 const TechStack = () => {
   const [sidebarHidden, setSidebarHidden] = useState(window.innerWidth < 768);
   const [isDarkMode, setDarkMode] = useState(false);
-  const { stack, setStack } = useValudasData();
+  const { technology, setTechnology } = useValudasData();
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [techStackId, setTechStackId] = useState(null);
@@ -32,7 +32,7 @@ const TechStack = () => {
       if (response.status === 200) {
         const response = await axios.get(`${API}/getstack`);
         const finelData = response.data;
-        setStack(finelData);
+        setTechnology(finelData);
         setInsertTechStack({
           technology_name: "",
         });
@@ -64,7 +64,7 @@ const TechStack = () => {
       if (response.status === 200) {
         const response = await axios.get(`${API}/getstack`);
         const refreshData = await response.data;
-        setStack(refreshData);
+        setTechnology(refreshData);
         closeEditModal();
         setUpdateTechStack({
           technology_name: "",
@@ -108,7 +108,7 @@ const TechStack = () => {
       if (response.status === 200) {
         const response = await axios.get(`${API}/getstack`);
         const finelData = response.data;
-        setStack(finelData);
+        setTechnology(finelData);
         closeDeleteModal();
         toast.success("deleted successfully");
       }
@@ -181,8 +181,8 @@ const TechStack = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {stack && stack.length > 0 ? (
-                    stack.map((tech, index) => {
+                  {technology && technology.length > 0 ? (
+                    technology.map((tech, index) => {
                       return (
                         <>
                           <tr key={index}>
