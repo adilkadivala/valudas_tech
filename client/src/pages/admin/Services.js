@@ -24,7 +24,7 @@ const Services = () => {
     service_tagline: "",
     service_description: "",
     services_id: "",
-    technologies: "",
+    technologies: [],
   });
 
   const [updateService, setUpdateService] = useState({
@@ -32,7 +32,7 @@ const Services = () => {
     service_tagline: "",
     service_description: "",
     services_id: "",
-    tech_stack_id: "",
+    technologies: [],
   });
   const [serviceId, setServiceId] = useState(null);
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
@@ -74,10 +74,43 @@ const Services = () => {
 
   // insert input handler
   const handleInputChange = (e, setState) => {
-    const { name, value } = e.target;
+    const { name, value, type, selectedOptions } = e.target;
+    if (type === "select-multiple") {
+      const selectedValues = Array.from(
+        selectedOptions,
+        (option) => option.value
+      );
+      setState((prevState) => ({
+        ...prevState,
+        [name]: selectedValues,
+      }));
+    } else {
+      setState((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    }
+  };
+
+  const handleMultiSelectChange = (e, setState) => {
+    const { options } = e.target;
+    const selectedValues = [];
+    for (let i = 0; i < options.length; i++) {
+      if (options[i].selected) {
+        selectedValues.push(options[i].value);
+      }
+    }
     setState((prevState) => ({
       ...prevState,
-      [name]: value,
+      technologies: selectedValues,
+    }));
+  };
+
+  // remove selection
+  const removeSelectedTechnology = (techId) => {
+    setInsertService((prevState) => ({
+      ...prevState,
+      technologies: prevState.technologies.filter((id) => id !== techId),
     }));
   };
 
@@ -108,7 +141,7 @@ const Services = () => {
           service_tagline: "",
           service_description: "",
           services_id: "",
-          tech_stack_id: "",
+          technologies: "",
         });
         closeEditModal();
         toast.success("Services Updated successfully");
@@ -131,7 +164,7 @@ const Services = () => {
       service_tagline: service.service_tagline,
       service_description: service.service_description,
       services_id: service.services_id,
-      tech_stack_id: service.tech_stack_id,
+      technologies: service.technologies,
     });
   };
 
@@ -238,9 +271,9 @@ const Services = () => {
                           (parent) => parent.id === service.services_id
                         );
 
-                      // const technology =
-                      //   stack &&
-                      //   stack.find((tech) => tech.id === service.tech_stack_id);
+                      const technology =
+                        stack &&
+                        stack.find((tech) => tech.id === service.technologies);
 
                       return (
                         <>
@@ -262,7 +295,11 @@ const Services = () => {
                               <p>{parent ? parent.service_name : "NULL"}</p>
                             </td>
                             <td>
-                              <p>{service.technologies}</p>
+                              <p>
+                                {technology
+                                  ? technology.technology_name
+                                  : "NULL"}
+                              </p>
                             </td>
                             <td>
                               <button
@@ -308,6 +345,7 @@ const Services = () => {
         </main>
       </section>
 
+      {/* insert modal */}
       {/* insert modal */}
       <div
         style={{
@@ -424,44 +462,58 @@ const Services = () => {
                   className="mb-3"
                   style={{ display: "flex", flexDirection: "column" }}
                 >
-                  <label htmlFor="tech_stack_id" className="form-label">
+                  <label htmlFor="technologies" className="form-label">
                     Choose Technology
                   </label>
                   <select
+                    // type="checkbox"
                     style={{ padding: "12px 5px", fontSize: "15px" }}
-                    type="text"
-                    className="form-control"
-                    value={insertService.tech_stack_id}
-                    id="tech_stack_id"
-                    name="tech_stack_id"
-                    onChange={(e) => handleInputChange(e, setInsertService)}
-                  >
-                    <option value="">Select Technology</option>
-                    {stack &&
-                      stack.map((tech) => {
-                        return (
-                          <option key={tech.id} value={tech.id}>
-                            {tech.technology_name}
-                          </option>
-                        );
-                      })}
-                  </select>
-                </div>
-
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                  <label htmlFor="technologies" className="form-label">
-                    technologies
-                  </label>
-                  <input
-                    style={{ padding: "12px 5px", fontSize: "15px" }}
-                    type="text"
                     className="form-control"
                     value={insertService.technologies}
                     id="technologies"
-                    onChange={(e) => handleInputChange(e, setInsertService)}
                     name="technologies"
-                    placeholder="Enter technologies Tagline Here"
-                  />
+                    onChange={(e) =>
+                      handleMultiSelectChange(e, setInsertService)
+                    }
+                    multiple
+                  >
+                    <option value="">Select Technology</option>
+                    {stack &&
+                      stack.map((tech) => (
+                        <option key={tech.id} value={tech.id}>
+                          {tech.technology_name}
+                        </option>
+                      ))}
+                  </select>
+                </div>
+
+                <div>
+                  {insertService.technologies.map &&
+                    ((techId) => {
+                      const tech = stack.find((t) => t.id === techId);
+                      return (
+                        <div
+                          key={techId}
+                          style={{ display: "flex", alignItems: "center" }}
+                        >
+                          <span>{tech ? tech.technology_name : "Unknown"}</span>
+                          <button
+                            type="button"
+                            onClick={() =>
+                              removeSelectedTechnology(techId, setInsertService)
+                            }
+                            style={{
+                              backgroundColor: "transparent",
+                              border: "none",
+                              cursor: "pointer",
+                              marginLeft: "5px",
+                            }}
+                          >
+                            <X />
+                          </button>
+                        </div>
+                      );
+                    })}
                 </div>
 
                 {isCheckboxChecked && (
@@ -474,7 +526,6 @@ const Services = () => {
                     </label>
                     <select
                       style={{ padding: "12px 5px", fontSize: "15px" }}
-                      type="text"
                       className="form-control"
                       value={insertService.services_id}
                       id="service_id"
@@ -485,18 +536,16 @@ const Services = () => {
                         Select Parent Service
                       </option>
                       {serviceParent &&
-                        serviceParent.map((parent) => {
-                          return (
-                            <option key={parent.id} value={parent.id}>
-                              {parent.service_name}
-                            </option>
-                          );
-                        })}
+                        serviceParent.map((parent) => (
+                          <option key={parent.id} value={parent.id}>
+                            {parent.service_name}
+                          </option>
+                        ))}
                     </select>
                   </div>
                 )}
 
-                <div className=" ">
+                <div>
                   <br />
                   <input
                     id="check"
@@ -557,6 +606,8 @@ const Services = () => {
       </div>
       {/* insert modal */}
 
+      {/* insert modal */}
+
       {/* edit modal */}
       <div
         style={{
@@ -565,15 +616,15 @@ const Services = () => {
           fontSize: "15px",
           padding: "25px",
           position: "fixed",
-          top: "5rem",
+          top: "10rem",
           backgroundColor: "#f9f9f9",
           border: "1px solid #000",
           fontWeight: "bolder",
           borderRadius: "5px",
-          overflowX: "auto",
+          overflow: "hidden",
           left: "480px",
           width: "35%",
-          height: "35rem",
+          height: "auto",
         }}
       >
         <div
@@ -655,6 +706,22 @@ const Services = () => {
                   <label htmlFor="service_description" className="form-label">
                     Service description
                   </label>
+                  <textarea
+                    style={{ padding: "12px 5px", fontSize: "15px" }}
+                    type="text"
+                    className="form-control"
+                    value={updateService.service_description}
+                    id="service_description"
+                    onChange={(e) => handleInputChange(e, setUpdateService)}
+                    name="service_description"
+                    placeholder="Enter Service description name Here"
+                  />
+                </div>
+
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <label htmlFor="service_description" className="form-label">
+                    Service description
+                  </label>
 
                   <CKEditor
                     content={updateService.service_description}
@@ -673,16 +740,16 @@ const Services = () => {
                   className="mb-3"
                   style={{ display: "flex", flexDirection: "column" }}
                 >
-                  <label htmlFor="tech_stack_id" className="form-label">
+                  <label htmlFor="technologies" className="form-label">
                     Choose Technology
                   </label>
                   <select
                     style={{ padding: "12px 5px", fontSize: "15px" }}
                     type="text"
                     className="form-control"
-                    value={updateService.tech_stack_id}
-                    id="tech_stack_id"
-                    name="tech_stack_id"
+                    value={updateService.technologies}
+                    id="technologies"
+                    name="technologies"
                     onChange={(e) => handleInputChange(e, setUpdateService)}
                   >
                     <option value="">Select Technology</option>

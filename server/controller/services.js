@@ -29,27 +29,32 @@ const postServices = async (req, res) => {
       services_id,
       technologies,
     } = req.body;
-    const Que = `INSERT INTO services (service_name, service_tagline, service_description, services_id,technologies) VALUES (?,?,?,?,?)`;
+
+    const techArray = Array.isArray(technologies)
+      ? technologies
+      : [technologies];
+
+    const tech = techArray.join(",");
+
+    const Que = `INSERT INTO services (service_name, service_tagline, service_description, services_id, technologies) VALUES (?,?,?,?,?)`;
     const data = [
       service_name,
       service_tagline,
       service_description,
       services_id,
-      technologies,
+      tech,
     ];
 
     connectDB.query(Que, data, (err) => {
       if (err) {
         console.error(err.message);
-        return res
-          .status(500)
-          .json({ message: "error got from posting services " });
+        return res.status(500).json({ message: "Error posting services" });
       }
       return res.sendStatus(200);
     });
   } catch (error) {
     console.error(error.message);
-    return res.status(500).json({ message: "internal server error" });
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -62,17 +67,23 @@ const updateServices = async (req, res) => {
       service_tagline,
       service_description,
       services_id,
-      tech_stack_id,
+      technologies,
     } = req.body;
+
+    const techArray = Array.isArray(technologies)
+      ? technologies
+      : [technologies];
+
+    const tech = techArray.join(",");
     const Que =
-      "UPDATE `services` SET `service_name`=?, `service_tagline` =?, `service_description` =?, `services_id`=?, `tech_stack_id` =? WHERE `id`=?";
+      "UPDATE `services` SET `service_name`=?, `service_tagline` =?, `service_description` =?, `services_id`=?, `technologies` =? WHERE `id`=?";
 
     const data = [
       service_name,
       service_tagline,
       service_description,
       services_id,
-      tech_stack_id,
+      tech,
       id,
     ];
 
