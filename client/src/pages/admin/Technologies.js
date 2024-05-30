@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "../admin/layout/Navbar";
-import Sidebar from "../admin/layout/Sidebar";
+import Navbar from "./layout/Navbar";
+import Sidebar from "./layout/Sidebar";
 import { useValudasData } from "../../context/Storage";
 import "../../assets/css/admin/main.css";
 import { DeleteModal } from "./layout/Modal";

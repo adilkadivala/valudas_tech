@@ -22,28 +22,10 @@ const getServices = async (req, res) => {
 //post
 const postServices = async (req, res) => {
   try {
-    const {
-      service_name,
-      service_tagline,
-      service_description,
-      services_id,
-      technologies,
-    } = req.body;
+    const { service_name, service_tagline, service_description } = req.body;
 
-    const techArray = Array.isArray(technologies)
-      ? technologies
-      : [technologies];
-
-    const tech = techArray.join(",");
-
-    const Que = `INSERT INTO services (service_name, service_tagline, service_description, services_id, technologies) VALUES (?,?,?,?,?)`;
-    const data = [
-      service_name,
-      service_tagline,
-      service_description,
-      services_id,
-      tech,
-    ];
+    const Que = `INSERT INTO services (service_name, service_tagline, service_description) VALUES (?,?,?)`;
+    const data = [service_name, service_tagline, service_description];
 
     connectDB.query(Que, data, (err) => {
       if (err) {
@@ -62,30 +44,12 @@ const postServices = async (req, res) => {
 const updateServices = async (req, res) => {
   try {
     const { id } = req.params;
-    const {
-      service_name,
-      service_tagline,
-      service_description,
-      services_id,
-      technologies,
-    } = req.body;
+    const { service_name, service_tagline, service_description } = req.body;
 
-    const techArray = Array.isArray(technologies)
-      ? technologies
-      : [technologies];
-
-    const tech = techArray.join(",");
     const Que =
-      "UPDATE `services` SET `service_name`=?, `service_tagline` =?, `service_description` =?, `services_id`=?, `technologies` =? WHERE `id`=?";
+      "UPDATE `services` SET `service_name`=?, `service_tagline` =?, `service_description` =? WHERE `id`=?";
 
-    const data = [
-      service_name,
-      service_tagline,
-      service_description,
-      services_id,
-      tech,
-      id,
-    ];
+    const data = [service_name, service_tagline, service_description, id];
 
     connectDB.query(Que, data, (err) => {
       if (err) {

@@ -3,7 +3,7 @@ const connectDB = require("../database/connection");
 // get
 const getTechStack = async (req, res) => {
   try {
-    const Que = `SELECT * FROM tech_stack`;
+    const Que = `SELECT * FROM technologies`;
     connectDB.query(Que, (err, data) => {
       if (err) {
         console.error(err.message);
@@ -23,7 +23,7 @@ const getTechStack = async (req, res) => {
 const postTechStack = async (req, res) => {
   try {
     const { technology_name } = req.body;
-    const Que = `INSERT INTO tech_stack (technology_name) VALUES (?)`;
+    const Que = `INSERT INTO technologies (technology_name) VALUES (?)`;
     const data = [technology_name];
 
     connectDB.query(Que, data, (err) => {
@@ -47,7 +47,7 @@ const updateTechStack = async (req, res) => {
   try {
     const { id } = req.params;
     const { technology_name } = req.body;
-    const Que = `UPDATE  tech_stack SET technology_name = ? WHERE id = ?`;
+    const Que = `UPDATE  technologies SET technology_name = ? WHERE id = ?`;
     const data = [technology_name, id];
 
     connectDB.query(Que, data, (err, data) => {
@@ -69,7 +69,7 @@ const updateTechStack = async (req, res) => {
 const deleteTechStack = async (req, res) => {
   try {
     const { id } = req.params;
-    const Que = `DELETE FROM tech_stack WHERE id = ?`;
+    const Que = `DELETE FROM technologies WHERE id = ?`;
 
     connectDB.query(Que, [id], (err) => {
       if (err) {
