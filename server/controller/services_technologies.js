@@ -2,7 +2,7 @@ const connectDB = require("../database/connection");
 
 const getService_technologies = async (req, res) => {
   try {
-    const Que = "SELECT * FROM service_technology WHERE services_id = 112";
+    const Que = "SELECT * FROM service_technology";
 
     connectDB.query(Que, (err, data) => {
       if (err) {
