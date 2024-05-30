@@ -5,12 +5,12 @@ const connectDB = require("./database/connection");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 // routes files
-const users = require("./routes/usersRoots");
-const portfolio = require("./routes/portfolioRoots");
-const industries = require("./routes/industriesRoots");
-const photos = require("./routes/photosRoots");
-const services = require("./routes/servicesRoots");
-const tech_stack = require("./routes/techStackRoots");
+const users = require("./routes/users");
+const portfolio = require("./routes/portfolio");
+const industries = require("./routes/industries");
+const photos = require("./routes/photos");
+const services = require("./routes/services");
+const technologies = require("./routes/technologies");
 
 // middleware
 
@@ -31,7 +31,7 @@ app.use("/", portfolio);
 app.use("/", industries);
 app.use("/", photos);
 app.use("/", services);
-app.use("/", tech_stack);
+app.use("/", technologies);
 
 // port no
 const PORT = process.env.SERVER_PORT;
