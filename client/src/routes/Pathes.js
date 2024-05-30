@@ -21,7 +21,7 @@ const Pathes = () => {
         <Route path="industries" element={<Industries />} />
         <Route path="portfolio" element={<Portfolio />} />
         <Route path="services" element={<Services />} />
-        <Route path="techstack" element={<Technologies />} />
+        <Route path="technologies" element={<Technologies />} />
         <Route path="portimage" element={<PortImages />} />
       </Route>
     </Routes>

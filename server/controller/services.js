@@ -87,29 +87,9 @@ const deleteService = async (req, res) => {
   }
 };
 
-// getting data with serviceId
-const getParentData = async (req, res) => {
-  try {
-    const Que = `SELECT * FROM services WHERE services_id = 0`;
-
-    connectDB.query(Que, (err, data) => {
-      if (err) {
-        console.error(err.message);
-        return res
-          .status(500)
-          .json({ message: "error got from getting services parent data " });
-      }
-      return res.json(data);
-    });
-  } catch (error) {
-    console.error(error.message);
-  }
-};
-
 module.exports = {
   getServices,
   postServices,
   updateServices,
   deleteService,
-  getParentData,
 };

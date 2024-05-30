@@ -111,9 +111,9 @@ const Sidebar = ({ isOpen }) => {
                             : ""
                         }
                       >
-                        <Link to="/dashboard/techstack">
+                        <Link to="/dashboard/technologies">
                           <Cpu />
-                          <span className="text">Tech_stack</span>
+                          <span className="text">Technologies</span>
                         </Link>
                       </li>
                       <li
@@ -181,7 +181,7 @@ const Sidebar = ({ isOpen }) => {
                       <Link to="/dashboard/portfolio">
                         <BookUser />
                       </Link>
-                      <Link to="/dashboard/techstack">
+                      <Link to="/dashboard/technologies">
                         <Cpu />
                       </Link>
                     </div>

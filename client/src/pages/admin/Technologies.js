@@ -163,14 +163,14 @@ const TechStack = () => {
         <main>
           <div className="head-title">
             <div className="left">
-              <h1>Tech stack Page</h1>
+              <h1>Technology Page</h1>
             </div>
           </div>
 
           <div className="table-data">
             <div className="order">
               <div className="head">
-                <h3>Tech stack Data</h3>
+                <h3>Technology Data</h3>
               </div>
               <table>
                 <thead>
@@ -234,7 +234,7 @@ const TechStack = () => {
             </div>
             <div className="todo">
               <div className="head">
-                <h3>Insert Tech stack</h3>
+                <h3>Insert Technology</h3>
                 <i className="bx bx-plus"></i>
                 <i className="bx bx-filter"></i>
               </div>
@@ -284,7 +284,6 @@ const TechStack = () => {
                         cursor: "pointer",
                         borderRadius: "5px",
                       }}
-                      // onClick={closeEditModal}
                     >
                       CANCEL
                     </button>
@@ -357,7 +356,7 @@ const TechStack = () => {
             </div>
 
             <div>
-              <p>Update Tech Stack</p>
+              <p>Update Technology</p>
               <br />
               <form
                 method="post"
