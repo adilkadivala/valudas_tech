@@ -34,7 +34,7 @@ const Services = () => {
     service_name: "",
     service_tagline: "",
     service_description: "",
-    technologies: "",
+    technologies: [],
   });
   const [serviceId, setServiceId] = useState(null);
 
@@ -52,7 +52,7 @@ const Services = () => {
       console.log(response.data);
 
       if (response.status === 200) {
-        const response = await axios.get(`${API}/getservice`);
+        const response = await axios.get(`${API}/getservicetech`);
         const finelData = response.data;
         setServicesTechnology(finelData);
         setTechnology(finelData);
@@ -95,12 +95,12 @@ const Services = () => {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `${API}/updateservice/${updateService.id}`,
+        `${API}/updateservicetech/${updateService.id}`,
         updateService
       );
 
       if (response.status === 200) {
-        const response = await axios.get(`${API}/getservice`);
+        const response = await axios.get(`${API}/getservicetech`);
         const finelData = response.data;
         setServicesTechnology(finelData);
 
@@ -130,6 +130,7 @@ const Services = () => {
       service_name: service.service_name,
       service_tagline: service.service_tagline,
       service_description: service.service_description,
+      technologies: service.technologies,
     });
   };
 
@@ -153,7 +154,7 @@ const Services = () => {
         `${API}/deleteservicetech/${serviceId}`
       );
       if (response.status === 200) {
-        const response = await axios.get(`${API}/getservice`);
+        const response = await axios.get(`${API}/getservicetech`);
         const refresh = await response.data;
         setServicesTechnology(refresh);
         closeDeleteModal();
@@ -259,7 +260,9 @@ const Services = () => {
                                   marginLeft: "0.5rem",
                                   cursor: "pointer",
                                 }}
-                                onClick={() => openDeleteModal(service.id)}
+                                onClick={() =>
+                                  openDeleteModal(service.service_id)
+                                }
                               >
                                 <Trash2 />
                               </button>
@@ -494,10 +497,10 @@ const Services = () => {
           border: "1px solid #000",
           fontWeight: "bolder",
           borderRadius: "5px",
-          overflow: "hidden",
+          overflowX: "auto",
           left: "480px",
           width: "35%",
-          height: "auto",
+          height: "35rem",
         }}
       >
         <div
@@ -591,6 +594,37 @@ const Services = () => {
                     }}
                     config={{ enterMode: 2, shiftEnterMode: 1 }}
                   />
+                </div>
+
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <label htmlFor="technologies" className="form-label">
+                    Select Technologies
+                  </label>
+                  <select
+                    id="technologies"
+                    multiple
+                    value={updateService.technologies}
+                    onChange={(e) =>
+                      setUpdateService({
+                        ...updateService,
+                        technologies: Array.from(
+                          e.target.selectedOptions,
+                          (option) => option.value
+                        ),
+                      })
+                    }
+                    style={{ padding: "12px 5px", fontSize: "15px" }}
+                  >
+                    <option defaultValue="Select Technology">
+                      Select Technology
+                    </option>
+                    {technology &&
+                      technology.map((tech) => (
+                        <option key={tech.id} value={tech.id}>
+                          {tech.technology_name}
+                        </option>
+                      ))}
+                  </select>
                 </div>
 
                 <div

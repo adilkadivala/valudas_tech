@@ -37,12 +37,7 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "depcheck": "^1.4.7",
-    "tailwindcss": "^3.3.5"
-  },
   "main": "index.js",
   "author": "",
-  "license": "ISC",
-  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app)."
+  "license": "ISC"
 }

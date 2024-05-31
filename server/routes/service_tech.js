@@ -14,4 +14,8 @@ router
   .route("/deleteservicetech/:id")
   .delete(service_technologies.deleteService_technologies);
 
+router
+  .route("/updateservicetech/:id")
+  .put(service_technologies.updateService_technologies);
+
 module.exports = router;
