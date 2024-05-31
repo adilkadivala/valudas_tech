@@ -189,6 +189,11 @@ const PortImages = () => {
                             <img
                               src={`/upload/${image.portfolio_photo}`}
                               alt="portfolio"
+                              style={{
+                                width: "7rem",
+                                borderRadius: "0",
+                                height: "7rem",
+                              }}
                             />
                           </td>
 

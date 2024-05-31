@@ -49,8 +49,6 @@ const Services = () => {
     try {
       const response = await axios.post(`${API}/setservicetech`, insertService);
 
-      console.log(response.data);
-
       if (response.status === 200) {
         const response = await axios.get(`${API}/getservicetech`);
         const finelData = response.data;

@@ -46,13 +46,7 @@ const insertPhotos = async (req, res) => {
 const updatePhotos = async (req, res) => {
   try {
     const { id } = req.params;
-
-    let portfolio_photo;
-    if (req.files && req.files.portfolio_photo) {
-      portfolio_photo = req.files.portfolio_photo[0].filename;
-    } else {
-      portfolio_photo = req.body.portfolio_photo || null;
-    }
+    const portfolio_photo = req.file.filename;
 
     const Que = `UPDATE photos SET portfolio_photo =?  WHERE id =?`;
     const data = [portfolio_photo, id];
