@@ -247,8 +247,6 @@ const Industries = () => {
             <div className="todo">
               <div className="head">
                 <h3>Insert Industry</h3>
-                <i className="bx bx-plus"></i>
-                <i className="bx bx-filter"></i>
               </div>
               <div className="todo-list">
                 <form

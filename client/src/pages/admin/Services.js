@@ -23,6 +23,7 @@ const Services = () => {
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [insertModalOpen, setInsertModalOpen] = useState(false);
+  const [serviceId, setServiceId] = useState(null);
   const [insertService, setInsertService] = useState({
     service_name: "",
     service_tagline: "",
@@ -36,7 +37,6 @@ const Services = () => {
     service_description: "",
     technologies: [],
   });
-  const [serviceId, setServiceId] = useState(null);
 
   const closeEditModal = () => setEditModalOpen(false);
   const openInsertModal = () => setInsertModalOpen(true);
@@ -117,7 +117,7 @@ const Services = () => {
         toast.error("Updating Services failed due to some reason");
       }
     } catch (error) {
-      console.error("Error from Services new collection", error);
+      console.error("Error from Services UPDATING", error);
       toast.error("Updating Services failed due to some reason");
     }
   };
@@ -126,12 +126,13 @@ const Services = () => {
   const openEditModal = (service) => {
     setEditModalOpen(true);
     setUpdateService({
-      id: service.id,
+      service_id: service.service_id,
       service_name: service.service_name,
       service_tagline: service.service_tagline,
       service_description: service.service_description,
       technologies: service.technologies,
     });
+    console.log(service.service_id);
   };
 
   // open Delete modal
@@ -148,7 +149,6 @@ const Services = () => {
   };
 
   // delete Service
-
   const deleteService = async () => {
     try {
       const response = await axios.delete(
@@ -536,54 +536,29 @@ const Services = () => {
               <p>Update Services</p>
               <br />
 
-              <form
-                method="post"
-                encType="multipart/form-data"
-                name="edit form"
-                onSubmit={updateServicesData}
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  rowGap: "10px",
-                }}
-              >
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                  <label htmlFor="service_name" className="form-label">
-                    Service Name
-                  </label>
+              <form onSubmit={updateServicesData}>
+                <div>
+                  <label>Service Name</label>
                   <input
-                    style={{ padding: "12px 5px", fontSize: "15px" }}
                     type="text"
-                    className="form-control"
                     value={updateService.service_name}
-                    id="service_name"
                     onChange={(e) => handleInputChange(e, setUpdateService)}
                     name="service_name"
                     placeholder="Enter Service name Here"
                   />
                 </div>
-
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                  <label htmlFor="service_tagline" className="form-label">
-                    Service Tagline
-                  </label>
+                <div>
+                  <label>Service Tagline</label>
                   <input
-                    style={{ padding: "12px 5px", fontSize: "15px" }}
                     type="text"
-                    className="form-control"
                     value={updateService.service_tagline}
-                    id="service_tagline"
                     onChange={(e) => handleInputChange(e, setUpdateService)}
                     name="service_tagline"
                     placeholder="Enter Service Tagline Here"
                   />
                 </div>
-
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                  <label htmlFor="service_description" className="form-label">
-                    Service description
-                  </label>
-
+                <div>
+                  <label>Service description</label>
                   <CKEditor
                     content={updateService.service_description}
                     events={{
@@ -596,13 +571,9 @@ const Services = () => {
                     config={{ enterMode: 2, shiftEnterMode: 1 }}
                   />
                 </div>
-
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                  <label htmlFor="technologies" className="form-label">
-                    Select Technologies
-                  </label>
+                <div>
+                  <label>Select Technologies</label>
                   <select
-                    id="technologies"
                     multiple
                     value={updateService.technologies}
                     onChange={(e) =>
@@ -614,7 +585,6 @@ const Services = () => {
                         ),
                       })
                     }
-                    style={{ padding: "12px 5px", fontSize: "15px" }}
                   >
                     <option defaultValue="Select Technology">
                       Select Technology
@@ -627,45 +597,7 @@ const Services = () => {
                       ))}
                   </select>
                 </div>
-
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    marginTop: "10px",
-                  }}
-                >
-                  <button
-                    type="button"
-                    style={{
-                      backgroundColor: "#3c91e6",
-                      border: "none",
-                      color: "#FFF",
-                      marginRight: "5px",
-                      padding: "7px 10px",
-                      cursor: "pointer",
-                      borderRadius: "5px",
-                    }}
-                    onClick={closeEditModal}
-                  >
-                    CANCEL
-                  </button>
-                  <button
-                    type="button"
-                    style={{
-                      backgroundColor: "#db504a",
-                      border: "none",
-                      color: "#FFF",
-                      cursor: "pointer",
-                      marginLeft: "5px",
-                      padding: "7px 10px",
-                      borderRadius: "5px",
-                    }}
-                    onClick={updateServicesData}
-                  >
-                    Save
-                  </button>
-                </div>
+                <button type="submit">Save</button>
               </form>
             </div>
           </div>
