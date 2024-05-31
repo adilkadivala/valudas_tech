@@ -83,24 +83,29 @@ const postService_technologies = async (req, res) => {
 // deleting data
 const deleteService_technologies = async (req, res) => {
   try {
-    const { service_id } = req.params;
-    console.log(req.params);
+    const { id: service_id } = req.params;
+    console.log(req.params); // Ensure the correct service_id is being logged
 
     const deleteMappingsQuery = `DELETE FROM service_technology WHERE services_id = ?`;
-    connectDB.query(deleteMappingsQuery, [service_id], async (err) => {
+    const deleteServiceQuery = `DELETE FROM services WHERE id = ?`;
+
+    // Delete the mappings first
+    connectDB.query(deleteMappingsQuery, [service_id], (err) => {
       if (err) {
         console.error(err.message);
         return res
           .status(500)
           .json({ message: "Error deleting technology links" });
       }
+      // return res.sendStatus(200);
 
-      const deleteServiceQuery = `DELETE FROM services WHERE id = ?`;
+      // Then delete the service
       connectDB.query(deleteServiceQuery, [service_id], (err) => {
         if (err) {
           console.error(err.message);
           return res.status(500).json({ message: "Error deleting service" });
         }
+
         return res.sendStatus(200);
       });
     });
