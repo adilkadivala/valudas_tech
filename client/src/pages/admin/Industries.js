@@ -189,7 +189,6 @@ const Industries = () => {
               <table>
                 <thead>
                   <tr>
-                    <th>Number</th>
                     <th>Industry Name</th>
                     <th>Operation</th>
                   </tr>
@@ -199,9 +198,6 @@ const Industries = () => {
                     industries.map((industry, index) => {
                       return (
                         <tr key={index}>
-                          <td>
-                            <p>{industry.id}</p>
-                          </td>
                           <td>
                             <p>{industry.industry_name}</p>
                           </td>

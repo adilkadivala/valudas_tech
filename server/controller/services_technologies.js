@@ -120,7 +120,7 @@ const updateService_technologies = async (req, res) => {
   try {
     const { service_name, service_tagline, service_description, technologies } =
       req.body;
-    const { service_id } = req.params;
+    const { id: service_id } = req.params;
     console.log(req.params);
 
     const serviceQuery = `UPDATE services SET service_name = ?, service_tagline = ?, service_description = ? WHERE id = ?`;

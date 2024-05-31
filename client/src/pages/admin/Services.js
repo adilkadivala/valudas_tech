@@ -94,11 +94,6 @@ const Services = () => {
   const updateServicesData = async (e) => {
     e.preventDefault();
     try {
-      // const response = await axios.put(
-      //   `${API}/updateservicetech/${updateService.service_id}`,
-      //   updateService
-      // );
-
       const response = await axios.put(
         `${API}/updateservicetech/${updateService.service_id}`,
         {
@@ -108,7 +103,6 @@ const Services = () => {
             : [updateService.technologies],
         }
       );
-      console.log(updateService.id);
 
       if (response.status === 200) {
         const response = await axios.get(`${API}/getservicetech`);
@@ -143,14 +137,12 @@ const Services = () => {
       service_description: service.service_description,
       technologies: service.technologies,
     });
-    console.log(service.service_id);
   };
 
   // open Delete modal
   const openDeleteModal = (serviceId) => {
     setDeleteModalOpen(true);
     setServiceId(serviceId);
-    console.log(serviceId);
   };
 
   // close Delete modal

@@ -175,7 +175,6 @@ const TechStack = () => {
               <table>
                 <thead>
                   <tr>
-                    <th>Number</th>
                     <th>Technology Name</th>
                     <th>Operation</th>
                   </tr>
@@ -186,9 +185,6 @@ const TechStack = () => {
                       return (
                         <>
                           <tr key={index}>
-                            <td>
-                              <p>{tech.id}</p>
-                            </td>
                             <td>
                               <p>{tech.technology_name}</p>
                             </td>
