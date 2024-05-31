@@ -494,7 +494,7 @@ const Services = () => {
           fontSize: "15px",
           padding: "25px",
           position: "fixed",
-          top: "5rem",
+          top: "4rem",
           backgroundColor: "#f9f9f9",
           border: "1px solid #000",
           fontWeight: "bolder",
@@ -502,7 +502,7 @@ const Services = () => {
           overflowX: "auto",
           left: "480px",
           width: "35%",
-          height: "35rem",
+          height: "37rem",
         }}
       >
         <div
@@ -537,29 +537,54 @@ const Services = () => {
               <p>Update Services</p>
               <br />
 
-              <form onSubmit={updateServicesData}>
-                <div>
-                  <label>Service Name</label>
+              <form
+                method="post"
+                encType="multipart/form-data"
+                name="edit form"
+                onSubmit={updateServicesData}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  rowGap: "10px",
+                }}
+              >
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <label htmlFor="service_name" className="form-label">
+                    Service Name
+                  </label>
                   <input
+                    style={{ padding: "12px 5px", fontSize: "15px" }}
                     type="text"
+                    className="form-control"
                     value={updateService.service_name}
                     onChange={(e) => handleInputChange(e, setUpdateService)}
+                    id="service_name"
                     name="service_name"
                     placeholder="Enter Service name Here"
                   />
                 </div>
-                <div>
-                  <label>Service Tagline</label>
+
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <label htmlFor="service_tagline" className="form-label">
+                    Service Tagline
+                  </label>
                   <input
+                    style={{ padding: "12px 5px", fontSize: "15px" }}
                     type="text"
+                    className="form-control"
                     value={updateService.service_tagline}
                     onChange={(e) => handleInputChange(e, setUpdateService)}
+                    id="service_tagline"
                     name="service_tagline"
                     placeholder="Enter Service Tagline Here"
                   />
                 </div>
-                <div>
-                  <label>Service description</label>
+
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <label htmlFor="service_description" className="form-label">
+                    Service description
+                  </label>
+
                   <CKEditor
                     content={updateService.service_description}
                     events={{
@@ -572,11 +597,17 @@ const Services = () => {
                     config={{ enterMode: 2, shiftEnterMode: 1 }}
                   />
                 </div>
-                <div>
-                  <label>Select Technologies</label>
+
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <label htmlFor="technologies" className="form-label">
+                    Select Technologies
+                  </label>
+
                   <select
+                    id="technologies"
                     multiple
                     value={updateService.technologies}
+                    style={{ padding: "12px 5px", fontSize: "15px" }}
                     onChange={(e) =>
                       setUpdateService({
                         ...updateService,
@@ -598,8 +629,44 @@ const Services = () => {
                       ))}
                   </select>
                 </div>
-                <button type="submit">Save</button>
               </form>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  marginTop: "10px",
+                }}
+              >
+                <button
+                  type="button"
+                  style={{
+                    backgroundColor: "#3c91e6",
+                    border: "none",
+                    color: "#FFF",
+                    marginRight: "5px",
+                    padding: "7px 10px",
+                    cursor: "pointer",
+                    borderRadius: "5px",
+                  }}
+                  onClick={closeEditModal}
+                >
+                  CANCEL
+                </button>
+                <button
+                  type="submit"
+                  style={{
+                    backgroundColor: "#db504a",
+                    border: "none",
+                    color: "#FFF",
+                    cursor: "pointer",
+                    marginLeft: "5px",
+                    padding: "7px 10px",
+                    borderRadius: "5px",
+                  }}
+                >
+                  Save
+                </button>
+              </div>
             </div>
           </div>
         </div>
