@@ -116,7 +116,6 @@ const deleteService_technologies = async (req, res) => {
 };
 
 // updating data
-
 const updateService_technologies = async (req, res) => {
   try {
     const { service_name, service_tagline, service_description, technologies } =
@@ -124,7 +123,6 @@ const updateService_technologies = async (req, res) => {
     const { service_id } = req.params;
     console.log(req.params);
 
-    // Update service data in 'services' table
     const serviceQuery = `UPDATE services SET service_name = ?, service_tagline = ?, service_description = ? WHERE id = ?`;
     const serviceData = [
       service_name,

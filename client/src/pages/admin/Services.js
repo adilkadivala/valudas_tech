@@ -94,10 +94,21 @@ const Services = () => {
   const updateServicesData = async (e) => {
     e.preventDefault();
     try {
+      // const response = await axios.put(
+      //   `${API}/updateservicetech/${updateService.service_id}`,
+      //   updateService
+      // );
+
       const response = await axios.put(
-        `${API}/updateservicetech/${updateService.id}`,
-        updateService
+        `${API}/updateservicetech/${updateService.service_id}`,
+        {
+          ...updateService,
+          technologies: Array.isArray(updateService.technologies)
+            ? updateService.technologies
+            : [updateService.technologies],
+        }
       );
+      console.log(updateService.id);
 
       if (response.status === 200) {
         const response = await axios.get(`${API}/getservicetech`);
