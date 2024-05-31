@@ -14,7 +14,12 @@ const API = process.env.REACT_APP_API_URL;
 const Services = () => {
   const [sidebarHidden, setSidebarHidden] = useState(window.innerWidth < 768);
   const [isDarkMode, setDarkMode] = useState(false);
-  const { services, setServices, setServicesParent } = useValudasData();
+  const {
+    serviceTechnology,
+    setServicesTechnology,
+    technology,
+    setTechnology,
+  } = useValudasData();
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [insertModalOpen, setInsertModalOpen] = useState(false);
@@ -22,12 +27,14 @@ const Services = () => {
     service_name: "",
     service_tagline: "",
     service_description: "",
+    technologies: [],
   });
 
   const [updateService, setUpdateService] = useState({
     service_name: "",
     service_tagline: "",
     service_description: "",
+    technologies: "",
   });
   const [serviceId, setServiceId] = useState(null);
 
@@ -40,18 +47,19 @@ const Services = () => {
   const insertServiceData = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${API}/postservice`, insertService);
+      const response = await axios.post(`${API}/setservicetech`, insertService);
+
+      console.log(response.data);
 
       if (response.status === 200) {
         const response = await axios.get(`${API}/getservice`);
         const finelData = response.data;
-        setServices(finelData);
-        setServicesParent(finelData);
+        setServicesTechnology(finelData);
+        setTechnology(finelData);
         setInsertService({
           service_name: "",
           service_tagline: "",
           service_description: "",
-          services_id: "",
           technologies: "",
         });
         closeInsertModal();
@@ -64,6 +72,7 @@ const Services = () => {
       console.error("service Insert", error.message);
     }
   };
+
   // insert input handler
   const handleInputChange = (e, setState) => {
     const { name, value } = e.target;
@@ -93,12 +102,13 @@ const Services = () => {
       if (response.status === 200) {
         const response = await axios.get(`${API}/getservice`);
         const finelData = response.data;
-        setServices(finelData);
-        setServicesParent(finelData);
+        setServicesTechnology(finelData);
+
         setUpdateService({
           service_name: "",
           service_tagline: "",
           service_description: "",
+          technologies: "",
         });
         closeEditModal();
         toast.success("Services Updated successfully");
@@ -127,6 +137,7 @@ const Services = () => {
   const openDeleteModal = (serviceId) => {
     setDeleteModalOpen(true);
     setServiceId(serviceId);
+    console.log(serviceId);
   };
 
   // close Delete modal
@@ -138,13 +149,13 @@ const Services = () => {
   // delete Service
   const deleteService = async () => {
     try {
-      const response = await axios.delete(`${API}/deleteservice/${serviceId}`);
-
+      const response = await axios.delete(
+        `${API}/deleteservicetech/${serviceId}`
+      );
       if (response.status === 200) {
         const response = await axios.get(`${API}/getservice`);
         const refresh = await response.data;
-        setServices(refresh);
-        setServicesParent(refresh);
+        setServicesTechnology(refresh);
         closeDeleteModal();
         toast.success("Deleted Successfully");
       }
@@ -212,12 +223,13 @@ const Services = () => {
                     <th>Service Name</th>
                     <th>Tagline</th>
                     <th>Service Description</th>
+                    <th>Technologis</th>
                     <th>Operation</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {services && services.length > 0 ? (
-                    services.map((service, index) => {
+                  {serviceTechnology && serviceTechnology.length > 0 ? (
+                    serviceTechnology.map((service, index) => {
                       return (
                         <>
                           <tr key={index}>
@@ -233,6 +245,9 @@ const Services = () => {
                                   __html: service.service_description || "null",
                                 }}
                               />
+                            </td>
+                            <td>
+                              <p>{service.technologies}</p>
                             </td>
 
                             <td>
@@ -389,6 +404,37 @@ const Services = () => {
                     }}
                     config={{ enterMode: 2, shiftEnterMode: 1 }}
                   />
+                </div>
+
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <label htmlFor="technologies" className="form-label">
+                    Select Technologies
+                  </label>
+                  <select
+                    id="technologies"
+                    multiple
+                    value={insertService.technologies}
+                    onChange={(e) =>
+                      setInsertService({
+                        ...insertService,
+                        technologies: Array.from(
+                          e.target.selectedOptions,
+                          (option) => option.value
+                        ),
+                      })
+                    }
+                    style={{ padding: "12px 5px", fontSize: "15px" }}
+                  >
+                    <option defaultValue="Select Technology">
+                      Select Technology
+                    </option>
+                    {technology &&
+                      technology.map((tech) => (
+                        <option key={tech.id} value={tech.id}>
+                          {tech.technology_name}
+                        </option>
+                      ))}
+                  </select>
                 </div>
 
                 <div
