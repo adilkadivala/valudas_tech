@@ -3,7 +3,7 @@ import Navbar from "../admin/layout/Navbar";
 import Sidebar from "../admin/layout/Sidebar";
 import { useValudasData } from "../../context/Storage";
 import { DeleteModal } from "./layout/Modal";
-import { Trash2, Pencil, X, CloudDownload } from "lucide-react";
+import { Trash2, Pencil, X, Plus } from "lucide-react";
 import { toast } from "react-toastify";
 import CKEditor from "react-ckeditor-component";
 import "../../assets/css/admin/main.css";
@@ -210,8 +210,8 @@ const Services = () => {
               }}
               onClick={openInsertModal}
             >
-              <CloudDownload />
-              <span className="text">Open Gallery</span>
+              <Plus />
+              <span className="text">New Service</span>
             </button>
           </div>
 

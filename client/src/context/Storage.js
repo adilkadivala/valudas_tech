@@ -13,7 +13,6 @@ export const ValudasStorage = ({ children }) => {
   const [users, setUsers] = useState([]);
   const [industries, setIndustries] = useState([]);
   const [portfolio, setPortfolio] = useState([]);
-  const [services, setServices] = useState([]);
   const [technology, setTechnology] = useState([]);
   const [portImages, setPortImages] = useState([]);
   const [serviceTechnology, setServicesTechnology] = useState([]);
@@ -43,16 +42,6 @@ export const ValudasStorage = ({ children }) => {
     try {
       const response = await axios.get(`${API}/getportfolio`);
       setPortfolio(response.data);
-    } catch (error) {
-      console.error("Error fetching city list:", error);
-    }
-  };
-
-  // services
-  const getService = async () => {
-    try {
-      const response = await axios.get(`${API}/getservice`);
-      setServices(response.data);
     } catch (error) {
       console.error("Error fetching city list:", error);
     }
@@ -93,7 +82,6 @@ export const ValudasStorage = ({ children }) => {
     getUsersList();
     getIndustryData();
     getPortfolio();
-    getService();
     getTechnology();
     getPortImages();
     getServiceTechnology();
@@ -108,8 +96,6 @@ export const ValudasStorage = ({ children }) => {
         setIndustries,
         portfolio,
         setPortfolio,
-        services,
-        setServices,
         technology,
         setTechnology,
         portImages,

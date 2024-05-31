@@ -9,7 +9,6 @@ const users = require("./routes/users");
 const portfolio = require("./routes/portfolio");
 const industries = require("./routes/industries");
 const photos = require("./routes/photos");
-const services = require("./routes/services");
 const technologies = require("./routes/technologies");
 const service_technologies = require("./routes/service_tech");
 
@@ -31,7 +30,7 @@ app.use("/", users);
 app.use("/", portfolio);
 app.use("/", industries);
 app.use("/", photos);
-app.use("/", services);
+// app.use("/", services);
 app.use("/", technologies);
 app.use("/", service_technologies);
 
