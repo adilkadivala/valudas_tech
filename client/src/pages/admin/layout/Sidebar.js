@@ -1,21 +1,21 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import "../../../assets/css/admin/sidebar.css";
-import {
-  DatabaseZap,
-  LayoutDashboard,
-  FileInput,
-  ChevronUp,
-  ChevronDown,
-  Users,
-  LandPlot,
-  BookUser,
-  Cpu,
-  ShowerHead,
-  ArrowLeftFromLine,
-  Cog,
-  Images,
-} from "lucide-react";
+// import {
+//   DatabaseZap,
+//   LayoutDashboard,
+//   FileInput,
+//   ChevronUp,
+//   ChevronDown,
+//   Users,
+//   LandPlot,
+//   BookUser,
+//   Cpu,
+//   ShowerHead,
+//   ArrowLeftFromLine,
+//   Cog,
+//   Images,
+// } from "lucide-react";
 import { useLocation } from "react-router-dom";
 
 const Sidebar = ({ isOpen }) => {
@@ -32,7 +32,7 @@ const Sidebar = ({ isOpen }) => {
         {isOpen ? (
           <>
             <Link to="/dashboard" className="brand">
-              <DatabaseZap />
+              {/* <DatabaseZap /> */}
               <span className="text">AdminHub</span>
             </Link>
             <ul className="side-menu top">
@@ -40,17 +40,17 @@ const Sidebar = ({ isOpen }) => {
                 className={location.pathname === "/dashboard" ? "active" : ""}
               >
                 <Link to="/dashboard">
-                  <LayoutDashboard />
+                  {/* <LayoutDashboard /> */}
                   <span className="text">Dashboard</span>
                 </Link>
               </li>
               <li className={location.pathname === "#" ? "active" : ""}>
                 <div className="dropdown" onClick={handleDropdownClick}>
                   <Link to="#">
-                    <FileInput />
+                    {/* <FileInput /> */}
                     <span className="text">Pages</span>
 
-                    {dropdownOpen ? <ChevronUp /> : <ChevronDown />}
+                    {/* {dropdownOpen ? <ChevronUp /> : <ChevronDown />} */}
                   </Link>
                   {dropdownOpen && (
                     <div className="dropdown-container">
@@ -62,7 +62,7 @@ const Sidebar = ({ isOpen }) => {
                         }
                       >
                         <Link to="/dashboard/users">
-                          <Users />
+                          {/* <Users /> */}
                           <span className="text">Users</span>
                         </Link>
                       </li>
@@ -74,7 +74,7 @@ const Sidebar = ({ isOpen }) => {
                         }
                       >
                         <Link to="/dashboard/industries">
-                          <LandPlot />
+                          {/* <LandPlot /> */}
                           <span className="text">Industries</span>
                         </Link>
                       </li>
@@ -87,7 +87,7 @@ const Sidebar = ({ isOpen }) => {
                         }
                       >
                         <Link to="/dashboard/services">
-                          <ShowerHead />
+                          {/* <ShowerHead /> */}
                           <span className="text">Services</span>
                         </Link>
                       </li>
@@ -99,7 +99,7 @@ const Sidebar = ({ isOpen }) => {
                         }
                       >
                         <Link to="/dashboard/portfolio">
-                          <BookUser />
+                          {/* <BookUser /> */}
                           <span className="text">Portfolio</span>
                         </Link>
                       </li>
@@ -112,7 +112,7 @@ const Sidebar = ({ isOpen }) => {
                         }
                       >
                         <Link to="/dashboard/technologies">
-                          <Cpu />
+                          {/* <Cpu /> */}
                           <span className="text">Technologies</span>
                         </Link>
                       </li>
@@ -124,7 +124,7 @@ const Sidebar = ({ isOpen }) => {
                         }
                       >
                         <Link to="/dashboard/portimage">
-                          <Images />
+                          {/* <Images /> */}
                           <span className="text">Portfolio Image</span>
                         </Link>
                       </li>
@@ -137,13 +137,13 @@ const Sidebar = ({ isOpen }) => {
             <ul className="side-menu">
               <li>
                 <Link to="/settings">
-                  <Cog />
+                  {/* <Cog /> */}
                   <span className="text">Settings</span>
                 </Link>
               </li>
               <li>
                 <Link to="/logout" className="logout">
-                  <ArrowLeftFromLine />
+                  {/* <ArrowLeftFromLine /> */}
                   <span className="text">Logout</span>
                 </Link>
               </li>
@@ -152,37 +152,37 @@ const Sidebar = ({ isOpen }) => {
         ) : (
           <>
             <Link to="/dashboard" className="brand">
-              <DatabaseZap />
+              {/* <DatabaseZap /> */}
             </Link>
             <ul className="side-menu top">
               <li
                 className={location.pathname === "/dashboard" ? "active" : ""}
               >
                 <Link to="/dashboard">
-                  <LayoutDashboard />
+                  {/* <LayoutDashboard /> */}
                 </Link>
               </li>
               <li className={location.pathname === "#" ? "active" : ""}>
                 <div className="dropdown" onClick={handleDropdownClick}>
                   <Link to="#">
-                    <FileInput />
+                    {/* <FileInput /> */}
                   </Link>
                   {dropdownOpen && (
                     <div className="dropdown-container">
                       <Link to="/dashboard/users">
-                        <Users />
+                        {/* <Users />/ */}
                       </Link>
                       <Link to="/dashboard/industries">
-                        <LandPlot />
+                        {/* <LandPlot /> */}
                       </Link>
                       <Link to="/dashboard/services">
-                        <ShowerHead />
+                        {/* <ShowerHead /> */}
                       </Link>
                       <Link to="/dashboard/portfolio">
-                        <BookUser />
+                        {/* <BookUser /> */}
                       </Link>
                       <Link to="/dashboard/technologies">
-                        <Cpu />
+                        {/* <Cpu /> */}
                       </Link>
                     </div>
                   )}
@@ -193,12 +193,12 @@ const Sidebar = ({ isOpen }) => {
             <ul className="side-menu">
               <li>
                 <Link to="/settings">
-                  <Cog />
+                  {/* <Cog /> */}
                 </Link>
               </li>
               <li>
                 <Link to="/logout" className="logout">
-                  <ArrowLeftFromLine />
+                  {/* <ArrowLeftFromLine /> */}
                 </Link>
               </li>
             </ul>

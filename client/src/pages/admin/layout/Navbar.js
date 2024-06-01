@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../../../assets/css/admin/navbar.css";
 import { NavLink } from "react-router-dom";
-import { Menu, ScanSearch, X } from "lucide-react";
+// import { Menu, ScanSearch, X } from "lucide-react";
 
 const Navbar = ({ toggleSidebar, toggleDarkMode }) => {
   const [isSearchFormVisible, setSearchFormVisible] = useState(false);
@@ -27,7 +27,7 @@ const Navbar = ({ toggleSidebar, toggleDarkMode }) => {
     <>
       <section id="content">
         <nav>
-          <Menu onClick={toggleSidebar} style={{ cursor: "pointer" }} />
+          {/* <Menu onClick={toggleSidebar} style={{ cursor: "pointer" }} /> */}
           <form>
             <div className="form-input">
               <input type="search" placeholder="Search..." />
@@ -36,7 +36,7 @@ const Navbar = ({ toggleSidebar, toggleDarkMode }) => {
                 className="search-btn"
                 onClick={toggleSearchForm}
               >
-                {isSearchFormVisible ? <X /> : <ScanSearch />}
+                {/* {isSearchFormVisible ? <X /> : <ScanSearch />} */}
               </button>
             </div>
           </form>

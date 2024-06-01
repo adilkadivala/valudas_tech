@@ -1,4 +1,4 @@
-import { X } from "lucide-react";
+// import { X } from "lucide-react";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { useValudasData } from "../../../context/Storage";
@@ -65,7 +65,7 @@ const DeleteModal = ({ isDeleteOpen, onCloseDelete, onDelete, itemId }) => {
                 }}
                 onClick={onCloseDelete}
               >
-                <X />
+                {/* <X /> */}
               </button>
 
               <div className="sub_container ">
