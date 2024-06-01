@@ -1,0 +1,90 @@
+.review_first_page{
+    margin-top: 100px;
+}
+.review_page{
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+}
+#fir_page{
+margin-left: 0;}
+.review_box{
+    background: #F7F8F7;
+    height: auto;
+    width: 26%;
+    padding-bottom: 10px;
+    border-radius: 8px;
+    margin-left: 25px;
+}
+.review_box:hover{
+    background-color: #FFFFFF;
+    box-shadow: 0px 13px 50px -10px #0A181D26;
+
+}
+.review_icon{
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 20px;
+    font-size: 33px;
+    color: #6FBE44;
+
+}
+.review_icon img{
+    height: 12px;
+    width: 30%;
+    margin-top: 8px;
+}
+
+.review_box p{
+
+    font-size: 15px;
+    width: 87%;
+    line-height: 25px;
+    margin: 10px 15px;
+}
+
+.review_box h5{
+    margin: 10px 15px;
+    font-weight: 600;
+}
+#kd{
+    margin-top: 34px;
+}
+#Muqarab{
+    margin-top: 55px;
+
+}
+
+@media only screen and (max-width: 769px) {
+    .review_first_page{
+        margin-top: 50px;
+    }
+    .review_page{
+        flex-wrap: wrap;
+    }
+
+        #fir_page{
+        margin: 10px 15px;
+        }
+    .review_box{
+        width: 100%;
+        margin: 10px 15px;
+    }
+
+}
+
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+    .review_page {
+        display: flex;
+    }    
+    .review_box{
+        width: 45%;
+    }
+}
+
+@media only screen and (min-width: 770px) and (max-width: 1025px){
+
+    .review_box {
+        width: 29%;
+    }
+}

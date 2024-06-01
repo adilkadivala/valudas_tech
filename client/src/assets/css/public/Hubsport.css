@@ -1,0 +1,134 @@
+.hubsport {
+  margin-top: 150px;
+  display: flex;
+  justify-content: center;
+}
+
+.first_page {
+  width: 50%;
+  margin-left: 50px;
+}
+.empowering_pera {
+  background-color: #eaf3f6;
+  font-weight: 500;
+  padding: 10px 15px;
+  border-radius: 50px;
+}
+
+.hub_heding h1 span {
+  color: #ff5c35;
+}
+.hub_heding h1 {
+  margin-top: 25px;
+  width: 100%;
+  font-size: 37px;
+}
+
+.hub_pera p {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 30px;
+  text-align: left;
+  width: 100%;
+  margin-top: 20px;
+}
+.hub_button {
+  display: flex;
+}
+.hub_bt {
+  width: 42%;
+  margin-top: 30px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 20px;
+  background: #52a01f;
+  color: white;
+}
+#hire {
+  margin-left: 15px;
+  width: 38%;
+}
+.hub_img_page {
+  margin-left: 100px;
+}
+.hub_img_page img {
+  width: 100%;
+}
+
+@media only screen and (max-width: 769px) {
+  .hubsport {
+    flex-wrap: wrap;
+    margin-top: 70px;
+  }
+  .first_page {
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    padding: 0 15px;
+  }
+  .empowering_pera {
+    font-size: 12px;
+    margin: 0;
+    padding: 10px;
+    width: 100%;
+  }
+  .hub_heding h1 {
+    font-size: 22px;
+    margin: 0;
+    padding: 28px 0px;
+  }
+  .hub_pera p {
+    font-size: 13px;
+    margin: 0;
+    line-height: 20px;
+    text-align: center;
+  }
+  .hub_bt {
+    font-size: 14px;
+    width: 45%;
+    margin: 20px 0;
+    padding: 10px;
+  }
+  #hire {
+    width: 46%;
+  }
+  .hub_button {
+    flex-wrap: wrap;
+  }
+  .hub_img_page {
+    width: 100%;
+    margin: 0;
+  }
+  .hub_img_page img {
+    padding: 15px;
+  }
+}
+
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .hub_img_page img {
+    padding: 15px 100px;
+  }
+}
+
+@media only screen and (min-width: 770px) and (max-width: 1025px) {
+  .hubsport {
+    margin-top: 110px;
+  }
+  .hub_heding h1 {
+    font-size: 30px;
+  }
+  .first_page {
+    margin-left: 25px;
+  }
+
+  .hub_bt {
+    margin-top: 20px;
+  }
+  .empowering_pera {
+    font-size: 13px;
+  }
+  .hub_img_page {
+    margin-right: 40px;
+    margin-left: 50px;
+  }
+}

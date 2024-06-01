@@ -1,0 +1,354 @@
+.Service {
+  margin-top: 100px;
+}
+
+.empo_pera {
+  text-align: center;
+  color: black;
+}
+.empo_pera span {
+  background: #cae4eb1f;
+  height: 36px;
+  font-weight: 500;
+  padding: 5px 15px 5px 15px;
+  border-radius: 50px;
+}
+.service_header h1 {
+  text-align: center;
+  font-size: 30px;
+  margin-top: 25px;
+}
+.service_header span {
+  border-bottom: 2px solid black;
+}
+.service_pera p {
+  text-align: center;
+  width: 83%;
+  font-size: 15px;
+  margin: 0 auto;
+  margin-top: 20px;
+  line-height: 28px;
+}
+.service_sec_page {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 20px;
+}
+.dev_Page {
+  width: 400px;
+  height: 100px;
+  border-radius: 10px;
+  padding: 25px 15px;
+  background-color: #f7f8f7;
+  display: flex;
+  margin-top: 10px;
+}
+.dev_Page:hover {
+  background-color: white;
+  box-shadow: 0px 13px 50px -10px #0a181d26;
+}
+#dev i {
+  padding: 13px 10px;
+}
+#mob i {
+  padding: 11px 14px;
+  font-size: 22px;
+}
+.cms_i {
+  background-color: #6fbe44;
+  color: #eaf3f6;
+  border-radius: 50%;
+  margin-top: 7px;
+}
+
+.cms_i i {
+  padding: 13px;
+  font-size: 20px;
+}
+
+.cms_Pera p {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 26px;
+  text-align: left;
+  color: #666865;
+  margin-left: 20px;
+  margin-top: 5px;
+}
+
+.cms_Pera h5 {
+  margin-left: 20px;
+}
+
+.cms_devlopment {
+  width: 50%;
+  height: 370px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  margin-top: 10px;
+  box-shadow: 0px 13px 30px -10px #0a181d26;
+}
+.cms {
+  padding: 20px;
+  padding-bottom: 10px;
+}
+.cms span {
+  border-bottom: 2px dotted black;
+  padding-bottom: 6px;
+  font-weight: 600;
+  font-size: 19px;
+}
+.cms p {
+  margin-top: 25px;
+  font-size: 12px;
+  line-height: 23px;
+}
+.all_language_boxes {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px;
+}
+.language_box i {
+  color: #6fbe44;
+}
+.language_box {
+  box-shadow: 0px 13px 50px -10px #98989826;
+  border: 1px solid #dddcdc;
+  width: 23%;
+  height: 85px;
+  margin: 5px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  text-align: center;
+  padding: 15px;
+}
+
+.language_box i {
+  font-size: 35px;
+}
+.language_box p {
+  font-size: 13px;
+  margin-top: 5px;
+  font-weight: 600;
+}
+
+#laravel i {
+  color: #ff2d20;
+}
+#wordpress i {
+  color: #04759b;
+}
+#hub_icon i {
+  color: #ff7a59;
+}
+#drupal i {
+  color: #009cde;
+}
+#joomla img {
+  width: 30%;
+}
+#mern img {
+  width: 34%;
+}
+
+.service_third {
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  background-color: #52a01f;
+  height: auto;
+  padding-bottom: 30px;
+}
+
+.third_header {
+  width: 65%;
+  color: white;
+}
+.third_header h1 {
+  margin-top: 45px;
+  margin-left: 50px;
+  font-size: 30px;
+}
+.third_header p {
+  margin-left: 50px;
+  margin-top: 15px;
+  font-weight: 300;
+  line-height: 28px;
+  margin-right: 20px;
+}
+.lets_bt button {
+  padding: 10px 30px;
+  border-radius: 31px;
+  border: none;
+  margin-top: 85px;
+  font-size: 18px;
+  margin-left: 150px;
+  font-weight: 600;
+}
+
+@media only screen and (max-width: 769px) {
+  .service_sec_page {
+    flex-wrap: wrap;
+  }
+  .service_header h1 {
+    font-size: 22px;
+    line-height: 35px;
+    margin: 15px;
+    margin-bottom: 0px;
+  }
+  .empo_pera span {
+    font-size: 13px;
+  }
+  .service_pera p {
+    margin: 0;
+    padding: 10px 15px;
+    width: 100%;
+  }
+  .cms_Pera p {
+    font-size: 12px;
+  }
+  .cms span {
+    margin: 0 auto;
+  }
+  .all_language_boxes {
+    flex-wrap: wrap;
+    margin: 10px 15px;
+  }
+  .language_box {
+    width: 29%;
+  }
+  .language_box p {
+    font-size: 10px;
+  }
+  #joomla img,
+  #mern img {
+    width: 40%;
+  }
+  .dev_Page {
+    width: 100%;
+  }
+
+  .cms_devlopment {
+    width: 100%;
+    height: auto;
+    padding-bottom: 20px;
+  }
+  .cms {
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+    padding: 15px;
+    font-size: 13px;
+  }
+  .cms p {
+    font-size: 13px;
+    text-align: justify;
+    padding: 0 12px;
+  }
+
+  .service_third {
+    flex-wrap: wrap;
+    margin-top: 50px;
+    justify-content: center;
+  }
+  .third_header h1 {
+    padding: 30px 15px;
+    margin: 0;
+    font-size: 22px;
+    padding-bottom: 10px;
+  }
+  .third_header {
+    width: 100%;
+    text-align: center;
+  }
+  .third_header p {
+    padding: 15px;
+    margin: 0;
+    line-height: 23px;
+  }
+  .lets_bt button {
+    margin: 15px;
+    font-size: 13px;
+    padding: 10px 15px;
+  }
+}
+
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .service_sec_page {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .devlopment_page {
+    width: 35%;
+  }
+  .cms_Pera p {
+    display: none;
+  }
+  .cms_i {
+    padding: 0;
+    height: 36px;
+    width: 36px;
+    margin: -7px 0;
+  }
+  .cms_i i {
+    font-size: 13px;
+  }
+  #mob i {
+    font-size: 16px;
+    padding: 12px;
+  }
+
+  .dev_Page {
+    width: 100%;
+    margin: 10px 15px;
+    height: 70px;
+  }
+  .language_box {
+    width: 23%;
+  }
+  #joomla img {
+    width: 21%;
+  }
+  #mern img {
+    width: 25%;
+  }
+
+  .cms_devlopment {
+    width: 55%;
+    overflow: auto;
+    margin-left: 20px;
+    height: 310px;
+  }
+  .cms_devlopment::-webkit-scrollbar {
+    display: none;
+  }
+  .cms {
+    margin: 0;
+    padding: 10px;
+  }
+  .language_box {
+    width: 22%;
+  }
+  .language_box i {
+    font-size: 30px;
+  }
+  #joomla img {
+    width: 47%;
+  }
+  #mern img {
+    width: 53%;
+  }
+}
+
+@media only screen and (min-width: 770px) and (max-width: 1025px) {
+  .cms_devlopment {
+    height: auto;
+  }
+  .language_box {
+    width: 22%;
+    margin-top: 20px;
+  }
+  .lets_bt button {
+    margin: 110px 60px;
+  }
+}

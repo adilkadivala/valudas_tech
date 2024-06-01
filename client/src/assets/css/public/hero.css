@@ -1,330 +1,178 @@
-section {
-    position: relative;
-  }
-  
+.hero {
+  background-image: url("../images/Group\ 741.png");
+  height: 550px;
+  width: 100%;
+  background-size: cover;
+  padding: 150px 0 0 0;
+}
+
+.hero_page {
+  text-align: center;
+}
+#empowering {
+  background-color: #d5e9ee1f;
+  color: white;
+  font-size: 15px;
+  font-weight: 300;
+  padding: 4px 11px;
+  border-radius: 20px;
+}
+.hero_page h1 {
+  color: white;
+  margin-top: 30px;
+  font-size: 39px;
+}
+
+.hero_page h1 span {
+  border-bottom: 2px solid #52a01f;
+}
+.hero_page p {
+  color: white;
+  font-weight: 300;
+  width: 84%;
+  margin-left: 100px;
+  margin-top: 25px;
+  line-height: 25px;
+}
+.hero_page button {
+  background-color: #52a01f;
+  border: none;
+  font-size: 18px;
+  padding: 10px 25px;
+  color: white;
+  margin-top: 60px;
+  border-radius: 20px;
+}
+
+.hero_second {
+  background-color: rgb(255, 255, 255);
+  position: absolute;
+  height: auto;
+  width: 83%;
+  left: 50%;
+  right: 50%;
+  top: 34.5rem;
+  transform: translate(-50%, -50%);
+  display: flex;
+  border-radius: 10px;
+  box-shadow: 0px 13px 50px -10px #0a181d26;
+}
+
+.left {
+  background-color: #eaf3f6;
+  border-radius: 50%;
+  top: 2rem;
+  left: -1rem;
+  position: absolute;
+}
+
+.left i {
+  font-size: 22px;
+  margin: 7px 12px;
+}
+
+.hero_end {
+  justify-content: center;
+  display: flex;
+}
+
+.hero_end div {
+  width: 18%;
+  margin-left: 10px;
+}
+
+.hero_end div img {
+  width: 100%;
+}
+#awc img {
+  width: 80%;
+  margin-top: 5px;
+  margin-left: 10px;
+}
+
+#forolly img {
+  width: 80%;
+  margin-top: 5px;
+}
+#mumez img {
+  margin-top: 14px;
+  height: 60px;
+  margin-left: -15px;
+}
+#nandolia img {
+  margin-top: 23px;
+  margin-left: 10px;
+}
+#micro img {
+  margin-top: 20px;
+  margin-left: 25px;
+}
+
+.right {
+  background-color: #eaf3f6;
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  position: absolute;
+  top: 2rem;
+  right: -1rem;
+}
+.right i {
+  font-size: 22px;
+  margin: 7px 10px;
+}
+
+@media only screen and (max-width: 768px) {
   .hero {
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    height: 1040px;
-    width: 100%;
+    padding: 100px 0;
+    height: auto;
+    padding-bottom: 50px;
   }
-  
-  .hero::after {
-    content: "";
-    background: #203656;
-    display: block;
-    left: 0;
-    opacity: 0.8;
-    top: 0;
-    height: 100%;
-    position: absolute;
-    width: 100%;
+  .hero_second {
+    display: none;
   }
-  
-  .post .category-badge {
-    color: #fff;
+  #empowering {
+    font-size: 11px;
+    padding: 5px;
+  }
+  .hero_page {
+    text-align: center;
+  }
+  .hero_page h1 {
+    font-size: 19px;
+    width: 100%;
+    padding: 0 15px 22px 15px;
+    line-height: 27px;
+  }
+  .hero_page p {
+    margin: 0;
+    width: 100%;
     font-size: 13px;
-    border-radius: 25px;
-    display: inline-block;
-    padding: 6px 11px;
-    line-height: 1;
-    left: 20px;
-    top: 20px;
-    z-index: 1;
-    background-color: #6e72fc;
-    background-image: linear-gradient(315deg, #6e72fc 0%, #ad1deb 74%);
-    background-size: 200% auto;
-    transition: all 0.3s ease-in-out;
+    line-height: 20px;
+    padding: 0 15px;
   }
-  
-  .post .category-badge:hover {
-    background-position: right center;
+  .hero_page button {
+    margin: 15px;
+    padding: 8px 12px;
+    font-size: 13px;
   }
-  
-  .post .thumb {
-    position: relative;
+}
+
+@media only screen and (min-width: 770px) and (max-width: 1025px) {
+  .hero_page h1 {
+    font-size: 30px;
   }
-  
-  .post .thumb.rounded .inner {
-    border-radius: 10px;
-    overflow: hidden;
+  .hero_page p {
+    font-size: 16px;
+    margin-left: 78px;
   }
-  
-  .post .thumb img {
-    transform: scale(1);
-    transition: all 0.3s ease-in-out;
+  .hero_page button {
+    margin-top: 40px;
   }
-  
-  .post .thumb:hover img {
-    transform: scale(1.07);
+  #mumez img {
+    margin-top: 5px;
   }
-  
-  .post .post-title a {
-    color: #203656;
+  .hero_end {
+    margin: 5px 20px;
   }
-  
-  .post .post-title a:hover {
-    color: #ad1deb;
-  }
-  
-  .post .meta {
-    font-size: 14px;
-    color: #9faabb;
-  }
-  
-  .post .meta a {
-    color: #9faabb;
-    font-weight: 400;
-  }
-  
-  .post .meta a:hover {
-    color: #570f75;
-  }
-  
-  .post .meta i {
-    vertical-align: middle;
-  }
-  
-  .post .meta li:last-child::after {
-    content: "";
-    display: none;
-  }
-  
-  .post .meta li::after {
-    content: "";
-    display: inline-block;
-    background-color: #ad1deb;
-    border-radius: 50%;
-    margin-left: 1rem;
-    height: 3px;
-    vertical-align: middle;
-    position: relative;
-    top: -1px;
-    width: 3px;
-  }
-  
-  .post .meta li:not(:last-child) {
-    margin-right: 0.8rem;
-  }
-  
-  .featured-post-lg {
-    position: relative;
-  }
-  
-  .featured-post-lg:hover .thumb .inner {
-    transform: scale(1.05);
-  }
-  
-  .featured-post-lg .thumb {
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 8px 20px rgba(32, 54, 86, 0.3);
-  }
-  
-  .featured-post-lg .thumb::after {
-    content: "";
-    background: #203656;
-    display: block;
-    height: 100%;
-    left: 0;
-    opacity: 0.6;
-    top: 0;
-    position: absolute;
-    width: 100%;
-  }
-  
-  .featured-post-lg .details {
-    bottom: 50px;
-    left: 50px;
-    right: 50px;
-    position: absolute;
-    z-index: 1;
-  }
-  
-  .featured-post-lg .post-title {
-    font-size: 32px;
-  }
-  
-  .featured-post-lg .post-title a {
-    color: #fff;
-  }
-  
-  .featured-post-lg .thumb .inner {
-    background-size: cover;
-    background-position: center center;
-    height: 533px;
-    transition: all 0.3s ease-in-out;
-    transform: scale(1);
-  }
-  
-  .featured-post-lg .post-title a:hover {
-    color: #e098ff;
-  }
-  
-  .featured-post-lg .meta {
-    color: rgba(255, 255, 255, 0.6);
-  }
-  
-  .featured-post-lg .meta li::after {
-    content: "";
-    background: rgba(255, 255, 255, 0.6);
-  }
-  
-  .featured-post-lg .meta li a {
-    color: rgba(255, 255, 255, 0.6);
-  }
-  
-  /* ******************* hero right side ************** */
-  
-  .rounded {
-    border-radius: 10px !important;
-  }
-  
-  .bordered {
-    border: 1px solid #ebebeb;
-  }
-  
-  .post-tabs {
-    padding: 30px;
-  }
-  
-  .post-tabs .tab-content {
-    margin-top: 30px;
-  }
-  
-  .nav-tabs {
-    border-bottom: 0;
-  }
-  
-  .tab-content {
-    position: relative;
-  }
-  
-  .tab-pane {
-    opacity: 1;
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .tab-pane.loading {
-    opacity: 0.3;
-  }
-  
-  .lds-dual-ring {
-    display: inline-block;
-    position: absolute;
-    right: 40px;
-    height: 40px;
-    top: 50%;
-    left: 50%;
-    visibility: hidden;
-    opacity: 0;
-    transform: translate(-50%, -50%);
-    transition: all 0.2s ease-in-out;
-    z-index: 1;
-  }
-  
-  .lds-dual-ring.loading {
-    visibility: visible;
-    opacity: 1;
-  }
-  
-  .lds-dual-ring::after {
-    content: " ";
-    display: block;
-    width: 40px;
-    height: 40px;
-    margin: 8px;
-    border-radius: 50%;
-    border: 3px solid;
-    border-color: #ad1deb transparent #ad1deb transparent;
-    animation: lds-dual-ring 1.2s linear infinite;
-  }
-  
-  @keyframes lds-dual-ring {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-  }
-  
-  .nav-fill .nav-item, .nav-fill>.nav-link {
-    margin-right: 10px;
-  }
-  
-  .nav-fill .nav-item:last-child, .nav-fill>.nav-link:last-child {
-    margin-right: 0;
-  }
-  
-  .nav-fill .nav-item>.nav-link {
-    color: #8f9bad !important;
-    margin-right: 10px;
-  }
-  
-  .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
-    color: #fff !important;
-    background-color: #6e72fc;
-    background-image: linear-gradient(315deg, #6e72fc 0%, #ad1deb 74%);
-    border-color: transparent;
-    background-size: 200% auto;
-  }
-  
-  .nav-pills .nav-link {
-    background: 0 0;
-    border: 1px solid #ebebeb;
-    border-radius: 30px;
-  }
-  
-  .post.post-list-sm {
-    clear: both;
-  }
-  
-  .post.post-list-sm.circle .thumb {
-    max-width: 60px;
-  }
-  
-  .post.post-list-sm.circle .details {
-    margin-left: 80px;
-  }
-  
-  .post.post-list-sm .thumb {
-    float: left;
-    position: relative;
-  }
-  
-  .post .thumb {
-    position: relative;
-  }
-  
-  .post .thumb.rounded .inner {
-    border-radius: 10px;
-    overflow: hidden;
-  }
-  
-  .post .thumb.circle .inner {
-    overflow: hidden;
-    border-radius: 50%;
-  }
-  
-  .post.post-list-sm .post-title {
-    font-size: 15px;
-  }
-  
-  .post.post-list-sm::after {
-    content: "";
-    display: block;
-    height: 1px;
-    margin-bottom: 20px;
-    margin-top: 20px;
-    width: 100%;
-    background: #ebebeb;
-    background: linear-gradient(to left, #ebebeb 0%, transparent 100%);
-  }
-  
-  .post.post-list-sm:last-child::after {
-    content: "";
-    display: none;
-  }
-  
+}
