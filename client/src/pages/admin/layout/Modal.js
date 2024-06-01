@@ -50,7 +50,7 @@ const DeleteModal = ({ isDeleteOpen, onCloseDelete, onDelete, itemId }) => {
               alignItems: "center",
             }}
           >
-            <div className=" ">
+            <div>
               <button
                 type="button"
                 style={{
@@ -65,7 +65,7 @@ const DeleteModal = ({ isDeleteOpen, onCloseDelete, onDelete, itemId }) => {
                 }}
                 onClick={onCloseDelete}
               >
-                {/* <X /> */}
+                <i className="fa-solid fa-xmark"></i>
               </button>
 
               <div className="sub_container ">
@@ -135,8 +135,6 @@ const DeleteModal = ({ isDeleteOpen, onCloseDelete, onDelete, itemId }) => {
   );
 };
 
-// photo gallery modal
-
 // PhotosGallery component
 const PhotosGallery = ({ isGalleryOpen, onGalleryClose, onSelectImage }) => {
   const { portImages } = useValudasData([]);
@@ -179,7 +177,7 @@ const PhotosGallery = ({ isGalleryOpen, onGalleryClose, onSelectImage }) => {
             cursor: "pointer",
           }}
         >
-          Close
+          <i className="fa-solid fa-xmark"></i>
         </button>
         <div
           className="gallery"

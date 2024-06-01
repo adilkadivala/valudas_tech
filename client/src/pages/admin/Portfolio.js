@@ -3,7 +3,6 @@ import Navbar from "../admin/layout/Navbar";
 import Sidebar from "../admin/layout/Sidebar";
 import { useValudasData } from "../../context/Storage";
 import "../../assets/css/admin/main.css";
-// import { Pencil, Plus, Trash2, X } from "lucide-react";
 import { DeleteModal, PhotosGallery } from "./layout/Modal";
 import { toast } from "react-toastify";
 import { NavLink } from "react-router-dom";
@@ -25,7 +24,7 @@ const Portfolio = () => {
     portfolio,
     setPortfolio,
     industries = [],
-    services = [],
+    serviceTechnology = [],
     portImages = [],
   } = useValudasData();
 
@@ -239,7 +238,7 @@ const Portfolio = () => {
       <section id="content">
         <main>
           <div className="head-title">
-            <div className="left">
+            <div className="adminleft">
               <h1>Portfolio Page</h1>
             </div>
             <NavLink className="btn-download" onClick={openInsertModal}>
@@ -275,8 +274,8 @@ const Portfolio = () => {
                           (industry) => industry.id === port.industry_id
                         );
                       const service =
-                        services &&
-                        services.find(
+                        serviceTechnology &&
+                        serviceTechnology.find(
                           (service) => service.id === port.service_id
                         );
                       const portImage =
@@ -340,7 +339,7 @@ const Portfolio = () => {
                               }}
                               onClick={() => openDeleteModal(port.id)}
                             >
-                              {/* <Trash2 /> */}
+                              <i className="fa-solid fa-trash"></i>
                             </button>
                             <button
                               style={{
@@ -351,7 +350,7 @@ const Portfolio = () => {
                               }}
                               onClick={() => openUpdateModal(port)}
                             >
-                              {/* <Pencil /> */}
+                              <i className="fa-solid fa-pen"></i>
                             </button>
                           </td>
                         </tr>
@@ -540,8 +539,8 @@ const Portfolio = () => {
                 onChange={(e) => handleInputChange(e, setInsertPortfolio)}
               >
                 <option value="">Select Service</option>
-                {services &&
-                  services.map((service) => {
+                {serviceTechnology &&
+                  serviceTechnology.map((service) => {
                     return (
                       <option key={service.id} value={service.id}>
                         {service.service_name}
@@ -795,8 +794,8 @@ const Portfolio = () => {
                 onChange={(e) => handleInputChange(e, setUpdatePortfolio)}
               >
                 <option value="">Select Service</option>
-                {services &&
-                  services.map((service) => {
+                {serviceTechnology &&
+                  serviceTechnology.map((service) => {
                     return (
                       <option key={service.id} value={service.id}>
                         {service.service_name}

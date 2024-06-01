@@ -1,4 +1,3 @@
-
 * {
   margin: 0;
   padding: 0;
@@ -16,7 +15,6 @@ li {
 :root {
   --poppins: "Poppins", sans-serif;
   --lato: "Lato", sans-serif;
-
   --light: #f9f9f9;
   --blue: #3c91e6;
   --light-blue: #cfe8ff;
@@ -41,12 +39,12 @@ body.dark {
 }
 
 body {
-  /* background: var(--grey); */
   overflow-x: hidden;
 }
 
 /* CONTENT */
 #content {
+  background: var(--grey);
   position: relative;
   width: calc(100% - 240px);
   left: 240px;
@@ -87,17 +85,18 @@ body {
 #content nav .nav-link:hover {
   color: var(--blue);
 }
-#content nav form {
+#content nav .admin_form {
   max-width: 400px;
   width: 100%;
+  background-color: transparent;
   margin-right: auto;
 }
-#content nav form .form-input {
+#content nav .admin_form .form-input {
   display: flex;
   align-items: center;
   height: 36px;
 }
-#content nav form .form-input input {
+#content nav .admin_form .form-input input {
   flex-grow: 1;
   padding: 0 16px;
   height: 100%;
@@ -108,7 +107,7 @@ body {
   width: 100%;
   color: var(--dark);
 }
-#content nav form .form-input button {
+#content nav .admin_form .form-input button {
   width: 36px;
   height: 100%;
   display: flex;
@@ -165,11 +164,11 @@ body {
 }
 
 @media screen and (max-width: 576px) {
-  #content nav form .form-input input {
+  #content nav .admin_form form .form-input input {
     display: none;
   }
 
-  #content nav form .form-input button {
+  #content nav .admin_form form .form-input button {
     width: auto;
     height: auto;
     background: transparent;
@@ -177,11 +176,11 @@ body {
     color: var(--dark);
   }
 
-  #content nav form.show .form-input input {
+  #content nav .admin_form form.show .form-input input {
     display: block;
     width: 100%;
   }
-  #content nav form.show .form-input button {
+  #content nav .admin_form form.show .form-input button {
     width: 36px;
     height: 100%;
     border-radius: 0 36px 36px 0;

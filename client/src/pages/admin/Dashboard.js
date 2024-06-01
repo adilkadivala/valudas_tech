@@ -2,32 +2,11 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../admin/layout/Navbar";
 import Sidebar from "../admin/layout/Sidebar";
 import { NavLink } from "react-router-dom";
-import { PhotosGallery } from "./layout/Modal";
-// import // CalendarDays,
-// UsersRound,
-// CircleDollarSign,
-// CloudDownload,
-// Search,
-// EllipsisVertical,
-// ListFilter,
-// Plus,
-// ("lucide-react");
 import "../../assets/css/admin/main.css";
 
 const Main = () => {
   const [sidebarHidden, setSidebarHidden] = useState(window.innerWidth < 768);
   const [isDarkMode, setDarkMode] = useState(false);
-  const [openPhotoGallary, setOpenPhotoGallery] = useState(false);
-
-  // open Delete modal
-  const openGalleryModal = () => {
-    setOpenPhotoGallery(true);
-  };
-
-  // close Delete modal
-  const closeGalleryModal = () => {
-    setOpenPhotoGallery(false);
-  };
 
   const toggleSidebar = () => {
     setSidebarHidden(!sidebarHidden);
@@ -54,14 +33,11 @@ const Main = () => {
     <>
       <Sidebar isOpen={!sidebarHidden} />
       <Navbar toggleSidebar={toggleSidebar} toggleDarkMode={toggleDarkMode} />
-      <PhotosGallery
-        isGalleryOpen={openPhotoGallary}
-        onGalleryClose={closeGalleryModal}
-      />
+
       <section id="content">
         <main>
           <div className="head-title">
-            <div className="left">
+            <div className="adminleft">
               <h1>Dashboard</h1>
               <ul className="breadcrumb">
                 <li>
@@ -84,7 +60,6 @@ const Main = () => {
                 color: "white",
                 cursor: "pointer",
               }}
-              onClick={openGalleryModal}
             >
               {/* <CloudDownload /> */}
               <span className="text">Open Gallery</span>
@@ -93,21 +68,21 @@ const Main = () => {
 
           <ul className="box-info">
             <li>
-              {/* <CalendarDays /> */}
+              <i className="fa-solid fa-calendar-days"></i>
               <span className="text">
                 <h3>1020</h3>
                 <p>New Order</p>
               </span>
             </li>
             <li>
-              {/* <UsersRound /> */}
+              <i className="fa-solid fa-user"></i>
               <span className="text">
                 <h3>2834</h3>
                 <p>Visitors</p>
               </span>
             </li>
             <li>
-              {/* <CircleDollarSign /> */}
+              <i className="fa-solid fa-sack-dollar"></i>
               <span className="text">
                 <h3>$2543</h3>
                 <p>Total Sales</p>
@@ -119,8 +94,6 @@ const Main = () => {
             <div className="order">
               <div className="head">
                 <h3>Recent Orders</h3>
-                {/* <Search /> */}
-                {/* <ListFilter /> */}
               </div>
               <table>
                 <thead>
@@ -202,29 +175,22 @@ const Main = () => {
             <div className="todo">
               <div className="head">
                 <h3>Todos</h3>
-                {/* <Plus /> */}
-                {/* <ListFilter /> */}
               </div>
               <ul className="todo-list">
                 <li className="completed">
                   <p>Todo List</p>
-                  {/* <EllipsisVertical /> */}
                 </li>
                 <li className="completed">
                   <p>Todo List</p>
-                  {/* // <EllipsisVertical /> */}
                 </li>
                 <li className="not-completed">
                   <p>Todo List</p>
-                  {/* // <EllipsisVertical /> */}
                 </li>
                 <li className="completed">
                   <p>Todo List</p>
-                  {/* // <EllipsisVertical /> */}
                 </li>
                 <li className="not-completed">
                   <p>Todo List</p>
-                  {/* // <EllipsisVertical /> */}
                 </li>
               </ul>
             </div>

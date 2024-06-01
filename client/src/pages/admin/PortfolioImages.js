@@ -3,7 +3,6 @@ import Navbar from "../admin/layout/Navbar";
 import Sidebar from "../admin/layout/Sidebar";
 import { useValudasData } from "../../context/Storage";
 import "../../assets/css/admin/main.css";
-// import { Pencil, Trash2, X } from "lucide-react";
 import { DeleteModal } from "./layout/Modal";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -163,7 +162,7 @@ const PortImages = () => {
       <section id="content">
         <main>
           <div className="head-title">
-            <div className="left">
+            <div className="adminleft">
               <h1>Portfolio Images</h1>
             </div>
           </div>
@@ -208,7 +207,7 @@ const PortImages = () => {
                               }}
                               onClick={() => openDeleteModal(image.id)}
                             >
-                              {/* <Trash2 /> */}
+                              <i className="fa-solid fa-trash"></i>
                             </button>
                             <button
                               style={{
@@ -219,7 +218,7 @@ const PortImages = () => {
                               }}
                               onClick={() => openEditModal(image)}
                             >
-                              {/* <Pencil /> */}
+                              <i className="fa-solid fa-pen"></i>
                             </button>
                           </td>
                         </tr>

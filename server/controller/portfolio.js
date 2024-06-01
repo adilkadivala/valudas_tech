@@ -47,7 +47,7 @@ const insertPortfolio = async (req, res) => {
       portfolio_photos,
     ];
 
-    connectDB.query(Que, data, (err, data) => {
+    connectDB.query(Que, data, (err) => {
       if (err) {
         console.error(err.message);
         return res

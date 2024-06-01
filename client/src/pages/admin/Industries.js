@@ -3,7 +3,6 @@ import Navbar from "../admin/layout/Navbar";
 import Sidebar from "../admin/layout/Sidebar";
 import { useValudasData } from "../../context/Storage";
 import "../../assets/css/admin/main.css";
-// import { Trash2, Pencil, X } from "lucide-react";
 import { toast } from "react-toastify";
 import { DeleteModal } from "./layout/Modal";
 import axios from "axios";
@@ -176,7 +175,7 @@ const Industries = () => {
       <section id="content">
         <main>
           <div className="head-title">
-            <div className="left">
+            <div className="adminleft">
               <h1>Industry Page</h1>
             </div>
           </div>
@@ -212,7 +211,7 @@ const Industries = () => {
                               }}
                               onClick={() => openDeleteModal(industry.id)}
                             >
-                              {/* <Trash2 /> */}
+                              <i className="fa-solid fa-trash"></i>
                             </button>
 
                             <button
@@ -224,7 +223,7 @@ const Industries = () => {
                               }}
                               onClick={() => openEditModal(industry)}
                             >
-                              {/* <Pencil /> */}
+                              <i className="fa-solid fa-pen"></i>
                             </button>
                           </td>
                         </tr>
