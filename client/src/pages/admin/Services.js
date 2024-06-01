@@ -3,7 +3,7 @@ import Navbar from "../admin/layout/Navbar";
 import Sidebar from "../admin/layout/Sidebar";
 import { useValudasData } from "../../context/Storage";
 import { DeleteModal } from "./layout/Modal";
-import { Trash2, Pencil, X, Plus } from "lucide-react";
+// import { Trash2, Pencil, X, Plus } from "lucide-react";
 import { toast } from "react-toastify";
 import CKEditor from "react-ckeditor-component";
 import "../../assets/css/admin/main.css";
@@ -210,7 +210,7 @@ const Services = () => {
               }}
               onClick={openInsertModal}
             >
-              <Plus />
+              {/* <Plus /> */}
               <span className="text">New Service</span>
             </button>
           </div>
@@ -266,7 +266,7 @@ const Services = () => {
                                   openDeleteModal(service.service_id)
                                 }
                               >
-                                <Trash2 />
+                                {/* <Trash2 /> */}
                               </button>
 
                               <button
@@ -278,7 +278,7 @@ const Services = () => {
                                 }}
                                 onClick={() => openEditModal(service)}
                               >
-                                <Pencil />
+                                {/* <Pencil /> */}
                               </button>
                             </td>
                           </tr>
@@ -342,7 +342,7 @@ const Services = () => {
                 }}
                 onClick={closeInsertModal}
               >
-                <X />
+                {/* <X /> */}
               </button>
             </div>
 
@@ -529,7 +529,7 @@ const Services = () => {
                 }}
                 onClick={closeEditModal}
               >
-                <X />
+                {/* <X /> */}
               </button>
             </div>
 

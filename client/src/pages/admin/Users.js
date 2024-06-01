@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../admin/layout/Navbar";
 import Sidebar from "../admin/layout/Sidebar";
-import { Trash2 } from "lucide-react";
+// import { Trash2 } from "lucide-react";
 import { toast } from "react-toastify";
 import { useValudasData } from "../../context/Storage";
 import "../../assets/css/admin/main.css";
@@ -129,7 +129,7 @@ const Users = () => {
                                 }}
                                 onClick={() => openDeleteModal(user.id)}
                               >
-                                <Trash2 />
+                                {/* <Trash2 /> */}
                               </button>
                             </td>
                           </tr>

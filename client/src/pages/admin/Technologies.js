@@ -4,7 +4,7 @@ import Sidebar from "./layout/Sidebar";
 import { useValudasData } from "../../context/Storage";
 import "../../assets/css/admin/main.css";
 import { DeleteModal } from "./layout/Modal";
-import { Trash2, Pencil, X } from "lucide-react";
+// import { Trash2, Pencil, X } from "lucide-react";
 import { toast } from "react-toastify";
 import axios from "axios";
 
@@ -199,7 +199,7 @@ const TechStack = () => {
                                 }}
                                 onClick={() => openDeleteModal(tech.id)}
                               >
-                                <Trash2 />
+                                {/* <Trash2 /> */}
                               </button>
 
                               <button
@@ -211,7 +211,7 @@ const TechStack = () => {
                                 }}
                                 onClick={() => openEditModal(tech)}
                               >
-                                <Pencil />
+                                {/* <Pencil /> */}
                               </button>
                             </td>
                           </tr>
@@ -345,7 +345,7 @@ const TechStack = () => {
                 }}
                 onClick={closeEditModal}
               >
-                <X />
+                {/* <X /> */}
               </button>
             </div>
 

@@ -3,7 +3,7 @@ import Navbar from "../admin/layout/Navbar";
 import Sidebar from "../admin/layout/Sidebar";
 import { useValudasData } from "../../context/Storage";
 import "../../assets/css/admin/main.css";
-import { Pencil, Plus, Trash2, X } from "lucide-react";
+// import { Pencil, Plus, Trash2, X } from "lucide-react";
 import { DeleteModal, PhotosGallery } from "./layout/Modal";
 import { toast } from "react-toastify";
 import { NavLink } from "react-router-dom";
@@ -243,7 +243,7 @@ const Portfolio = () => {
               <h1>Portfolio Page</h1>
             </div>
             <NavLink className="btn-download" onClick={openInsertModal}>
-              <Plus />
+              {/* <Plus /> */}
               <span className="text">Add New</span>
             </NavLink>
           </div>
@@ -340,7 +340,7 @@ const Portfolio = () => {
                               }}
                               onClick={() => openDeleteModal(port.id)}
                             >
-                              <Trash2 />
+                              {/* <Trash2 /> */}
                             </button>
                             <button
                               style={{
@@ -351,7 +351,7 @@ const Portfolio = () => {
                               }}
                               onClick={() => openUpdateModal(port)}
                             >
-                              <Pencil />
+                              {/* <Pencil /> */}
                             </button>
                           </td>
                         </tr>
@@ -413,7 +413,7 @@ const Portfolio = () => {
             }}
             onClick={closeInsertModal}
           >
-            <X />
+            {/* <X /> */}
           </button>
 
           <h2>Insert Portfolio</h2>
@@ -663,7 +663,7 @@ const Portfolio = () => {
             }}
             onClick={closeUpdateModal}
           >
-            <X />
+            {/* <X /> */}
           </button>
 
           <h2>Update Portfolio</h2>

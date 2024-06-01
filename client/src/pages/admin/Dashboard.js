@@ -3,16 +3,15 @@ import Navbar from "../admin/layout/Navbar";
 import Sidebar from "../admin/layout/Sidebar";
 import { NavLink } from "react-router-dom";
 import { PhotosGallery } from "./layout/Modal";
-import {
-  CalendarDays,
-  UsersRound,
-  CircleDollarSign,
-  CloudDownload,
-  Search,
-  EllipsisVertical,
-  ListFilter,
-  Plus,
-} from "lucide-react";
+// import // CalendarDays,
+// UsersRound,
+// CircleDollarSign,
+// CloudDownload,
+// Search,
+// EllipsisVertical,
+// ListFilter,
+// Plus,
+// ("lucide-react");
 import "../../assets/css/admin/main.css";
 
 const Main = () => {
@@ -87,28 +86,28 @@ const Main = () => {
               }}
               onClick={openGalleryModal}
             >
-              <CloudDownload />
+              {/* <CloudDownload /> */}
               <span className="text">Open Gallery</span>
             </button>
           </div>
 
           <ul className="box-info">
             <li>
-              <CalendarDays />
+              {/* <CalendarDays /> */}
               <span className="text">
                 <h3>1020</h3>
                 <p>New Order</p>
               </span>
             </li>
             <li>
-              <UsersRound />
+              {/* <UsersRound /> */}
               <span className="text">
                 <h3>2834</h3>
                 <p>Visitors</p>
               </span>
             </li>
             <li>
-              <CircleDollarSign />
+              {/* <CircleDollarSign /> */}
               <span className="text">
                 <h3>$2543</h3>
                 <p>Total Sales</p>
@@ -120,8 +119,8 @@ const Main = () => {
             <div className="order">
               <div className="head">
                 <h3>Recent Orders</h3>
-                <Search />
-                <ListFilter />
+                {/* <Search /> */}
+                {/* <ListFilter /> */}
               </div>
               <table>
                 <thead>
@@ -203,29 +202,29 @@ const Main = () => {
             <div className="todo">
               <div className="head">
                 <h3>Todos</h3>
-                <Plus />
-                <ListFilter />
+                {/* <Plus /> */}
+                {/* <ListFilter /> */}
               </div>
               <ul className="todo-list">
                 <li className="completed">
                   <p>Todo List</p>
-                  <EllipsisVertical />
+                  {/* <EllipsisVertical /> */}
                 </li>
                 <li className="completed">
                   <p>Todo List</p>
-                  <EllipsisVertical />
+                  {/* // <EllipsisVertical /> */}
                 </li>
                 <li className="not-completed">
                   <p>Todo List</p>
-                  <EllipsisVertical />
+                  {/* // <EllipsisVertical /> */}
                 </li>
                 <li className="completed">
                   <p>Todo List</p>
-                  <EllipsisVertical />
+                  {/* // <EllipsisVertical /> */}
                 </li>
                 <li className="not-completed">
                   <p>Todo List</p>
-                  <EllipsisVertical />
+                  {/* // <EllipsisVertical /> */}
                 </li>
               </ul>
             </div>

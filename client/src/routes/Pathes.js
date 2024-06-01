@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import Dashboard from "../pages/admin/Dashboard";
-import Public from "../pages/public/Public";
+import Index from "../pages/public/Index";
 import Users from "../pages/admin/Users";
 import Industries from "../pages/admin/Industries";
 import Portfolio from "../pages/admin/Portfolio";
@@ -12,7 +12,7 @@ const Pathes = () => {
   return (
     <Routes>
       {/* Public Route */}
-      <Route path="/" element={<Public />} />
+      <Route path="/" element={<Index />} />
 
       {/* Admin Dashboard Route */}
       <Route path="/dashboard">
