@@ -405,7 +405,7 @@ const Portfolio = () => {
           <button
             type="button"
             style={{
-              backgroundColor: "#db504a",
+              backgroundColor: "#fd7238",
               color: "#fff",
               border: "none",
               position: "absolute",
@@ -413,10 +413,11 @@ const Portfolio = () => {
               cursor: "pointer",
               padding: "7px 10px",
               right: "0",
+              borderRadius: "0 0 0 0.2rem",
             }}
             onClick={closeInsertModal}
           >
-            {/* <X /> */}
+            <i className="fa-solid fa-xmark"></i>
           </button>
 
           <h2>Insert Portfolio</h2>
@@ -592,7 +593,7 @@ const Portfolio = () => {
               <button
                 type="button"
                 style={{
-                  backgroundColor: "#3c91e6",
+                  backgroundColor: "#fd7238",
                   border: "none",
                   color: "#FFF",
                   marginRight: "5px",
@@ -607,7 +608,7 @@ const Portfolio = () => {
               <button
                 type="submit"
                 style={{
-                  backgroundColor: "#db504a",
+                  backgroundColor: "#52a01f",
                   border: "none",
                   color: "#FFF",
                   cursor: "pointer",
@@ -655,7 +656,7 @@ const Portfolio = () => {
           <button
             type="button"
             style={{
-              backgroundColor: "#db504a",
+              backgroundColor: "#fd7238",
               color: "#fff",
               border: "none",
               position: "absolute",
@@ -663,10 +664,11 @@ const Portfolio = () => {
               cursor: "pointer",
               padding: "7px 10px",
               right: "0",
+              borderRadius: "0 0 0 0.2rem",
             }}
             onClick={closeUpdateModal}
           >
-            {/* <X /> */}
+            <i className="fa-solid fa-xmark"></i>
           </button>
 
           <h2>Update Portfolio</h2>
@@ -847,7 +849,7 @@ const Portfolio = () => {
               <button
                 type="button"
                 style={{
-                  backgroundColor: "#3c91e6",
+                  backgroundColor: "#fd7238",
                   border: "none",
                   color: "#FFF",
                   marginRight: "5px",
@@ -862,7 +864,7 @@ const Portfolio = () => {
               <button
                 type="submit"
                 style={{
-                  backgroundColor: "#db504a",
+                  backgroundColor: "#52a01f",
                   border: "none",
                   color: "#FFF",
                   cursor: "pointer",

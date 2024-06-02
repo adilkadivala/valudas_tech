@@ -352,7 +352,7 @@ const Industries = () => {
               <button
                 type="button"
                 style={{
-                  backgroundColor: "#db504a",
+                  backgroundColor: "#fd7238",
                   color: "#fff",
                   border: "none",
                   position: "absolute",
@@ -360,10 +360,11 @@ const Industries = () => {
                   cursor: "pointer",
                   padding: "7px 10px",
                   right: "0",
+                  borderRadius:"0 0 0 0.2rem"
                 }}
                 onClick={closeEditModal}
               >
-                {/* <X /> */}
+                <i className="fa-solid fa-xmark"></i>
               </button>
             </div>
 
@@ -406,7 +407,7 @@ const Industries = () => {
                   <button
                     type="button"
                     style={{
-                      backgroundColor: "#3c91e6",
+                      backgroundColor: "#fd7238",
                       border: "none",
                       color: "#FFF",
                       marginRight: "5px",
@@ -421,7 +422,7 @@ const Industries = () => {
                   <button
                     type="submit"
                     style={{
-                      backgroundColor: "#db504a",
+                      backgroundColor: "#52a01f",
                       border: "none",
                       color: "#FFF",
                       cursor: "pointer",
