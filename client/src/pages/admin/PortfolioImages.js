@@ -199,10 +199,11 @@ const PortImages = () => {
                           <td>
                             <button
                               style={{
+                                fontSize: "1.2rem",
                                 backgroundColor: "transparent",
                                 border: "none",
                                 color: "#FD7238",
-                                marginLeft: "0.5rem",
+                                padding: "0.5rem",
                                 cursor: "pointer",
                               }}
                               onClick={() => openDeleteModal(image.id)}
@@ -211,9 +212,11 @@ const PortImages = () => {
                             </button>
                             <button
                               style={{
+                                fontSize: "1.2rem",
                                 backgroundColor: "transparent",
                                 border: "none",
-                                color: "#3C91E6",
+                                color: "#52a01f",
+                                padding: "0.5rem",
                                 cursor: "pointer",
                               }}
                               onClick={() => openEditModal(image)}

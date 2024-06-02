@@ -122,9 +122,11 @@ const Users = () => {
                             <td>
                               <button
                                 style={{
+                                  fontSize: "1.2rem",
                                   backgroundColor: "transparent",
                                   border: "none",
                                   color: "#FD7238",
+                                  padding: "0.5rem",
                                   cursor: "pointer",
                                 }}
                                 onClick={() => openDeleteModal(user.id)}

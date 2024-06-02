@@ -200,13 +200,18 @@ const Industries = () => {
                           <td>
                             <p>{industry.industry_name}</p>
                           </td>
-                          <td>
+                          <td
+                            style={{
+                              width: "5rem",
+                            }}
+                          >
                             <button
                               style={{
+                                fontSize: "1.2rem",
                                 backgroundColor: "transparent",
                                 border: "none",
                                 color: "#FD7238",
-                                marginLeft: "0.5rem",
+                                padding: "0.5rem",
                                 cursor: "pointer",
                               }}
                               onClick={() => openDeleteModal(industry.id)}
@@ -217,8 +222,10 @@ const Industries = () => {
                             <button
                               style={{
                                 backgroundColor: "transparent",
+                                padding: "0.5rem",
+                                fontSize: "1.2rem",
                                 border: "none",
-                                color: "#3C91E6",
+                                color: "#52a01f",
                                 cursor: "pointer",
                               }}
                               onClick={() => openEditModal(industry)}
@@ -232,7 +239,7 @@ const Industries = () => {
                   ) : (
                     <tr>
                       <td colSpan="8" style={{ color: "red" }}>
-                        No portfolio data available
+                        No Industry data available
                       </td>
                     </tr>
                   )}

@@ -81,6 +81,8 @@ const Portfolio = () => {
     formData.append("service_id", insertPortfolio.service_id);
     formData.append("industry_id", insertPortfolio.industry_id);
 
+    console.log("Form Data:", Object.fromEntries(formData.entries()));
+
     try {
       const response = await axios.post(`${API}/insertportfolio`, formData);
 
@@ -242,7 +244,6 @@ const Portfolio = () => {
               <h1>Portfolio Page</h1>
             </div>
             <NavLink className="btn-download" onClick={openInsertModal}>
-              {/* <Plus /> */}
               <span className="text">Add New</span>
             </NavLink>
           </div>
@@ -276,7 +277,7 @@ const Portfolio = () => {
                       const service =
                         serviceTechnology &&
                         serviceTechnology.find(
-                          (service) => service.id === port.service_id
+                          (service) => service.service_id === port.service_id
                         );
                       const portImage =
                         portImages &&
@@ -331,10 +332,11 @@ const Portfolio = () => {
                           <td>
                             <button
                               style={{
+                                fontSize: "1.2rem",
                                 backgroundColor: "transparent",
                                 border: "none",
                                 color: "#FD7238",
-                                marginLeft: "0.5rem",
+                                padding: "0.5rem",
                                 cursor: "pointer",
                               }}
                               onClick={() => openDeleteModal(port.id)}
@@ -343,9 +345,11 @@ const Portfolio = () => {
                             </button>
                             <button
                               style={{
+                                fontSize: "1.2rem",
                                 backgroundColor: "transparent",
                                 border: "none",
-                                color: "#3C91E6",
+                                color: "#52a01f",
+                                padding: "0.5rem",
                                 cursor: "pointer",
                               }}
                               onClick={() => openUpdateModal(port)}
@@ -542,7 +546,7 @@ const Portfolio = () => {
                 {serviceTechnology &&
                   serviceTechnology.map((service) => {
                     return (
-                      <option key={service.id} value={service.id}>
+                      <option key={service.id} value={service.service_id}>
                         {service.service_name}
                       </option>
                     );
@@ -797,7 +801,7 @@ const Portfolio = () => {
                 {serviceTechnology &&
                   serviceTechnology.map((service) => {
                     return (
-                      <option key={service.id} value={service.id}>
+                      <option key={service.id} value={service.service_id}>
                         {service.service_name}
                       </option>
                     );

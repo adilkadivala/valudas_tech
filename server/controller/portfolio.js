@@ -20,7 +20,6 @@ const getPortfolio = async (req, res) => {
 };
 
 // inserting portfolio data
-
 const insertPortfolio = async (req, res) => {
   try {
     const {
@@ -46,6 +45,16 @@ const insertPortfolio = async (req, res) => {
       thumbnail,
       portfolio_photos,
     ];
+
+    console.log("Received Data:", {
+      title,
+      short_description,
+      company_name,
+      service_id,
+      industry_id,
+      thumbnail,
+      portfolio_photos,
+    });
 
     connectDB.query(Que, data, (err) => {
       if (err) {

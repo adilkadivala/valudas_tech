@@ -255,10 +255,11 @@ const Services = () => {
                             <td>
                               <button
                                 style={{
+                                  fontSize: "1.2rem",
                                   backgroundColor: "transparent",
                                   border: "none",
                                   color: "#FD7238",
-                                  marginLeft: "0.5rem",
+                                  padding: "0.5rem",
                                   cursor: "pointer",
                                 }}
                                 onClick={() =>
@@ -270,9 +271,11 @@ const Services = () => {
 
                               <button
                                 style={{
+                                  fontSize: "1.2rem",
                                   backgroundColor: "transparent",
                                   border: "none",
-                                  color: "#3C91E6",
+                                  color: "#52a01f",
+                                  padding: "0.5rem",
                                   cursor: "pointer",
                                 }}
                                 onClick={() => openEditModal(service)}
@@ -662,6 +665,7 @@ const Services = () => {
                     padding: "7px 10px",
                     borderRadius: "5px",
                   }}
+                  onClick={updateServicesData}
                 >
                   Save
                 </button>
