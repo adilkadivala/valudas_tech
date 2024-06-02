@@ -3,13 +3,20 @@ import "../../assets/css/public/Our.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { useValudasData } from "../../context/Storage";
 
 const PrevArrow = (props) => {
   const { className, style, onClick } = props;
+
   return (
     <div
       className={className}
-      style={{ ...style, display: "block", background: "green" }}
+      style={{
+        ...style,
+        display: "block",
+        backgroundColor: "#eaf3f6",
+        color: "black",
+      }}
       onClick={onClick}
     />
   );
@@ -20,13 +27,19 @@ const NextArrow = (props) => {
   return (
     <div
       className={className}
-      style={{ ...style, display: "block", background: "green" }}
+      style={{
+        ...style,
+        display: "block",
+        backgroundColor: "#eaf3f6",
+        color: "#000",
+      }}
       onClick={onClick}
     />
   );
 };
 
 const Our = () => {
+  const { portfolio, serviceTechnology } = useValudasData();
   const settings = {
     dots: false,
     infinite: true,
@@ -80,114 +93,72 @@ const Our = () => {
 
       <div className="our_sec_page">
         <div className="portfolio">
-          <div className="port_details">
-            <details className="custom_details">
-              <summary className="summary">
-                <img
-                  src={require("../../assets/images/cmshub.png")}
-                  alt="summury"
-                />
-                <p id="cm">CMS</p>
-              </summary>
-              <div className="details">
-                <p id="hub_line">
-                  Hubspot CMS <i className="fa-solid fa-arrow-right"></i>
-                </p>
-                <p>Wordpress</p>
-                <p>Opencart</p>
-              </div>
-            </details>
-          </div>
-          <div className="port_details">
-            <div className="port_detail">
-              <details className="custom_details">
-                <summary className="summary">
-                  <img
-                    src={require("../../assets/images/vs.png")}
-                    alt="summury"
-                  />
-                  <p>Custom Web Development</p>
-                </summary>
-                <div className="details">
-                  <p id="hub_line">
-                    Hubspot CMS <i className="fa-solid fa-arrow-right"></i>
-                  </p>
-                  <p>Wordpress</p>
-                  <p>Opencart</p>
-                </div>
-              </details>
-            </div>
-          </div>
-          <div className="port_details">
-            <details className="custom_details">
-              <summary className="summary">
-                <img
-                  src={require("../../assets/images/Vector.png")}
-                  alt="summury"
-                />
-                <p>hubSpot Development</p>
-              </summary>
-              <div className="details">
-                <p id="hub_line">
-                  Hubspot CMS <i className="fa-solid fa-arrow-right"></i>
-                </p>
-                <p>Wordpress</p>
-                <p>Opencart</p>
-              </div>
-            </details>
-          </div>
-          <div className="port_details">
-            <details className="custom_details">
-              <summary className="summary">
-                <img
-                  src={require("../../assets/images/android.png")}
-                  alt="summury"
-                />
-                <p>Mobile Application</p>
-              </summary>
-              <div className="details">
-                <p id="hub_line">
-                  Hubspot CMS <i className="fa-solid fa-arrow-right"></i>
-                </p>
-                <p>Wordpress</p>
-                <p>Opencart</p>
-              </div>
-            </details>
-          </div>
+          {portfolio &&
+            portfolio.map((port, index) => {
+              const service =
+                serviceTechnology &&
+                serviceTechnology.find(
+                  (service) => service.service_id === port.service_id
+                );
+
+              return (
+                <>
+                  <div className="port_details" key={index}>
+                    <details className="custom_details">
+                      <summary className="summary">
+                        <img
+                          src={require("../../assets/images/cmshub.png")}
+                          alt="summury"
+                        />
+                        <p id="cm">{service ? service.service_name : "N/A"}</p>
+                      </summary>
+                      <div className="details">
+                        <p id="hub_line">
+                          {service ? service.technologies : "N/A"}
+                          <i className="fa-solid fa-arrow-right"></i>
+                        </p>
+                      </div>
+                    </details>
+                  </div>
+                </>
+              );
+            })}
         </div>
         <Slider {...settings} className="slid">
-          <div className="proud_page" id="proud2">
-            <div className="proud_img">
-              <img
-                src={require("../../assets/images/real.png")}
-                alt="summury"
-              />
-            </div>
-            <div className="weed_details">
-              <h5>WeedMat</h5>
-              <p>
-                Insight Experience offers a suite of experiential business
-                simulation and leadership development and developing new
-                leaders.
-              </p>
-            </div>
-          </div>
-          <div className="proud_page_f">
-            <div className="proud_img">
-              <img
-                src={require("../../assets/images/image 79.png")}
-                alt="summury"
-              />
-            </div>
-            <div className="proud_details">
-              <h5>Proud Punch</h5>
-              <p>
-                Insight Experience offers a suite of experiential business
-                simulation and leadership development and developing new
-                leaders.
-              </p>
-            </div>
-          </div>
+          {portfolio &&
+            portfolio.map((port) => (
+              <>
+                <div className="proud_page" id="proud2">
+                  <div className="proud_img">
+                    <img src={`/upload/${port.thumbnail}`} alt="summury" />
+                  </div>
+                  <div className="weed_details">
+                    <h5>{port.title}</h5>
+                    <p>
+                      Insight Experience offers a suite of experiential business
+                      simulation and leadership development and developing new
+                      leaders.
+                    </p>
+                  </div>
+                </div>
+                <div className="proud_page_f">
+                  <div className="proud_img">
+                    <img
+                      src={require("../../assets/images/image 79.png")}
+                      alt="summury"
+                    />
+                  </div>
+                  <div className="proud_details">
+                    <h5>Proud Punch</h5>
+                    <p>
+                      Insight Experience offers a suite of experiential business
+                      simulation and leadership development and developing new
+                      leaders.
+                    </p>
+                  </div>
+                </div>
+              </>
+            ))}
         </Slider>
       </div>
 
