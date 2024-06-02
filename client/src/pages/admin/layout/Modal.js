@@ -54,13 +54,14 @@ const DeleteModal = ({ isDeleteOpen, onCloseDelete, onDelete, itemId }) => {
               <button
                 type="button"
                 style={{
-                  backgroundColor: "#db504a",
+                  backgroundColor: "#FD7238",
                   color: "#fff",
                   border: "none",
                   position: "absolute",
                   top: "0",
                   right: "0",
-                  padding: "3px 8px",
+                  padding: "0.7rem 1rem",
+                  borderRadius: "0 0 0 0.7rem",
                   cursor: "pointer",
                 }}
                 onClick={onCloseDelete}
@@ -98,13 +99,14 @@ const DeleteModal = ({ isDeleteOpen, onCloseDelete, onDelete, itemId }) => {
                   <button
                     type="button"
                     style={{
-                      backgroundColor: "#3c91e6",
+                      backgroundColor: "#52a01f",
                       border: "none",
                       color: "#FFF",
-                      marginTop: "5px",
-                      padding: "5px 10px",
+                      marginTop: "2rem",
+                      padding: "1rem 1rem",
                       marginRight: "5px",
                       borderRadius: "5px",
+                      fontSize: "1rem",
                     }}
                     onClick={onCloseDelete}
                   >
@@ -114,13 +116,14 @@ const DeleteModal = ({ isDeleteOpen, onCloseDelete, onDelete, itemId }) => {
                     type="button"
                     onClick={handleDelete}
                     style={{
-                      backgroundColor: "#db504a",
+                      backgroundColor: "#FD7238",
                       border: "none",
                       color: "#FFF",
-                      marginTop: "5px",
-                      padding: "5px 10px",
+                      marginTop: "2rem",
+                      padding: "1rem 1rem",
                       marginLeft: "5px",
                       borderRadius: "5px",
+                      fontSize: "1rem",
                     }}
                   >
                     DELETE
@@ -167,7 +170,7 @@ const PhotosGallery = ({ isGalleryOpen, onGalleryClose, onSelectImage }) => {
         <button
           onClick={onGalleryClose}
           style={{
-            backgroundColor: "#db504a",
+            backgroundColor: "#FD7238",
             color: "#fff",
             border: "none",
             position: "absolute",

@@ -78,6 +78,9 @@ body {
 #sidebar.hide {
   width: 60px;
 }
+#sidebar.hide .side-menu li a {
+  padding: 0.6rem;
+}
 #sidebar .brand {
   font-size: 1.5rem;
   font-weight: 700;
@@ -90,11 +93,7 @@ body {
   background: var(--light);
   box-sizing: content-box;
 }
-#sidebar .brand .bx {
-  min-width: 60px;
-  display: flex;
-  justify-content: center;
-}
+
 #sidebar .side-menu {
   width: 100%;
   margin-top: 28px;
@@ -106,43 +105,18 @@ body {
   border-radius: 48px 0 0 48px;
   padding: 4px;
 }
-#sidebar .side-menu li .dropdown {
-  height: 100%;
-}
 
-#sidebar .side-menu li .dropdown-container {
-  height: auto;
-  background-color: var(--grey);
-  display: flex;
-  flex-direction: column;
-  border-radius: 1rem 1rem;
-  position: relative;
-  text-align: center;
-  justify-content: space-around;
-}
-#sidebar .side-menu li .dropdown-container a {
+#sidebar .side-menu li a {
   height: 2rem;
   background: var(--grey);
   padding: 0 1rem;
   justify-content: space-evenly;
-  margin: 0.5rem 0;
-}
-#sidebar.hide .side-menu li .dropdown-container a {
-  height: 2rem;
-  background: var(--grey);
-  padding: 0;
-  justify-content: space-evenly;
-  margin: 0.5rem 0.2rem;
 }
 
-#sidebar .side-menu li .dropdown-container a:hover {
-  height: 2rem;
-  border: 1px solid var(--dark-grey);
-  background-color: var(--light);
-}
 #sidebar .side-menu li.active {
   background: var(--grey);
   position: relative;
+  color: var(--blue);
 }
 #sidebar .side-menu li.active::before {
   content: "";
@@ -174,9 +148,10 @@ body {
   align-items: center;
   border-radius: 48px;
   font-size: 16px;
-  justify-content: center;
+  justify-content: flex-start;
   column-gap: 1.5rem;
   color: var(--dark);
+  padding-left: 1.2rem;
   white-space: nowrap;
   overflow-x: hidden;
 }

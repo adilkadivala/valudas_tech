@@ -287,7 +287,7 @@ const Industries = () => {
                     <button
                       type="button"
                       style={{
-                        backgroundColor: "#3c91e6",
+                        backgroundColor: "#FD7238",
                         border: "none",
                         color: "#FFF",
                         marginRight: "5px",
@@ -301,7 +301,7 @@ const Industries = () => {
                     <button
                       type="submit"
                       style={{
-                        backgroundColor: "#db504a",
+                        backgroundColor: "#52a01f",
                         border: "none",
                         color: "#FFF",
                         cursor: "pointer",
