@@ -2,7 +2,11 @@ import React from "react";
 import "../../assets/css/public/Service.css";
 import joomla from "../../assets/images/joomla.png";
 import mern from "../../assets/images/Mern.png";
+import { useValudasData } from "../../context/Storage";
+
 function Service() {
+  const { serviceTechnology } = useValudasData();
+
   return (
     <>
       <div className="Service">
@@ -29,45 +33,23 @@ function Service() {
 
         <div className="service_sec_page">
           <div className="devlopment_page">
-            <div className="dev_Page">
-              <span className="cms_i" id="dev">
-                <i class="fa-solid fa-code"></i>
-              </span>
-              <span className="cms_Pera">
-                <p>Your Digital Presence, Perfected</p>
-                <h5>CMS development</h5>
-              </span>
-            </div>
-
-            <div className="dev_Page">
-              <span className="cms_i" id="mob">
-                <i class="fa-solid fa-mobile"></i>
-              </span>
-              <span className="cms_Pera">
-                <p>Innovative Solutions for Every Industry</p>
-                <h5>custom Web Development</h5>
-              </span>
-            </div>
-
-            <div className="dev_Page">
-              <span className="cms_i">
-                <i class="fa-solid fa-screwdriver-wrench"></i>
-              </span>
-              <span className="cms_Pera">
-                <p>Crafting Engaging User Experiences</p>
-                <h5>Front-end Development</h5>
-              </span>
-            </div>
-
-            <div className="dev_Page">
-              <span className="cms_i">
-                <i class="fa-solid fa-screwdriver-wrench"></i>
-              </span>
-              <span className="cms_Pera">
-                <p>Crafting Engaging User Experiences</p>
-                <h5>Mobile App Development</h5>
-              </span>
-            </div>
+            {serviceTechnology && serviceTechnology.length > 0
+              ? serviceTechnology.map((service, index) => {
+                  return (
+                    <>
+                      <div className="dev_Page" key={index}>
+                        <span className="cms_i" id="dev">
+                          <i class="fa-solid fa-code"></i>
+                        </span>
+                        <span className="cms_Pera">
+                          <p>Your Digital Presence, Perfected</p>
+                          <h5>{service.service_name}</h5>
+                        </span>
+                      </div>{" "}
+                    </>
+                  );
+                })
+              : "N/A"}
           </div>
 
           <div className="cms_devlopment">

@@ -22,6 +22,35 @@ function Query() {
 
   const sendData = async (e) => {
     e.preventDefault();
+    if (
+      postQuery.name === "" &&
+      postQuery.email === "" &&
+      postQuery.mobile_no === "" &&
+      postQuery.budget === "" &&
+      postQuery.message === ""
+    ) {
+      toast.error("jkkdfj");
+      return;
+    }
+
+    if (postQuery.name.length < 2 || postQuery.name.length > 20) {
+      toast.error("name Should be prpper");
+      return;
+    }
+    if (
+      !postQuery.email.match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      )
+    ) {
+      toast.error("email address doesn't match");
+      return;
+    }
+
+    if (postQuery.mobile_no.length < 10 || postQuery.name.length > 10) {
+      toast.error("mobile no Should be validate");
+      return;
+    }
+
     try {
       const response = await axios.post(`${API}/postuser`, postQuery);
 
@@ -78,7 +107,7 @@ function Query() {
               <div className="form_group">
                 <label for="email">Your Email*</label>
                 <input
-                  type="email"
+                  type="text"
                   className="form_control"
                   placeholder="Enter Your Email*"
                   name="email"
