@@ -1,5 +1,4 @@
-
-.query_section_page{
+.query_section_page {
   background-color: #132226;
   height: auto;
   margin-top: 120px;
@@ -9,100 +8,97 @@
   padding-bottom: 80px;
 }
 
-.Consultation_page{
+.Consultation_page {
   width: 48%;
 }
-.Consultation_page h1{
- color: #52A01F; 
-margin-top: 83px;
-font-size: 45px;
-font-weight: 700;
-
+.Consultation_page h1 {
+  color: #52a01f;
+  margin-top: 83px;
+  font-size: 45px;
+  font-weight: 700;
 }
 
-.Consultation_page p{
+.Consultation_page p {
   color: white;
   font-size: 25px;
   font-weight: 500;
   margin-top: 50px;
 }
 
-.form{
+.form {
   width: 47%;
   margin-left: 55px;
 }
 form {
-    width: 100%;
-    background-color: rgb(255, 255, 255);
-    padding: 20px;
-    border-radius: 20px;
-  }
-  
-  .form_row {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  
-  /* Form group */
-  .form_group {
-    padding:15px;
-    width: 50%;  }
-  
-  /* Input and select fields */
-  .form_control {
-    width: 100%;
-    font-size: 14px;
-    color: #495057;
-    border: none;
-    margin-top: 10px;
-    font-size: 14px;
-    padding: 5px 10px;
-    border-bottom: 1px solid;
-    outline: none;
-  }
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+  padding: 20px;
+  border-radius: 20px;
+}
 
-  
-  /* Labels */
-  label {
-    margin-bottom: 5px;
-    font-weight: 500;
-    color: #495057;
-  }
-  #message{
-    width: 100%;
-  }
-  
-  #message input{
-    padding-bottom: 40px;
-  }
+.form_row {
+  display: flex;
+  flex-wrap: wrap;
+}
 
-  .query_button{
-    border: none;
-    padding: 10px 30px;
-    background-color: #52A01F;
-    border-radius: 30px;
-    color: white;
-    font-size: 18px;
-    margin-left: 320px;
-      margin-top: 30px;
-  }
+/* Form group */
+.form_group {
+  padding: 15px;
+  width: 50%;
+}
 
+/* Input and select fields */
+.form_control {
+  width: 100%;
+  font-size: 14px;
+  color: #495057;
+  border: none;
+  margin-top: 10px;
+  font-size: 14px;
+  padding: 5px 10px;
+  border-bottom: 1px solid;
+  outline: none;
+}
+
+/* Labels */
+label {
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #495057;
+}
+#message {
+  width: 100%;
+}
+
+#message input {
+  padding-bottom: 40px;
+}
+
+.query_button {
+  border: none;
+  padding: 10px 30px;
+  background-color: #52a01f;
+  border-radius: 30px;
+  color: white;
+  font-size: 18px;
+  margin-left: 15rem;
+  cursor: pointer;
+  margin-top: 30px;
+}
 
 @media only screen and (max-width: 769px) {
-
-  .query_section_page{
+  .query_section_page {
     flex-wrap: wrap;
     padding: 0;
     padding-bottom: 20px;
     margin-top: 50px;
-
   }
-  .Consultation_page{
+  .Consultation_page {
     width: 100%;
     margin: 0;
     padding: 10px 15px;
   }
-  .Consultation_page h1{
+  .Consultation_page h1 {
     margin-top: 20px;
     font-size: 22px;
   }
@@ -115,29 +111,29 @@ form {
     width: 100%;
     padding: 10px;
   }
-.form{
-  width: 100%;
-  margin: 10px 15px;
-}
-.query_button{
-  margin: 10px;
-  margin-bottom: 0;
-  padding: 6px 12px;
-  font-size: 15px;
-}
-#message input {
-  padding-bottom: 7px;
-}
+  .form {
+    width: 100%;
+    margin: 10px 15px;
+  }
+  .query_button {
+    margin: 10px;
+    margin-bottom: 0;
+    padding: 6px 12px;
+    font-size: 15px;
+  }
+  #message input {
+    padding-bottom: 7px;
+  }
 }
 
 @media only screen and (min-width: 426px) and (max-width: 769px) {
-  .query_section_page{
+  .query_section_page {
     display: flex;
     flex-wrap: wrap;
     padding: 0;
   }
 
-  .Consultation_page{
+  .Consultation_page {
     width: 40%;
     margin: 50px 0;
   }
@@ -148,19 +144,17 @@ form {
   .form_group {
     width: 47%;
     padding: 10px;
-}
-label {
-  font-size: 13px;
-}
-.form_control {
-  font-size: 13px;
+  }
+  label {
+    font-size: 13px;
+  }
+  .form_control {
+    font-size: 13px;
+  }
 }
 
-}
-
-@media only screen and (min-width: 770px) and (max-width: 1025px){
-
-  .query_button{
+@media only screen and (min-width: 770px) and (max-width: 1025px) {
+  .query_button {
     margin-left: 220px;
   }
 }

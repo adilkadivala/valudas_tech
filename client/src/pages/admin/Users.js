@@ -94,10 +94,13 @@ const Users = () => {
               <table>
                 <thead>
                   <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
+                    <th>Name</th>
                     <th>Email</th>
                     <th>Mobile No</th>
+                    <th>Skype Id</th>
+                    <th>Budget</th>
+                    <th>Prefer to</th>
+                    <th>Message</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -108,16 +111,25 @@ const Users = () => {
                         <>
                           <tr key={index}>
                             <td>
-                              <p>{user.first_name}</p>
-                            </td>
-                            <td>
-                              <p>{user.last_name}</p>
+                              <p>{user.name}</p>
                             </td>
                             <td>
                               <p>{user.email}</p>
                             </td>
                             <td>
                               <p>{user.mobile_no}</p>
+                            </td>
+                            <td>
+                              <p>{user.skype_id}</p>
+                            </td>
+                            <td>
+                              <p>{user.budget}</p>
+                            </td>
+                            <td>
+                              <p>{user.prefer}</p>
+                            </td>
+                            <td>
+                              <p>{user.message}</p>
                             </td>
                             <td>
                               <button

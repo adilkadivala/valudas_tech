@@ -23,9 +23,11 @@ const getUsers = async (req, res) => {
 // posting user data
 const postUsers = async (req, res) => {
   try {
-    const { first_name, last_name, email, mobile_no } = req.body;
-    const Que = `INSERT INTO users (first_name, last_name, email, mobile_no) VALUES (?,?,?,?)`;
-    const data = [first_name, last_name, email, mobile_no];
+    const { name, email, mobile_no, skype_id, budget, prefer, message } =
+      req.body;
+
+    const Que = `INSERT INTO users (name, email, mobile_no, skype_id, budget, prefer, message) VALUES (?,?,?,?,?,?,?)`;
+    const data = [name, email, mobile_no, skype_id, budget, prefer, message];
 
     connectDB.query(Que, data, (err, data) => {
       if (err) {
