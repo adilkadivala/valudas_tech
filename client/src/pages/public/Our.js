@@ -1,72 +1,63 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "../../assets/css/public/Our.css";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import { useValudasData } from "../../context/Storage";
 
-const PrevArrow = (props) => {
-  const { className, style, onClick } = props;
+const CustomSlider = ({ children }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const length = children.length;
+
+  const nextSlide = () => {
+    setCurrentIndex((currentIndex + 1) % length);
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((currentIndex - 1 + length) % length);
+  };
+
+  if (length <= 1) return <div className="slid">{children}</div>;
 
   return (
-    <div
-      className={className}
-      style={{
-        ...style,
-        display: "block",
-        backgroundColor: "darkgray",
-        color: "black",
-      }}
-      onClick={onClick}
-    />
-  );
-};
-
-const NextArrow = (props) => {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{
-        ...style,
-        display: "block",
-        backgroundColor: "darkgray",
-        color: "black",
-      }}
-      onClick={onClick}
-    />
+    <div className="slid">
+      <div
+        className="slick-prev"
+        style={{
+          display: "block",
+          backgroundColor: "darkgray",
+          color: "black",
+        }}
+        onClick={prevSlide}
+      />
+      <div className="slick-slide">{children[currentIndex]}</div>
+      <div
+        className="slick-next"
+        style={{
+          display: "block",
+          backgroundColor: "darkgray",
+          color: "black",
+        }}
+        onClick={nextSlide}
+      />
+    </div>
   );
 };
 
 const Our = () => {
   const { portfolio, serviceTechnology } = useValudasData();
-  const settings = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1.5,
-    slidesToScroll: 1,
-    autoplay: false,
-    autoplaySpeed: 3000,
-    prevArrow: <PrevArrow />,
-    nextArrow: <NextArrow />,
-  };
+  const [selectedServiceId, setSelectedServiceId] = useState(null);
 
   useEffect(() => {
-    const detailsElements = document.querySelectorAll("details.custom_details");
+    if (serviceTechnology && serviceTechnology.length > 0) {
+      setSelectedServiceId(serviceTechnology[0].service_id);
+    }
+  }, [serviceTechnology]);
 
-    detailsElements.forEach((el) => {
-      el.addEventListener("toggle", () => {
-        if (el.open) {
-          detailsElements.forEach((otherEl) => {
-            if (otherEl !== el) {
-              otherEl.removeAttribute("open");
-            }
-          });
-        }
-      });
-    });
-  }, []);
+  const handleServiceClick = (serviceId) => {
+    setSelectedServiceId(serviceId);
+  };
+
+  const filteredPortfolio = portfolio.filter(
+    (port) => port.service_id === selectedServiceId
+  );
 
   return (
     <>
@@ -93,124 +84,44 @@ const Our = () => {
 
       <div className="our_sec_page">
         <div className="portfolio">
-          {portfolio &&
-            portfolio.map((port, index) => {
-              const service =
-                serviceTechnology &&
-                serviceTechnology.find(
-                  (service) => service.service_id === port.service_id
-                );
-
-              return (
-                <>
-                  <div className="port_details" key={index}>
-                    <details className="custom_details">
-                      <summary className="summary">
-                        <img
-                          src={require("../../assets/images/cmshub.png")}
-                          alt="summury"
-                        />
-                        <p id="cm">{service ? service.service_name : "N/A"}</p>
-                      </summary>
-                      <div className="details">
-                        <p id="hub_line">
-                          {service ? service.technologies : "N/A"}
-                          <i className="fa-solid fa-arrow-right"></i>
-                        </p>
-                      </div>
-                    </details>
+          {serviceTechnology &&
+            serviceTechnology.map((tech) => (
+              <div
+                className="port_details"
+                key={tech.service_id}
+                onClick={() => handleServiceClick(tech.service_id)}
+              >
+                <details className="custom_details">
+                  <summary className="summary">
+                    <img
+                      src={require("../../assets/images/cmshub.png")}
+                      alt="summary"
+                    />
+                    <p id="cm">{tech.service_name}</p>
+                  </summary>
+                  <div className="details">
+                    <p id="hub_line">
+                      {tech.technologies}
+                      <i className="fa-solid fa-arrow-right"></i>
+                    </p>
                   </div>
-                </>
-              );
-            })}
-        </div>
-        <Slider {...settings} className="slid">
-          {portfolio &&
-            portfolio.map((port) => (
-              <>
-                <div className="proud_page" id="proud2">
-                  <div className="proud_img">
-                    <img src={`/upload/${port.thumbnail}`} alt="summury" />
-                  </div>
-                  <div className="weed_details">
-                    <h5>{port.title}</h5>
-                    <p>{port.short_description}</p>
-                  </div>
-                </div>
-              </>
+                </details>
+              </div>
             ))}
-        </Slider>
-      </div>
-
-      <div className="Experience_page">
-        <div className="exp_first_Page">
-          <div className="empo_pera">
-            <span id="proj">
-              Experience, Projects, Clients, and a Cup of Coffee
-            </span>
-          </div>
-
-          <div className="service_header">
-            <h1>
-              <span id="line">Valudas in Numbers</span>: One Cup at a Time
-            </h1>
-          </div>
-
-          <div className="service_pera">
-            <p>
-              At Valudas Tech Park, our journey is defined by five years of
-              industry experience, 155+ successful projects, 80 repeated
-              clients, and the energy of a good cup of coffee, ensuring
-              personalized attention and exceptional service delivery.
-            </p>
-          </div>
         </div>
-
-        <div className="experience_boxes_Page">
-          <div className="experience_box" id="fir_box">
-            <span>5+</span>
-
-            <h5>Years Experience</h5>
-
-            <p>
-              Leveraging half a decade of industry expertise to deliver
-              unparalleled solutions.
-            </p>
-          </div>
-
-          <div className="experience_box">
-            <span>155+</span>
-
-            <h5>Successful Projects</h5>
-
-            <p>
-              Our track record speaks for itself, with over 155 successful
-              projects completed to date.
-            </p>
-          </div>
-
-          <div className="experience_box">
-            <span>80+</span>
-
-            <h5>Repeated Clients</h5>
-
-            <p>
-              Building lasting partnerships with 80 satisfied clients who
-              continue to trust us with their projects.
-            </p>
-          </div>
-
-          <div className="experience_box">
-            <span>15+</span>
-
-            <h5>Cups of Coffee</h5>
-
-            <p>
-              Our dedicated team, fueled by the energy of a good cup of coffee,
-              ensures personalized attention and exceptional service delivery.
-            </p>
-          </div>
-        </div>
+        <CustomSlider>
+          {filteredPortfolio.map((port) => (
+            <div className="proud_page" id="proud2" key={port.id}>
+              <div className="proud_img">
+                <img src={`/upload/${port.thumbnail}`} alt="summary" />
+              </div>
+              <div className="weed_details">
+                <h5>{port.title}</h5>
+                <p>{port.short_description}</p>
+              </div>
+            </div>
+          ))}
+        </CustomSlider>
       </div>
     </>
   );

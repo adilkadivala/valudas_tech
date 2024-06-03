@@ -1,11 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../../assets/css/public/Service.css";
-import joomla from "../../assets/images/joomla.png";
-import mern from "../../assets/images/Mern.png";
 import { useValudasData } from "../../context/Storage";
 
-function Service() {
-  const { serviceTechnology, serviceById } = useValudasData();
+const Service = () => {
+  const { serviceTechnology } = useValudasData();
+  const [selectedService, setSelectedService] = useState(null);
+
+  useEffect(() => {
+    if (serviceTechnology && serviceTechnology.length > 0) {
+      setSelectedService(serviceTechnology[0]);
+    }
+  }, [serviceTechnology]);
+
+  const handleServiceClick = (service) => {
+    setSelectedService(service);
+  };
 
   return (
     <>
@@ -14,13 +23,11 @@ function Service() {
           <div className="empo_pera">
             <span>Empowering Growth, Fuelling Innovation</span>
           </div>
-
           <div className="service_header">
             <h1>
               <span>Services</span>: Transformative Web & Mobile Solutions
             </h1>
           </div>
-
           <div className="service_pera">
             <p>
               Valuda’s offers premier Web & Mobile development services, turning
@@ -34,70 +41,48 @@ function Service() {
         <div className="service_sec_page">
           <div className="devlopment_page">
             {serviceTechnology && serviceTechnology.length > 0
-              ? serviceTechnology.map((service, index) => {
-                  return (
-                    <>
-                      <div className="dev_Page" key={index}>
-                        <span className="cms_i" id="dev">
-                          <i class="fa-solid fa-code"></i>
-                        </span>
-                        <span className="cms_Pera">
-                          <p>{service.service_tagline}</p>
-                          <h5>{service.service_name}</h5>
-                        </span>
-                      </div>
-                    </>
-                  );
-                })
+              ? serviceTechnology.map((service, index) => (
+                  <div
+                    className="dev_Page"
+                    key={index}
+                    onClick={() => handleServiceClick(service)}
+                  >
+                    <span className="cms_i" id="dev">
+                      <i className="fa-solid fa-code"></i>
+                    </span>
+                    <span className="cms_Pera">
+                      <p>{service.service_tagline}</p>
+                      <h5>{service.service_name}</h5>
+                    </span>
+                  </div>
+                ))
               : "N/A"}
           </div>
 
-          <div className="cms_devlopment">
-            <div className="cms">
-              <span>CMS development </span>
-              <p>
-                Get custom HubSpot themes, landing pages, and more with our
-                expert development services. Enhance user experience and drive
-                conversions with tailored, responsive designs integrated with
-                HubSpot's marketing tools. Transform your digital presence
-                efficiently and effectively.
-              </p>
-            </div>
-            <div className="all_language_boxes">
-              <div className="language_box">
-                <i class="fa-brands fa-node-js"></i>
-                <p>Node.js</p>
+          {selectedService && (
+            <div className="cms_devlopment">
+              <div className="cms">
+                <span>{selectedService.service_name} </span>
+                <p
+                  dangerouslySetInnerHTML={{
+                    __html: selectedService.service_description,
+                  }}
+                />
               </div>
-              <div className="language_box" id="laravel">
-                <i class="fa-brands fa-laravel"></i>
-                <p>Laravel</p>
-              </div>
-              <div className="language_box" id="wordpress">
-                <i class="fa-brands fa-wordpress"></i>
-                <p>Wordpress</p>
-              </div>
-              <div className="language_box">
-                <i class="fa-brands fa-shopify"></i>
-                <p>Shopify</p>
-              </div>{" "}
-              <div className="language_box" id="hub_icon">
-                <i class="fa-brands fa-hubspot"></i>
-                <p>HubSpot</p>
-              </div>
-              <div className="language_box" id="joomla">
-                <img src={joomla} alt="joomal" />
-                <p>Joomla</p>
-              </div>
-              <div className="language_box" id="mern">
-                <img src={mern} alt="mern" />
-                <p>Mern</p>
-              </div>
-              <div className="language_box" id="drupal">
-                <i class="fa-brands fa-drupal"></i>
-                <p>Drupal</p>
+              <div className="all_language_boxes">
+                {selectedService.technologies.split(", ").map((tech, index) => (
+                  <div className="language_box" key={index}>
+                    <i
+                      className={`fa-brands fa-${tech
+                        .toLowerCase()
+                        .replace(".", "")}`}
+                    ></i>
+                    <p>{tech}</p>
+                  </div>
+                ))}
               </div>
             </div>
-          </div>
+          )}
         </div>
 
         <div className="service_third">
@@ -116,6 +101,6 @@ function Service() {
       </div>
     </>
   );
-}
+};
 
 export default Service;

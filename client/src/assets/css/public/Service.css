@@ -41,6 +41,7 @@
   padding: 25px 15px;
   background-color: #f7f8f7;
   display: flex;
+  cursor: pointer;
   margin-top: 10px;
 }
 .dev_Page:hover {

@@ -538,7 +538,6 @@ const Portfolio = () => {
                 style={{ padding: "12px 5px", fontSize: "15px" }}
                 type="text"
                 className="form-control"
-                value={insertPortfolio.service_id}
                 id="service_id"
                 name="service_id"
                 onChange={(e) => handleInputChange(e, setInsertPortfolio)}
@@ -566,7 +565,6 @@ const Portfolio = () => {
                 style={{ padding: "12px 5px", fontSize: "15px" }}
                 type="text"
                 className="form-control"
-                value={insertPortfolio.industry_id}
                 id="industry_id"
                 name="industry_id"
                 onChange={(e) => handleInputChange(e, setInsertPortfolio)}
@@ -794,7 +792,6 @@ const Portfolio = () => {
                 style={{ padding: "12px 5px", fontSize: "15px" }}
                 type="text"
                 className="form-control"
-                value={updatePortfolio.service_id}
                 id="service_id"
                 name="service_id"
                 onChange={(e) => handleInputChange(e, setUpdatePortfolio)}
@@ -822,7 +819,6 @@ const Portfolio = () => {
                 style={{ padding: "12px 5px", fontSize: "15px" }}
                 type="text"
                 className="form-control"
-                value={updatePortfolio.industry_id}
                 id="industry_id"
                 name="industry_id"
                 onChange={(e) => handleInputChange(e, setUpdatePortfolio)}

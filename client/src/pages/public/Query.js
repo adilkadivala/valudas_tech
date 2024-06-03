@@ -29,7 +29,7 @@ function Query() {
       postQuery.budget === "" &&
       postQuery.message === ""
     ) {
-      toast.error("Please Enter data for inquirY");
+      toast.error("Please Enter data for inquiry");
       return;
     }
 
