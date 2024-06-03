@@ -172,9 +172,30 @@ const updateService_technologies = async (req, res) => {
   }
 };
 
+// getting data through id
+
+const getDataWithId = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const Que = `SELECT * FROM services WHERE id = ?`;
+    connectDB.query(Que, [id], (err, data) => {
+      if (err) {
+        console.error(err.message);
+        return res
+          .status(500)
+          .json({ message: "error got from getting data through id" });
+      }
+      return res.json(data);
+    });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
 module.exports = {
   getService_technologies,
   postService_technologies,
   deleteService_technologies,
   updateService_technologies,
+  getDataWithId,
 };

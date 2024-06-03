@@ -16,6 +16,7 @@ export const ValudasStorage = ({ children }) => {
   const [technology, setTechnology] = useState([]);
   const [portImages, setPortImages] = useState([]);
   const [serviceTechnology, setServicesTechnology] = useState([]);
+  const [serviceById, setServiceById] = useState([]);
 
   // users
   const getUsersList = async () => {
@@ -77,6 +78,16 @@ export const ValudasStorage = ({ children }) => {
     }
   };
 
+  // getting service by id
+  const getServiceById = async () => {
+    try {
+      const response = await axios.get(`${API}/getservice/${serviceById.id}`);
+      setServiceById(response.data);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   useEffect(() => {
     getUsersList();
     getIndustryData();
@@ -84,6 +95,7 @@ export const ValudasStorage = ({ children }) => {
     getTechnology();
     getPortImages();
     getServiceTechnology();
+    getServiceById();
   }, []);
 
   return (
@@ -101,6 +113,8 @@ export const ValudasStorage = ({ children }) => {
         setPortImages,
         serviceTechnology,
         setServicesTechnology,
+        serviceById,
+        setServiceById,
       }}
     >
       {children}

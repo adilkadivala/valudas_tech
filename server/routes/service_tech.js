@@ -18,4 +18,6 @@ router
   .route("/updateservicetech/:id")
   .put(service_technologies.updateService_technologies);
 
+router.route("/getservice/:id").get(service_technologies.getDataWithId);
+
 module.exports = router;

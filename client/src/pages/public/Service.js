@@ -5,7 +5,7 @@ import mern from "../../assets/images/Mern.png";
 import { useValudasData } from "../../context/Storage";
 
 function Service() {
-  const { serviceTechnology } = useValudasData();
+  const { serviceTechnology, serviceById } = useValudasData();
 
   return (
     <>
@@ -42,10 +42,10 @@ function Service() {
                           <i class="fa-solid fa-code"></i>
                         </span>
                         <span className="cms_Pera">
-                          <p>Your Digital Presence, Perfected</p>
+                          <p>{service.service_tagline}</p>
                           <h5>{service.service_name}</h5>
                         </span>
-                      </div>{" "}
+                      </div>
                     </>
                   );
                 })
