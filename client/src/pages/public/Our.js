@@ -14,7 +14,7 @@ const PrevArrow = (props) => {
       style={{
         ...style,
         display: "block",
-        backgroundColor: "#eaf3f6",
+        backgroundColor: "darkgray",
         color: "black",
       }}
       onClick={onClick}
@@ -30,8 +30,8 @@ const NextArrow = (props) => {
       style={{
         ...style,
         display: "block",
-        backgroundColor: "#eaf3f6",
-        color: "#000",
+        backgroundColor: "darkgray",
+        color: "black",
       }}
       onClick={onClick}
     />
@@ -134,27 +134,7 @@ const Our = () => {
                   </div>
                   <div className="weed_details">
                     <h5>{port.title}</h5>
-                    <p>
-                      Insight Experience offers a suite of experiential business
-                      simulation and leadership development and developing new
-                      leaders.
-                    </p>
-                  </div>
-                </div>
-                <div className="proud_page_f">
-                  <div className="proud_img">
-                    <img
-                      src={require("../../assets/images/image 79.png")}
-                      alt="summury"
-                    />
-                  </div>
-                  <div className="proud_details">
-                    <h5>Proud Punch</h5>
-                    <p>
-                      Insight Experience offers a suite of experiential business
-                      simulation and leadership development and developing new
-                      leaders.
-                    </p>
+                    <p>{port.short_description}</p>
                   </div>
                 </div>
               </>

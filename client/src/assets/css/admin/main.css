@@ -109,7 +109,7 @@ body {
   align-items: center;
   grid-gap: 24px;
 }
-#content main .box-info li .bx {
+#content main .box-info li i {
   width: 80px;
   height: 80px;
   border-radius: 10px;
@@ -118,15 +118,15 @@ body {
   justify-content: center;
   align-items: center;
 }
-#content main .box-info li:nth-child(1) .bx {
+#content main .box-info li:nth-child(1) i {
   background: var(--light-blue);
   color: var(--blue);
 }
-#content main .box-info li:nth-child(2) .bx {
+#content main .box-info li:nth-child(2) i {
   background: var(--light-yellow);
   color: var(--yellow);
 }
-#content main .box-info li:nth-child(3) .bx {
+#content main .box-info li:nth-child(3) i {
   background: var(--light-orange);
   color: var(--orange);
 }
@@ -171,6 +171,11 @@ body {
 #content main .table-data .order {
   flex-grow: 1;
   flex-basis: 500px;
+  height: 30rem;
+  overflow-y: auto;
+}
+#content main .table-data .order::-webkit-scrollbar {
+  display: none;
 }
 #content main .table-data .order table {
   width: 100%;
