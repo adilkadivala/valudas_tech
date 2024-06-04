@@ -2,48 +2,10 @@ import React, { useState, useEffect } from "react";
 import "../../assets/css/public/Our.css";
 import { useValudasData } from "../../context/Storage";
 
-const CustomSlider = ({ children }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const length = children.length;
-
-  const nextSlide = () => {
-    setCurrentIndex((currentIndex + 1) % length);
-  };
-
-  const prevSlide = () => {
-    setCurrentIndex((currentIndex - 1 + length) % length);
-  };
-
-  if (length <= 1) return <div className="slid">{children}</div>;
-
-  return (
-    <div className="slid">
-      <div
-        className="slick-prev"
-        style={{
-          display: "block",
-          backgroundColor: "darkgray",
-          color: "black",
-        }}
-        onClick={prevSlide}
-      />
-      <div className="slick-slide">{children[currentIndex]}</div>
-      <div
-        className="slick-next"
-        style={{
-          display: "block",
-          backgroundColor: "darkgray",
-          color: "black",
-        }}
-        onClick={nextSlide}
-      />
-    </div>
-  );
-};
-
 const Our = () => {
   const { portfolio, serviceTechnology } = useValudasData();
   const [selectedServiceId, setSelectedServiceId] = useState(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     if (serviceTechnology && serviceTechnology.length > 0) {
@@ -53,11 +15,22 @@ const Our = () => {
 
   const handleServiceClick = (serviceId) => {
     setSelectedServiceId(serviceId);
+    setCurrentIndex(0); // Reset the slider to the first slide when a new service is selected
   };
 
   const filteredPortfolio = portfolio.filter(
     (port) => port.service_id === selectedServiceId
   );
+
+  const nextSlide = () => {
+    setCurrentIndex((currentIndex + 1) % filteredPortfolio.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex(
+      (currentIndex - 1 + filteredPortfolio.length) % filteredPortfolio.length
+    );
+  };
 
   return (
     <>
@@ -109,19 +82,78 @@ const Our = () => {
               </div>
             ))}
         </div>
-        <CustomSlider>
-          {filteredPortfolio.map((port) => (
-            <div className="proud_page" id="proud2" key={port.id}>
-              <div className="proud_img">
-                <img src={`/upload/${port.thumbnail}`} alt="summary" />
+        {filteredPortfolio.length > 0 && (
+          <div className="slid">
+            {filteredPortfolio.length > 1 && (
+              <div
+                className="slick-prev"
+                style={{
+                  display: "block",
+                  backgroundColor: "darkgray",
+                  color: "black",
+                  position: "absolute",
+                  top: "9rem",
+                  cursor: "pointer",
+                  padding: "0.5rem 0.7rem",
+                  borderRadius: "50%",
+                }}
+                onClick={prevSlide}
+              >
+                <i className="fa-solid fa-arrow-left"></i>
               </div>
-              <div className="weed_details">
-                <h5>{port.title}</h5>
-                <p>{port.short_description}</p>
+            )}
+            <div style={{ overflow: "hidden" }}>
+              <div
+                className="slick-track"
+                style={{
+                  display: "flex",
+                  transition: "transform 0.5s ease",
+                  transform: `translateX(-${currentIndex * (100 / 1.5)}%)`,
+                }}
+              >
+                {filteredPortfolio.map((port) => (
+                  <div
+                    className="slick-slide"
+                    key={port.id}
+                    style={{
+                      minWidth: "66.66%",
+                      boxSizing: "border-box",
+                    }}
+                  >
+                    <div className="proud_page" id="proud2">
+                      <div className="proud_img">
+                        <img src={`/upload/${port.thumbnail}`} alt="summary" />
+                      </div>
+                      <div className="weed_details">
+                        <h5>{port.title}</h5>
+                        <p>{port.short_description}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
-          ))}
-        </CustomSlider>
+            {filteredPortfolio.length > 1 && (
+              <div
+                className="slick-next"
+                style={{
+                  display: "block",
+                  backgroundColor: "darkgray",
+                  color: "black",
+                  position: "absolute",
+                  top: "9rem",
+                  right: "0",
+                  cursor: "pointer",
+                  padding: "0.5rem 0.7rem",
+                  borderRadius: "50%",
+                }}
+                onClick={nextSlide}
+              >
+                <i className="fa-solid fa-arrow-right"></i>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </>
   );
