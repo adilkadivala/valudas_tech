@@ -172,12 +172,42 @@
   font-weight: 200;
   line-height: 23px;
 }
+
+.sliderContent {
+  min-width: 66.66%;
+  box-sizing: border-box;
+}
 .slick-prev {
-  border-radius: 20px;
+  display: block;
+  background-color: darkgray;
+  color: black;
+  position: absolute;
+  top: 9rem;
+  cursor: pointer;
+  padding: 0.5rem 0.7rem;
+  border-radius: 50%;
   z-index: 2;
 }
 .slick-next {
-  border-radius: 20px;
+  display: block;
+  background-color: darkgray;
+  color: black;
+  position: absolute;
+  top: 9rem;
+  cursor: pointer;
+  padding: 0.5rem 0.7rem;
+  border-radius: 50%;
+  right: 0;
+  z-index: 2;
+}
+
+.slierMain {
+  overflow: hidden;
+  width: 100%;
+}
+.sliderTrack {
+  display: flex;
+  transition: transform 0.5s ease;
 }
 
 @media only screen and (max-width: 769px) {
@@ -192,10 +222,10 @@
     width: 100%;
   }
   .portfolio {
-    width: 100%;
-    margin: 0;
-    padding: 10px;
-    margin-left: -20px;
+    width: 45%;
+    margin-top: 30px;
+    height: 350px;
+    padding-bottom: 20px;
   }
   .port_details {
     padding-top: 8px;
@@ -219,9 +249,7 @@
   #proj {
     font-size: 11px;
   }
-  #proud2 {
-    display: none;
-  }
+
   #cm {
     padding-top: 10px;
   }
@@ -246,19 +274,31 @@
     width: 100 !important;
   }
   .slid {
-    width: 90%;
+    width: 50%;
     margin: 0;
+    overflow: hidden;
+    position: relative;
   }
-  .slick-prev,
-  .slick-next {
-    display: none !important;
+
+  .sliderContent {
+    min-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .slierMain {
+    overflow: hidden;
+  }
+
+  .sliderTrack {
+    display: flex;
+    transition: transform 0.5s ease;
   }
 }
 
-@media only screen and (min-width: 426px) and (max-width: 769px) {
+@media only screen and (max-width: 426px) {
   .portfolio {
     margin: 0;
-    width: 45%;
+    width: 100%;
     margin-top: 30px;
     height: 350px;
     padding-bottom: 20px;
@@ -286,23 +326,11 @@
     width: 45%;
     margin: 10px 15px;
   }
+
   .slid {
-    width: 45%;
+    width: 100%;
     margin: 0;
-    margin-left: 35px;
+    overflow: hidden;
+    position: relative;
   }
-}
-
-@media only screen and (min-width: 770px) and (max-width: 1025px) {
-  .details p {
-    width: 95%;
-  }
-}
-
-.slider_container {
-  width: 50%;
-  background-color: antiquewhite;
-}
-.slick-slide {
-  float: right !important ;
 }

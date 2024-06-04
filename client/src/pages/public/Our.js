@@ -15,7 +15,7 @@ const Our = () => {
 
   const handleServiceClick = (serviceId) => {
     setSelectedServiceId(serviceId);
-    setCurrentIndex(0); // Reset the slider to the first slide when a new service is selected
+    setCurrentIndex(0);
   };
 
   const filteredPortfolio = portfolio.filter(
@@ -85,41 +85,19 @@ const Our = () => {
         {filteredPortfolio.length > 0 && (
           <div className="slid">
             {filteredPortfolio.length > 1 && (
-              <div
-                className="slick-prev"
-                style={{
-                  display: "block",
-                  backgroundColor: "darkgray",
-                  color: "black",
-                  position: "absolute",
-                  top: "9rem",
-                  cursor: "pointer",
-                  padding: "0.5rem 0.7rem",
-                  borderRadius: "50%",
-                }}
-                onClick={prevSlide}
-              >
+              <div className="slick-prev" style={{}} onClick={prevSlide}>
                 <i className="fa-solid fa-arrow-left"></i>
               </div>
             )}
-            <div style={{ overflow: "hidden" }}>
+            <div className="slierMain">
               <div
-                className="slick-track"
+                className="sliderTrack"
                 style={{
-                  display: "flex",
-                  transition: "transform 0.5s ease",
                   transform: `translateX(-${currentIndex * (100 / 1.5)}%)`,
                 }}
               >
                 {filteredPortfolio.map((port) => (
-                  <div
-                    className="slick-slide"
-                    key={port.id}
-                    style={{
-                      minWidth: "66.66%",
-                      boxSizing: "border-box",
-                    }}
-                  >
+                  <div className="sliderContent" key={port.id}>
                     <div className="proud_page" id="proud2">
                       <div className="proud_img">
                         <img src={`/upload/${port.thumbnail}`} alt="summary" />
@@ -134,21 +112,7 @@ const Our = () => {
               </div>
             </div>
             {filteredPortfolio.length > 1 && (
-              <div
-                className="slick-next"
-                style={{
-                  display: "block",
-                  backgroundColor: "darkgray",
-                  color: "black",
-                  position: "absolute",
-                  top: "9rem",
-                  right: "0",
-                  cursor: "pointer",
-                  padding: "0.5rem 0.7rem",
-                  borderRadius: "50%",
-                }}
-                onClick={nextSlide}
-              >
+              <div className="slick-next" onClick={nextSlide}>
                 <i className="fa-solid fa-arrow-right"></i>
               </div>
             )}

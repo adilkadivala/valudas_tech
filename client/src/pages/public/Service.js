@@ -70,16 +70,15 @@ const Service = () => {
                 />
               </div>
               <div className="all_language_boxes">
-                {selectedService.technologies.split(", ").map((tech, index) => (
-                  <div className="language_box" key={index}>
-                    <i
-                      className={`fa-brands fa-${tech
-                        .toLowerCase()
-                        .replace(".", "")}`}
-                    ></i>
-                    <p>{tech}</p>
-                  </div>
-                ))}
+                {selectedService.technologies.split(", ").map((tech, index) => {
+                  const tech_photo = selectedService.tech_photos[index];
+                  return (
+                    <div className="language_box" key={index}>
+                      <img src={`/upload/${tech_photo}`} alt="thumbnail"></img>
+                      <p>{tech}</p>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           )}

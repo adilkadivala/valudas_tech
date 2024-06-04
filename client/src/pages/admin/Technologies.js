@@ -4,7 +4,6 @@ import Sidebar from "./layout/Sidebar";
 import { useValudasData } from "../../context/Storage";
 import "../../assets/css/admin/main.css";
 import { DeleteModal } from "./layout/Modal";
-
 import { toast } from "react-toastify";
 import axios from "axios";
 
@@ -18,25 +17,33 @@ const TechStack = () => {
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [techStackId, setTechStackId] = useState(null);
   const [insertTechStack, setInsertTechStack] = useState({
+    tech_photo: null,
     technology_name: "",
   });
+
   const [updatetTechStack, setUpdateTechStack] = useState({
+    tech_photo: null,
     technology_name: "",
   });
 
   // inserting tech stack data
   const InsertData = async (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    formData.append("tech_photo", insertTechStack.tech_photo);
+    formData.append("technology_name", insertTechStack.technology_name);
+
     try {
-      const response = await axios.post(`${API}/poststack`, insertTechStack);
+      const response = await axios.post(`${API}/poststack`, formData);
       if (response.status === 200) {
         const response = await axios.get(`${API}/getstack`);
         const finelData = response.data;
         setTechnology(finelData);
         setInsertTechStack({
           technology_name: "",
+          tech_photo: "",
         });
-        toast.success("insertd successfully");
+        toast.success("inserted successfully");
       }
     } catch (error) {
       console.error(error.message);
@@ -44,22 +51,26 @@ const TechStack = () => {
   };
 
   // insert input handler
-  const inserHandler = async (e) => {
-    const { name, value } = e.target;
+  const inserHandler = (e) => {
+    const { name, value, files } = e.target;
 
     setInsertTechStack({
       ...insertTechStack,
-      [name]: value,
+      [name]: files ? files[0] : value,
     });
   };
 
   // update data
   const UpdateData = async (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    formData.append("tech_photo", updatetTechStack.tech_photo);
+    formData.append("technology_name", updatetTechStack.technology_name);
+    console.log(formData);
     try {
       const response = await axios.put(
         `${API}/updatestack/${updatetTechStack.id}`,
-        updatetTechStack
+        formData
       );
       if (response.status === 200) {
         const response = await axios.get(`${API}/getstack`);
@@ -68,6 +79,7 @@ const TechStack = () => {
         closeEditModal();
         setUpdateTechStack({
           technology_name: "",
+          tech_photo: "",
         });
         toast.success("updated successfully");
       }
@@ -78,10 +90,10 @@ const TechStack = () => {
 
   // update input handler
   const updateHandler = (e) => {
-    const { name, value } = e.target;
+    const { name, value, files } = e.target;
     setUpdateTechStack({
       ...updatetTechStack,
-      [name]: value,
+      [name]: files ? files[0] : value,
     });
   };
 
@@ -92,7 +104,9 @@ const TechStack = () => {
     setUpdateTechStack({
       id: techStack.id,
       technology_name: techStack.technology_name,
+      tech_photo: techStack.tech_photo,
     });
+    console.log(techStack);
   };
 
   // close update modal
@@ -175,6 +189,7 @@ const TechStack = () => {
               <table>
                 <thead>
                   <tr>
+                    <th>Technology Photo</th>
                     <th>Technology Name</th>
                     <th>Operation</th>
                   </tr>
@@ -185,6 +200,17 @@ const TechStack = () => {
                       return (
                         <>
                           <tr key={index}>
+                            <td>
+                              <img
+                                src={`/upload/${tech.tech_photo}`}
+                                alt="thumbnail"
+                                style={{
+                                  width: "4rem",
+                                  height: "4rem",
+                                  borderRadius: "0",
+                                }}
+                              ></img>
+                            </td>
                             <td>
                               <p>{tech.technology_name}</p>
                             </td>
@@ -239,7 +265,7 @@ const TechStack = () => {
                 <form
                   method="post"
                   encType="multipart/form-data"
-                  name="edit form"
+                  name="insert form"
                   onSubmit={InsertData}
                   style={{
                     display: "flex",
@@ -247,6 +273,21 @@ const TechStack = () => {
                     rowGap: "10px",
                   }}
                 >
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <label htmlFor="tech_photo" className="form-label">
+                      Technology Photo
+                    </label>
+                    <input
+                      style={{ padding: "12px 5px", fontSize: "15px" }}
+                      type="file"
+                      className="form-control"
+                      id="tech_photo"
+                      onChange={inserHandler}
+                      name="tech_photo"
+                      placeholder="Enter Technology Photo Here"
+                    />
+                  </div>
+
                   <div style={{ display: "flex", flexDirection: "column" }}>
                     <label htmlFor="technology_name" className="form-label">
                       Technology Name
@@ -367,6 +408,26 @@ const TechStack = () => {
                   rowGap: "10px",
                 }}
               >
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <label htmlFor="tech_photo" className="form-label">
+                    tech_photo
+                  </label>
+                  <input
+                    style={{ padding: "12px 5px", fontSize: "15px" }}
+                    type="file"
+                    className="form-control"
+                    id="tech_photo"
+                    onChange={updateHandler}
+                    name="tech_photo"
+                    placeholder="Enter Technology photo Here"
+                  />
+                  <img
+                    src={`/upload/${updatetTechStack.tech_photo}`}
+                    alt="tech_photo"
+                    style={{ width: "15rem" }}
+                  />
+                </div>
+
                 <div style={{ display: "flex", flexDirection: "column" }}>
                   <label htmlFor="technology_name" className="form-label">
                     Technology Name

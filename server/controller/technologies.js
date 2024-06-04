@@ -23,8 +23,13 @@ const getTechStack = async (req, res) => {
 const postTechStack = async (req, res) => {
   try {
     const { technology_name } = req.body;
-    const Que = `INSERT INTO technologies (technology_name) VALUES (?)`;
-    const data = [technology_name];
+
+    const tech_photo = req.files.tech_photo
+      ? req.files.tech_photo[0].filename
+      : null;
+
+    const Que = `INSERT INTO technologies (technology_name,tech_photo) VALUES (?,?)`;
+    const data = [technology_name, tech_photo];
 
     connectDB.query(Que, data, (err) => {
       if (err) {
@@ -47,10 +52,18 @@ const updateTechStack = async (req, res) => {
   try {
     const { id } = req.params;
     const { technology_name } = req.body;
-    const Que = `UPDATE  technologies SET technology_name = ? WHERE id = ?`;
-    const data = [technology_name, id];
 
-    connectDB.query(Que, data, (err, data) => {
+    let tech_photo;
+
+    if (req.files && req.files.tech_photo) {
+      tech_photo = req.files.tech_photo[0].filename;
+    } else {
+      tech_photo = req.body.tech_photo || null;
+    }
+    const Que = `UPDATE technologies SET technology_name = ?, tech_photo =?  WHERE id = ?`;
+    const data = [technology_name, tech_photo, id];
+
+    connectDB.query(Que, data, (err) => {
       if (err) {
         console.error(err.message);
         return res

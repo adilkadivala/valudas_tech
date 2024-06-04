@@ -9,7 +9,8 @@ const getService_technologies = async (req, res) => {
         s.service_name, 
         s.service_tagline, 
         s.service_description, 
-        GROUP_CONCAT(t.technology_name SEPARATOR ', ') AS technologies
+        GROUP_CONCAT(t.technology_name SEPARATOR ', ') AS technologies,
+        GROUP_CONCAT(t.tech_photo SEPARATOR ', ') AS tech_photos
       FROM 
         services s
       LEFT JOIN 
@@ -27,6 +28,11 @@ const getService_technologies = async (req, res) => {
           .status(500)
           .json({ message: "Error retrieving services with technologies" });
       }
+
+      data.forEach((service) => {
+        service.tech_photos = service.tech_photos.split(", ");
+      });
+
       return res.json(data);
     });
   } catch (error) {

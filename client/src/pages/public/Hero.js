@@ -1,7 +1,25 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import "../../assets/css/public/Hero.css";
 
 function Hero() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const nextSlide = () => {
+    setCurrentIndex(currentIndex + 1);
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex(currentIndex - 1);
+  };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      nextSlide();
+    });
+
+    clearTimeout(timer);
+  }, []);
+
   return (
     <>
       <div className="hero">
@@ -21,7 +39,9 @@ function Hero() {
 
         <div className="hero_second">
           <div className="left">
-            <i class="fa-solid fa-angle-left"></i>
+            <button onClick={prevSlide}>
+              <i class="fa-solid fa-angle-left"></i>
+            </button>
           </div>
 
           <div className="hero_end">
@@ -55,7 +75,9 @@ function Hero() {
           </div>
 
           <div className="right">
-            <i class="fa-solid fa-angle-right"></i>
+            <button onClick={nextSlide}>
+              <i class="fa-solid fa-angle-right"></i>
+            </button>
           </div>
         </div>
       </div>
