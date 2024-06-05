@@ -88,7 +88,7 @@
   background-color: #ffffff;
   margin-top: 10px;
   overflow: hidden;
-  box-shadow: 0px 13px 30px -10px #0a181d26;
+  box-shadow: 0px 10px 20px -10px #0a181d26;
 }
 
 .cms_devlopment::-webkit-scrollbar {
@@ -112,7 +112,9 @@
 .all_language_boxes {
   display: flex;
   flex-wrap: wrap;
-  margin: 10px;
+  justify-content: flex-start;
+  padding: 2rem;
+  gap: 1rem;
 }
 .language_box i {
   color: #6fbe44;
@@ -122,39 +124,19 @@
   border: 1px solid #dddcdc;
   width: 23%;
   height: 100px;
-  margin: 5px;
   border-radius: 10px;
   background-color: #ffffff;
   text-align: center;
   padding: 15px;
 }
 
-.language_box i {
-  font-size: 35px;
+.language_box img {
+  width: 45px;
 }
 .language_box p {
   font-size: 13px;
   margin-top: 5px;
   font-weight: 600;
-}
-
-#laravel i {
-  color: #ff2d20;
-}
-#wordpress i {
-  color: #04759b;
-}
-#hub_icon i {
-  color: #ff7a59;
-}
-#drupal i {
-  color: #009cde;
-}
-#joomla img {
-  width: 30%;
-}
-#mern img {
-  width: 34%;
 }
 
 .service_third {

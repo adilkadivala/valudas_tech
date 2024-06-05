@@ -5,6 +5,7 @@ import { useValudasData } from "../../context/Storage";
 const Our = () => {
   const { portfolio, serviceTechnology } = useValudasData();
   const [selectedServiceId, setSelectedServiceId] = useState(null);
+  const [selectedTechnology, setSelectedTechnology] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -15,12 +16,28 @@ const Our = () => {
 
   const handleServiceClick = (serviceId) => {
     setSelectedServiceId(serviceId);
+    setSelectedTechnology(null);
     setCurrentIndex(0);
   };
 
-  const filteredPortfolio = portfolio.filter(
-    (port) => port.service_id === selectedServiceId
-  );
+  const handleTechnologyClick = (technology) => {
+    setSelectedTechnology(technology);
+    setCurrentIndex(0);
+  };
+
+  const filteredPortfolio = portfolio.filter((port) => {
+    if (selectedServiceId !== null && port.service_id !== selectedServiceId) {
+      return false;
+    }
+    if (selectedTechnology !== null) {
+      const service = serviceTechnology.find(
+        (tech) => tech.service_id === selectedServiceId
+      );
+      const techs = service ? service.technologies.split(", ") : [];
+      return techs.includes(selectedTechnology);
+    }
+    return true;
+  });
 
   const nextSlide = () => {
     setCurrentIndex((currentIndex + 1) % filteredPortfolio.length);
@@ -73,10 +90,22 @@ const Our = () => {
                     <p id="cm">{tech.service_name}</p>
                   </summary>
                   <div className="details">
-                    <p id="hub_line">
-                      {tech.technologies}
-                      <i className="fa-solid fa-arrow-right"></i>
-                    </p>
+                    {tech.technologies.split(", ").map((technology) => (
+                      <p key={technology} style={{ marginBottom: "10px" }}>
+                        <span
+                          onClick={(e) => {
+                            e.stopPropagation(); 
+                            handleTechnologyClick(technology);
+                          }}
+                          style={{
+                            cursor: "pointer",
+                            textDecoration: "underline",
+                          }}
+                        >
+                          {technology}
+                        </span>
+                      </p>
+                    ))}
                   </div>
                 </details>
               </div>
@@ -85,7 +114,7 @@ const Our = () => {
         {filteredPortfolio.length > 0 && (
           <div className="slid">
             {filteredPortfolio.length > 1 && (
-              <div className="slick-prev" style={{}} onClick={prevSlide}>
+              <div className="slick-prev" onClick={prevSlide}>
                 <i className="fa-solid fa-arrow-left"></i>
               </div>
             )}

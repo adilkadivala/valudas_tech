@@ -54,6 +54,7 @@
   top: 34.5rem;
   transform: translate(-50%, -50%);
   display: flex;
+  justify-content: center;
   border-radius: 10px;
   box-shadow: 0px 13px 50px -10px #0a181d26;
 }
@@ -61,11 +62,15 @@
 .left {
   background-color: #eaf3f6;
   border-radius: 50%;
-  top: 2rem;
+  top: 1.8rem;
   left: -1rem;
   position: absolute;
 }
-
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
 .left i {
   font-size: 22px;
   margin: 7px 12px;
@@ -73,39 +78,16 @@
 
 .hero_end {
   justify-content: center;
+  column-gap: 3rem;
   display: flex;
+  padding: 1rem 2rem;
+  transition: transform 0.5s ease-in-out;
+  overflow: hidden;
 }
 
-.hero_end div {
-  width: 18%;
-  margin-left: 10px;
-}
-
-.hero_end div img {
-  width: 100%;
-}
-#awc img {
-  width: 80%;
-  margin-top: 5px;
-  margin-left: 10px;
-}
-
-#forolly img {
-  width: 80%;
-  margin-top: 5px;
-}
-#mumez img {
-  margin-top: 14px;
-  height: 60px;
-  margin-left: -15px;
-}
-#nandolia img {
-  margin-top: 23px;
-  margin-left: 10px;
-}
-#micro img {
-  margin-top: 20px;
-  margin-left: 25px;
+.hero_end img {
+  width: 7rem;
+  transition: transform 0.5s ease;
 }
 
 .right {
@@ -114,7 +96,7 @@
   width: 35px;
   border-radius: 50%;
   position: absolute;
-  top: 2rem;
+  top: 1.8rem;
   right: -1rem;
 }
 .right i {
@@ -129,7 +111,7 @@
     padding-bottom: 50px;
   }
   .hero_second {
-    display: none;
+    top: 23rem;
   }
   #empowering {
     font-size: 11px;
@@ -158,6 +140,7 @@
   }
 }
 
+
 @media only screen and (min-width: 770px) and (max-width: 1025px) {
   .hero_page h1 {
     font-size: 30px;
@@ -169,9 +152,7 @@
   .hero_page button {
     margin-top: 40px;
   }
-  #mumez img {
-    margin-top: 5px;
-  }
+
   .hero_end {
     margin: 5px 20px;
   }
