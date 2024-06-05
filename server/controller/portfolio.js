@@ -129,8 +129,6 @@ const deletePortfolio = async (req, res) => {
   }
 };
 
-// get data as a service id
-
 module.exports = {
   getPortfolio,
   insertPortfolio,

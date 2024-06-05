@@ -20,6 +20,9 @@ const Portfolio = () => {
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [PortfolioId, setPortfolioId] = useState(null);
+
+  // const [selectedServiceTechnologies, setSelectedServiceTechnologies] = useState([]);
+
   const {
     portfolio,
     setPortfolio,
@@ -27,6 +30,8 @@ const Portfolio = () => {
     serviceTechnology = [],
     portImages = [],
   } = useValudasData();
+
+  console.log(serviceTechnology);
 
   const openInsertModal = () => setInsertModalOpen(true);
   const closeInsertModal = () => setInsertModalOpen(false);
@@ -217,10 +222,25 @@ const Portfolio = () => {
 
     window.addEventListener("resize", handleResize);
 
+    // if (insertPortfolio.service_id) {
+    //   const selectedService = serviceTechnology.find(
+    //     (service) => service.service_id === parseInt(insertPortfolio.service_id)
+    //   );
+    //   if (selectedService) {
+    //     setSelectedServiceTechnologies(
+    //       selectedService.technologies.split(", ")
+    //     );
+    //   } else {
+    //     setSelectedServiceTechnologies([]);
+    //   }
+    // } else {
+    //   setSelectedServiceTechnologies([]);
+    // }
+
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [insertPortfolio.service_id]);
 
   return (
     <>
@@ -553,6 +573,29 @@ const Portfolio = () => {
                   })}
               </select>
             </div>
+
+            {/* {selectedServiceTechnologies.length > 0 && (
+              <div className="mb-3">
+                <label htmlFor="technologies" className="form-label">
+                  Choose Technology
+                </label>
+                <select
+                  style={{ padding: "12px 5px", fontSize: "15px" }}
+                  type="text"
+                  className="form-control"
+                  id="technologies"
+                  name="technologies"
+                  onChange={(e) => handleInputChange(e, setInsertPortfolio)}
+                >
+                  <option value="">Select Technology</option>
+                  {selectedServiceTechnologies.map((technology, index) => (
+                    <option key={index} value={technology}>
+                      {technology}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )} */}
 
             <div
               className="mb-3"

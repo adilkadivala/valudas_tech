@@ -94,7 +94,7 @@ const Our = () => {
                       <p key={technology} style={{ marginBottom: "10px" }}>
                         <span
                           onClick={(e) => {
-                            e.stopPropagation(); 
+                            e.stopPropagation();
                             handleTechnologyClick(technology);
                           }}
                           style={{

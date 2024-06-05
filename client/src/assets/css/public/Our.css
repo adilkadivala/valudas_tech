@@ -43,8 +43,11 @@
   padding: 16px;
   border: 1px solid #e2e1e1;
   border-radius: 10px;
-  overflow: hidden;
+  overflow-y: auto;
   transition: max-height 0.4s ease-in-out;
+}
+.custom_details::-webkit-scrollbar {
+  display: none;
 }
 .summary p {
   font-weight: 600;
