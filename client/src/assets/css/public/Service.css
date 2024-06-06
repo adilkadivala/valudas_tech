@@ -172,6 +172,7 @@
   font-size: 18px;
   margin-left: 150px;
   font-weight: 600;
+  background-color: #fff;
 }
 
 @media only screen and (max-width: 769px) {

@@ -178,8 +178,6 @@ const updateService_technologies = async (req, res) => {
   }
 };
 
-// getting data through id
-
 module.exports = {
   getService_technologies,
   postService_technologies,

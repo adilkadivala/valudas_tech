@@ -21,7 +21,8 @@ const Portfolio = () => {
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [PortfolioId, setPortfolioId] = useState(null);
 
-  // const [selectedServiceTechnologies, setSelectedServiceTechnologies] = useState([]);
+  const [selectedServiceTechnologies, setSelectedServiceTechnologies] =
+    useState([]);
 
   const {
     portfolio,
@@ -30,8 +31,6 @@ const Portfolio = () => {
     serviceTechnology = [],
     portImages = [],
   } = useValudasData();
-
-  console.log(serviceTechnology);
 
   const openInsertModal = () => setInsertModalOpen(true);
   const closeInsertModal = () => setInsertModalOpen(false);
@@ -61,6 +60,7 @@ const Portfolio = () => {
     portfolio_photos: "",
     service_id: "",
     industry_id: "",
+    technology_ids: "",
   });
 
   const [updatePortfolio, setUpdatePortfolio] = useState({
@@ -85,13 +85,17 @@ const Portfolio = () => {
     formData.append("portfolio_photos", insertPortfolio.portfolio_photos);
     formData.append("service_id", insertPortfolio.service_id);
     formData.append("industry_id", insertPortfolio.industry_id);
+    formData.append("technology_ids", insertPortfolio.technology_ids);
 
-    console.log("Form Data:", Object.fromEntries(formData.entries()));
+    // Append technology_ids
+    // formData.append(
+    //   "technology_ids",
+    //   JSON.stringify(insertPortfolio.technology_ids)
+    // );
 
     try {
       const response = await axios.post(`${API}/insertportfolio`, formData);
 
-      console.log(response.data);
       if (response.status === 200) {
         const portfolioResponse = await axios.get(`${API}/getportfolio`);
         setPortfolio(portfolioResponse.data);
@@ -103,6 +107,7 @@ const Portfolio = () => {
           portfolio_photos: null,
           service_id: "",
           industry_id: "",
+          technology_ids: "",
         });
         closeInsertModal();
         toast.success("Portfolio Inserted successfully");
@@ -122,6 +127,17 @@ const Portfolio = () => {
     setState((prevState) => ({
       ...prevState,
       [name]: files ? files[0] : value,
+    }));
+  };
+
+  const handleTechnologyChange = (e, setState) => {
+    const { options } = e.target;
+    const selectedTechnologies = Array.from(options)
+      .filter((option) => option.selected)
+      .map((option) => option.value);
+    setState((prevState) => ({
+      ...prevState,
+      technology_ids: selectedTechnologies,
     }));
   };
 
@@ -222,20 +238,20 @@ const Portfolio = () => {
 
     window.addEventListener("resize", handleResize);
 
-    // if (insertPortfolio.service_id) {
-    //   const selectedService = serviceTechnology.find(
-    //     (service) => service.service_id === parseInt(insertPortfolio.service_id)
-    //   );
-    //   if (selectedService) {
-    //     setSelectedServiceTechnologies(
-    //       selectedService.technologies.split(", ")
-    //     );
-    //   } else {
-    //     setSelectedServiceTechnologies([]);
-    //   }
-    // } else {
-    //   setSelectedServiceTechnologies([]);
-    // }
+    if (insertPortfolio.service_id) {
+      const selectedService = serviceTechnology.find(
+        (service) => service.service_id === parseInt(insertPortfolio.service_id)
+      );
+      if (selectedService) {
+        setSelectedServiceTechnologies(
+          selectedService.technologies.split(", ")
+        );
+      } else {
+        setSelectedServiceTechnologies([]);
+      }
+    } else {
+      setSelectedServiceTechnologies([]);
+    }
 
     return () => {
       window.removeEventListener("resize", handleResize);
@@ -547,16 +563,12 @@ const Portfolio = () => {
               )}
             </div>
 
-            <div
-              className="mb-3"
-              style={{ display: "flex", flexDirection: "column" }}
-            >
+            <div className="mb-3">
               <label htmlFor="service_id" className="form-label">
                 Choose Service
               </label>
               <select
                 style={{ padding: "12px 5px", fontSize: "15px" }}
-                type="text"
                 className="form-control"
                 id="service_id"
                 name="service_id"
@@ -564,38 +576,37 @@ const Portfolio = () => {
               >
                 <option value="">Select Service</option>
                 {serviceTechnology &&
-                  serviceTechnology.map((service) => {
-                    return (
-                      <option key={service.id} value={service.service_id}>
-                        {service.service_name}
-                      </option>
-                    );
-                  })}
+                  serviceTechnology.map((service) => (
+                    <option key={service.id} value={service.service_id}>
+                      {service.service_name}
+                    </option>
+                  ))}
               </select>
             </div>
 
-            {/* {selectedServiceTechnologies.length > 0 && (
+            {selectedServiceTechnologies.length > 0 && (
               <div className="mb-3">
-                <label htmlFor="technologies" className="form-label">
-                  Choose Technology
+                <label htmlFor="technology_ids" className="form-label">
+                  Choose Technologies
                 </label>
                 <select
                   style={{ padding: "12px 5px", fontSize: "15px" }}
-                  type="text"
+                  multiple
                   className="form-control"
-                  id="technologies"
-                  name="technologies"
-                  onChange={(e) => handleInputChange(e, setInsertPortfolio)}
+                  id="technology_ids"
+                  name="technology_ids"
+                  onChange={(e) =>
+                    handleTechnologyChange(e, setInsertPortfolio)
+                  }
                 >
-                  <option value="">Select Technology</option>
                   {selectedServiceTechnologies.map((technology, index) => (
-                    <option key={index} value={technology}>
+                    <option key={index} value={technology.id}>
                       {technology}
                     </option>
                   ))}
                 </select>
               </div>
-            )} */}
+            )}
 
             <div
               className="mb-3"
