@@ -20,5 +20,6 @@ router
   );
 
 router.route("/deleteportfolio/:id").delete(portfolioData.deletePortfolio);
+router.route("/getfulldata").get(portfolioData.getFullData);
 
 module.exports = router;

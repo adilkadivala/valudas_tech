@@ -3,7 +3,21 @@ const connectDB = require("../database/connection");
 // Getting portfolio data
 const getPortfolio = async (req, res) => {
   try {
-    const query = `SELECT * FROM portfolio`;
+    const query = `
+      SELECT 
+        p.thumbnail,
+        p.title,
+        p.short_description,
+        p.company_name,
+        p.portfolio_photos,
+        pst.service_id,
+        pst.technology_id,
+        p.industry_id
+      FROM 
+        portfolio p
+      LEFT JOIN 
+        port_serv_tech pst ON p.id = pst.portfolio_id
+    `;
 
     connectDB.query(query, (err, data) => {
       if (err) {
@@ -302,9 +316,27 @@ const deletePortfolio = async (req, res) => {
   }
 };
 
+// getting data from juction table
+const getFullData = async (req, res) => {
+  try {
+    const Que = `SELECT * FROM port_serv_tech`;
+
+    connectDB.query(Que, (err, data) => {
+      if (err) {
+        console.error(err);
+        return res.sendStatus(500).json({ message: "data not found " });
+      }
+      return res.json(data);
+    });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
 module.exports = {
   getPortfolio,
   insertPortfolio,
   updatePortfolio,
   deletePortfolio,
+  getFullData,
 };

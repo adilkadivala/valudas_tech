@@ -5,21 +5,21 @@ const getService_technologies = async (req, res) => {
   try {
     const query = `
       SELECT 
-        s.id AS service_id, 
-        s.service_name, 
-        s.service_tagline, 
-        s.service_description, 
-        GROUP_CONCAT(t.technology_name SEPARATOR ', ') AS technologies,
-        GROUP_CONCAT(t.tech_photo SEPARATOR ', ') AS tech_photos
-      FROM 
-        services s
-      LEFT JOIN 
-        service_technology st ON s.id = st.services_id
-      LEFT JOIN 
-        technologies t ON st.technology_id = t.id
-      GROUP BY 
-        s.id, s.service_name, s.service_tagline, s.service_description
-    `;
+    s.id AS service_id, 
+    s.service_name, 
+    s.service_tagline, 
+    s.service_description, 
+    GROUP_CONCAT(t.id SEPARATOR ', ') AS technology_ids,
+    GROUP_CONCAT(t.technology_name SEPARATOR ', ') AS technologies,
+    GROUP_CONCAT(t.tech_photo SEPARATOR ', ') AS tech_photos
+FROM 
+    services s
+LEFT JOIN 
+    service_technology st ON s.id = st.services_id
+LEFT JOIN 
+    technologies t ON st.technology_id = t.id
+GROUP BY 
+    s.id, s.service_name, s.service_tagline, s.service_description`;
 
     connectDB.query(query, (err, data) => {
       if (err) {

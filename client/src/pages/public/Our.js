@@ -4,7 +4,7 @@ import { useValudasData } from "../../context/Storage";
 
 const Our = () => {
   const { portfolio, serviceTechnology } = useValudasData();
-  console.log(portfolio);
+
   const [selectedServiceId, setSelectedServiceId] = useState(null);
   const [selectedTechnology, setSelectedTechnology] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -31,11 +31,11 @@ const Our = () => {
       return false;
     }
     if (selectedTechnology !== null) {
-      const service = serviceTechnology.find(
-        (tech) => tech.service_id === selectedServiceId
-      );
-      const techs = service ? service.technologies.split(", ") : [];
-      return techs.includes(selectedTechnology);
+      const techIdsArray = serviceTechnology
+        .find((tech) => tech.service_id === selectedServiceId)
+        .technology_ids.split(",")
+        .map((id) => parseInt(id.trim()));
+      return techIdsArray.includes(port.technology_id);
     }
     return true;
   });
