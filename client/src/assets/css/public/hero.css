@@ -84,10 +84,18 @@ button {
   transition: transform 0.5s ease-in-out;
   overflow: hidden;
 }
-
+/* @keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-200px * 5 - 20px * 1));
+  }
+} */
 .hero_end img {
   width: 7rem;
   transition: transform 0.5s ease;
+  /* animation: scroll 25s linear infinite; */
 }
 
 .right {
@@ -139,7 +147,6 @@ button {
     font-size: 13px;
   }
 }
-
 
 @media only screen and (min-width: 770px) and (max-width: 1025px) {
   .hero_page h1 {

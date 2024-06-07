@@ -21,9 +21,6 @@ const Portfolio = () => {
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [PortfolioId, setPortfolioId] = useState(null);
 
-  const [selectedServiceTechnologies, setSelectedServiceTechnologies] =
-    useState([]);
-
   const {
     portfolio,
     setPortfolio,
@@ -63,6 +60,8 @@ const Portfolio = () => {
     technology_ids: "",
   });
 
+  const [selectedTechnologies, setSelectedTechnologies] = useState([]);
+
   const [updatePortfolio, setUpdatePortfolio] = useState({
     thumbnail: null,
     title: "",
@@ -71,6 +70,7 @@ const Portfolio = () => {
     portfolio_photos: "",
     service_id: "",
     industry_id: "",
+    technology_ids: "",
   });
 
   // insertig data
@@ -86,12 +86,6 @@ const Portfolio = () => {
     formData.append("service_id", insertPortfolio.service_id);
     formData.append("industry_id", insertPortfolio.industry_id);
     formData.append("technology_ids", insertPortfolio.technology_ids);
-
-    // Append technology_ids
-    // formData.append(
-    //   "technology_ids",
-    //   JSON.stringify(insertPortfolio.technology_ids)
-    // );
 
     try {
       const response = await axios.post(`${API}/insertportfolio`, formData);
@@ -183,12 +177,16 @@ const Portfolio = () => {
     formData.append("portfolio_photos", updatePortfolio.portfolio_photos);
     formData.append("service_id", updatePortfolio.service_id);
     formData.append("industry_id", updatePortfolio.industry_id);
+    formData.append("technology_ids", updatePortfolio.technology_ids);
 
     try {
       const response = await axios.put(
         `${API}/updateportfolio/${updatePortfolio.id}`,
         formData
       );
+
+      console.log(response.data);
+
       if (response.status === 200) {
         const response = await axios.get(`${API}/getportfolio`);
         const finelData = response.data;
@@ -201,6 +199,7 @@ const Portfolio = () => {
           portfolio_photos: "",
           service_id: "",
           industry_id: "",
+          technology_ids: "",
         });
         closeUpdateModal();
         toast.success("data updated Success fully");
@@ -221,6 +220,7 @@ const Portfolio = () => {
       portfolio_photos: portfolio.portfolio_photos,
       service_id: portfolio.service_id,
       industry_id: portfolio.industry_id,
+      technology_ids: portfolio.technology_ids,
       id: portfolio.id,
     });
   };
@@ -238,25 +238,36 @@ const Portfolio = () => {
 
     window.addEventListener("resize", handleResize);
 
-    if (insertPortfolio.service_id) {
-      const selectedService = serviceTechnology.find(
-        (service) => service.service_id === parseInt(insertPortfolio.service_id)
-      );
-      if (selectedService) {
-        setSelectedServiceTechnologies(
-          selectedService.technologies.split(", ")
+    const updateSelectedTechnologies = (portfolio) => {
+      if (portfolio.service_id) {
+        const selectedService = serviceTechnology.find(
+          (service) => service.service_id === parseInt(portfolio.service_id)
         );
+        if (selectedService) {
+          setSelectedTechnologies(selectedService.technologies.split(", "));
+        } else {
+          setSelectedTechnologies([]);
+        }
       } else {
-        setSelectedServiceTechnologies([]);
+        setSelectedTechnologies([]);
       }
-    } else {
-      setSelectedServiceTechnologies([]);
+    };
+
+    if (insertModalOpen) {
+      updateSelectedTechnologies(insertPortfolio);
+    } else if (updateModalOpen) {
+      updateSelectedTechnologies(updatePortfolio);
     }
 
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [insertPortfolio.service_id]);
+  }, [
+    insertPortfolio.service_id,
+    updatePortfolio.service_id,
+    insertModalOpen,
+    updateModalOpen,
+  ]);
 
   return (
     <>
@@ -563,7 +574,10 @@ const Portfolio = () => {
               )}
             </div>
 
-            <div className="mb-3">
+            <div
+              className="mb-3"
+              style={{ display: "flex", flexDirection: "column" }}
+            >
               <label htmlFor="service_id" className="form-label">
                 Choose Service
               </label>
@@ -584,8 +598,11 @@ const Portfolio = () => {
               </select>
             </div>
 
-            {selectedServiceTechnologies.length > 0 && (
-              <div className="mb-3">
+            {selectedTechnologies.length > 0 && (
+              <div
+                className="mb-3"
+                style={{ display: "flex", flexDirection: "column" }}
+              >
                 <label htmlFor="technology_ids" className="form-label">
                   Choose Technologies
                 </label>
@@ -599,7 +616,7 @@ const Portfolio = () => {
                     handleTechnologyChange(e, setInsertPortfolio)
                   }
                 >
-                  {selectedServiceTechnologies.map((technology, index) => (
+                  {selectedTechnologies.map((technology, index) => (
                     <option key={index} value={technology.id}>
                       {technology}
                     </option>
@@ -844,23 +861,49 @@ const Portfolio = () => {
               </label>
               <select
                 style={{ padding: "12px 5px", fontSize: "15px" }}
-                type="text"
                 className="form-control"
                 id="service_id"
                 name="service_id"
                 onChange={(e) => handleInputChange(e, setUpdatePortfolio)}
+                value={updatePortfolio.service_id}
               >
                 <option value="">Select Service</option>
                 {serviceTechnology &&
-                  serviceTechnology.map((service) => {
-                    return (
-                      <option key={service.id} value={service.service_id}>
-                        {service.service_name}
-                      </option>
-                    );
-                  })}
+                  serviceTechnology.map((service) => (
+                    <option key={service.id} value={service.service_id}>
+                      {service.service_name}
+                    </option>
+                  ))}
               </select>
             </div>
+
+            {selectedTechnologies.length > 0 && (
+              <div
+                className="mb-3"
+                style={{ display: "flex", flexDirection: "column" }}
+              >
+                <label htmlFor="technology_ids" className="form-label">
+                  Choose Technologies
+                </label>
+                <select
+                  style={{ padding: "12px 5px", fontSize: "15px" }}
+                  multiple
+                  className="form-control"
+                  id="technology_ids"
+                  name="technology_ids"
+                  onChange={(e) =>
+                    handleTechnologyChange(e, setUpdatePortfolio)
+                  }
+                  value={updatePortfolio.technology_ids}
+                >
+                  {selectedTechnologies.map((technology, index) => (
+                    <option key={index} value={technology.id}>
+                      {technology}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
 
             <div
               className="mb-3"
