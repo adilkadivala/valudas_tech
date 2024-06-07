@@ -184,12 +184,10 @@ const updatePortfolio = async (req, res) => {
               JSON.stringify(technology_ids.sort())
           ) {
             // No changes in service_id or technology_ids
-            return res
-              .status(200)
-              .json({
-                message:
-                  "Updated successfully with no changes in services or technologies",
-              });
+            return res.status(200).json({
+              message:
+                "Updated successfully with no changes in services or technologies",
+            });
           }
 
           // Get new technology IDs
