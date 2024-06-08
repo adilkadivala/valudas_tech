@@ -4,7 +4,8 @@ const connectDB = require("../database/connection");
 const getPortfolio = async (req, res) => {
   try {
     const query = `
-      SELECT 
+      SELECT
+        p.id,
         p.thumbnail,
         p.title,
         p.short_description,
@@ -13,11 +14,15 @@ const getPortfolio = async (req, res) => {
         pst.service_id,
         pst.technology_id,
         p.industry_id
-      FROM 
+      FROM
         portfolio p
-      LEFT JOIN 
+      LEFT JOIN
         port_serv_tech pst ON p.id = pst.portfolio_id
     `;
+    // const query = `SELECT pst.*,pf.*,sr.*,tc.* from port_serv_tech as pst
+    // INNER JOIN portfolio as pf ON pf.id=pst.portfolio_id
+    // INNER JOIN services as sr ON sr.id=pst.service_id
+    // INNER JOIN technologies as tc ON tc.id=pst.technology_id`;
 
     connectDB.query(query, (err, data) => {
       if (err) {
@@ -135,7 +140,7 @@ const updatePortfolio = async (req, res) => {
       industry_id,
       technology_ids,
     } = req.body;
-
+    console.log(req.body);
     let thumbnail;
     if (req.files && req.files.thumbnail) {
       thumbnail = req.files.thumbnail[0].filename;
@@ -162,123 +167,32 @@ const updatePortfolio = async (req, res) => {
           .status(500)
           .json({ message: "Error updating portfolio data" });
       }
+    });
 
-      // Check if service_id or technology_ids have changed
-      const checkChangesQuery = `SELECT service_id FROM portfolio WHERE id = ?`;
-      connectDB.query(checkChangesQuery, [id], (err, results) => {
-        if (err) {
-          console.error("Error checking portfolio data:", err.message);
-          return res
-            .status(500)
-            .json({ message: "Error checking portfolio data" });
-        }
+    const techId = `SELECT id FROM technologies WHERE technology_name = ?`;
+    const techValue = [technology_ids];
 
-        const existingServiceId = results[0].service_id;
+    connectDB.query(techId, techValue, (err, result) => {
+      if (err) {
+        console.error("Error updating portfolio data:", err.message);
+        return res
+          .status(500)
+          .json({ message: "Error updating portfolio data" });
+      }
+      console.log(result);
+    });
 
-        // Get existing technology IDs for this portfolio
-        const existingTechQuery = `SELECT technology_id FROM port_serv_tech WHERE portfolio_id = ?`;
-        connectDB.query(existingTechQuery, [id], (err, existingResults) => {
-          if (err) {
-            console.error(
-              "Error retrieving existing technology IDs:",
-              err.message
-            );
-            return res
-              .status(500)
-              .json({ message: "Error retrieving existing technology IDs" });
-          }
+    const updateJunction = `UPDATE port_serv_tech SET service_id = ?, technology_id = ? WHERE id = ?`;
+    const junctionValue = [service_id, technology_ids, id];
 
-          const existingTechIds = existingResults.map(
-            (result) => result.technology_id
-          );
-
-          if (
-            existingServiceId === service_id &&
-            JSON.stringify(existingTechIds.sort()) ===
-              JSON.stringify(technology_ids.sort())
-          ) {
-            // No changes in service_id or technology_ids
-            return res.status(200).json({
-              message:
-                "Updated successfully with no changes in services or technologies",
-            });
-          }
-
-          // Get new technology IDs
-          const techIdQuery = `SELECT id FROM technologies WHERE technology_name IN (?)`;
-          connectDB.query(techIdQuery, [technology_ids], (err, techResults) => {
-            if (err) {
-              console.error(err.message);
-              return res
-                .status(500)
-                .json({ message: "Error retrieving technology IDs" });
-            }
-
-            const newTechnologyIds = techResults.map((tech) => tech.id);
-
-            // Find technology IDs to insert (new ones that are not in the existing list)
-            const techIdsToInsert = newTechnologyIds.filter(
-              (techId) => !existingTechIds.includes(techId)
-            );
-
-            // Find technology IDs to delete (existing ones that are not in the new list)
-            const techIdsToDelete = existingTechIds.filter(
-              (techId) => !newTechnologyIds.includes(techId)
-            );
-
-            // Delete old entries from the junction table
-            const deletePromises = techIdsToDelete.map((techId) => {
-              return new Promise((resolve, reject) => {
-                const deleteJunctionQuery = `DELETE FROM port_serv_tech WHERE portfolio_id = ? AND technology_id = ?`;
-                connectDB.query(deleteJunctionQuery, [id, techId], (err) => {
-                  if (err) {
-                    console.error(
-                      "Error deleting existing junction data:",
-                      err.message
-                    );
-                    reject(err);
-                  } else {
-                    resolve();
-                  }
-                });
-              });
-            });
-
-            // Insert new entries into the junction table
-            const insertPromises = techIdsToInsert.map((techId) => {
-              return new Promise((resolve, reject) => {
-                const insertJunctionQuery = `INSERT INTO port_serv_tech (portfolio_id, service_id, technology_id) VALUES (?, ?, ?)`;
-                connectDB.query(
-                  insertJunctionQuery,
-                  [id, service_id, techId],
-                  (err) => {
-                    if (err) {
-                      console.error(
-                        "Error inserting into junction table:",
-                        err.message
-                      );
-                      reject(err);
-                    } else {
-                      resolve();
-                    }
-                  }
-                );
-              });
-            });
-
-            Promise.all([...deletePromises, ...insertPromises])
-              .then(() => {
-                res.status(200).json({ message: "Updated successfully" });
-              })
-              .catch((error) => {
-                console.error("Error updating junction table:", error.message);
-                return res
-                  .status(500)
-                  .json({ message: "Error updating portfolio data" });
-              });
-          });
-        });
-      });
+    connectDB.query(updateJunction, junctionValue, (err) => {
+      if (err) {
+        console.error("Error updating portfolio data:", err.message);
+        return res
+          .status(500)
+          .json({ message: "Error updating portfolio data" });
+      }
+      return res.sendStatus(200);
     });
   } catch (error) {
     console.error("Error updating portfolio", error);

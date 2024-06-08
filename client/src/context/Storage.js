@@ -18,7 +18,6 @@ export const ValudasStorage = ({ children }) => {
   const [serviceTechnology, setServicesTechnology] = useState([]);
   const [portTechServData, setPortTechServData] = useState([]);
 
-
   // users
   const getUsersList = async () => {
     try {

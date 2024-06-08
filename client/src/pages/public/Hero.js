@@ -44,7 +44,7 @@ function Hero() {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [activeSlide]);
 
   const getSlidesToDisplay = () => {
     let slides = [];

@@ -60,6 +60,7 @@ const Portfolio = () => {
     technology_ids: "",
   });
 
+  const [allTechnologies, setAllTechnologies] = useState([]);
   const [selectedTechnologies, setSelectedTechnologies] = useState([]);
 
   const [updatePortfolio, setUpdatePortfolio] = useState({
@@ -86,6 +87,8 @@ const Portfolio = () => {
     formData.append("service_id", insertPortfolio.service_id);
     formData.append("industry_id", insertPortfolio.industry_id);
     formData.append("technology_ids", insertPortfolio.technology_ids);
+
+    console.log("technology_ids", insertPortfolio.technology_ids);
 
     try {
       const response = await axios.post(`${API}/insertportfolio`, formData);
@@ -126,12 +129,15 @@ const Portfolio = () => {
 
   const handleTechnologyChange = (e, setState) => {
     const { options } = e.target;
-    const selectedTechnologies = Array.from(options)
-      .filter((option) => option.selected)
-      .map((option) => option.value);
+    const selectedTechIds = [];
+    for (let i = 0; i < options.length; i++) {
+      if (options[i].selected) {
+        selectedTechIds.push(options[i].value);
+      }
+    }
     setState((prevState) => ({
       ...prevState,
-      technology_ids: selectedTechnologies,
+      technology_ids: selectedTechIds,
     }));
   };
 
@@ -185,7 +191,7 @@ const Portfolio = () => {
         formData
       );
 
-      console.log(response.data);
+      console.log(response.data, 188);
 
       if (response.status === 200) {
         const response = await axios.get(`${API}/getportfolio`);
@@ -212,16 +218,17 @@ const Portfolio = () => {
   // update modal
   const openUpdateModal = (portfolio) => {
     setUpdateModalOpen(true);
+    console.log(portfolio);
     setUpdatePortfolio({
       thumbnail: portfolio.thumbnail,
       title: portfolio.title,
+      id: portfolio.id,
       short_description: portfolio.short_description,
       company_name: portfolio.company_name,
       portfolio_photos: portfolio.portfolio_photos,
       service_id: portfolio.service_id,
       industry_id: portfolio.industry_id,
       technology_ids: portfolio.technology_ids,
-      id: portfolio.id,
     });
   };
 
