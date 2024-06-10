@@ -72,6 +72,19 @@
   transition: transform 0.2s ease;
 }
 
+.selected-technology {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+}
+
+.selected-technology::after {
+  content: "⟩";
+  margin-left: 10px;
+  font-weight: 700;
+}
+
 .custom_details[open] summary::after {
   transform: rotate(90deg);
 }

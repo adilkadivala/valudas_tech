@@ -6,7 +6,7 @@ const Portfolio = () => {
   const { portfolio, serviceTechnology } = useValudasData();
 
   const [selectedServiceId, setSelectedServiceId] = useState(null);
-  const [selectedTechnologyId, setSelectedTechnologyId] = useState(null); 
+  const [selectedTechnologyId, setSelectedTechnologyId] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -22,8 +22,7 @@ const Portfolio = () => {
   };
 
   const handleTechnologyClick = (technologyId) => {
-    // Updated parameter
-    setSelectedTechnologyId(technologyId); // Updated state
+    setSelectedTechnologyId(technologyId);
     setCurrentIndex(0);
   };
 
@@ -98,12 +97,14 @@ const Portfolio = () => {
                             e.stopPropagation();
                             handleTechnologyClick(
                               parseInt(tech.technology_ids.split(", ")[index])
-                            ); // Updated to pass technology ID
+                            );
                           }}
-                          style={{
-                            cursor: "pointer",
-                            textDecoration: "underline",
-                          }}
+                          className={
+                            selectedTechnologyId ===
+                            parseInt(tech.technology_ids.split(", ")[index])
+                              ? "selected-technology"
+                              : ""
+                          }
                         >
                           {technology}
                         </span>
