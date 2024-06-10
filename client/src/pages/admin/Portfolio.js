@@ -60,7 +60,6 @@ const Portfolio = () => {
     technology_ids: "",
   });
 
-  const [allTechnologies, setAllTechnologies] = useState([]);
   const [selectedTechnologies, setSelectedTechnologies] = useState([]);
 
   const [updatePortfolio, setUpdatePortfolio] = useState({
@@ -87,8 +86,6 @@ const Portfolio = () => {
     formData.append("service_id", insertPortfolio.service_id);
     formData.append("industry_id", insertPortfolio.industry_id);
     formData.append("technology_ids", insertPortfolio.technology_ids);
-
-    console.log("technology_ids", insertPortfolio.technology_ids);
 
     try {
       const response = await axios.post(`${API}/insertportfolio`, formData);
@@ -129,15 +126,12 @@ const Portfolio = () => {
 
   const handleTechnologyChange = (e, setState) => {
     const { options } = e.target;
-    const selectedTechIds = [];
-    for (let i = 0; i < options.length; i++) {
-      if (options[i].selected) {
-        selectedTechIds.push(options[i].value);
-      }
-    }
+    const selectedTechnologies = Array.from(options)
+      .filter((option) => option.selected)
+      .map((option) => option.value);
     setState((prevState) => ({
       ...prevState,
-      technology_ids: selectedTechIds,
+      technology_ids: selectedTechnologies,
     }));
   };
 
@@ -184,6 +178,7 @@ const Portfolio = () => {
     formData.append("service_id", updatePortfolio.service_id);
     formData.append("industry_id", updatePortfolio.industry_id);
     formData.append("technology_ids", updatePortfolio.technology_ids);
+    console.log(updatePortfolio.technology_ids);
 
     try {
       const response = await axios.put(
@@ -228,7 +223,9 @@ const Portfolio = () => {
       portfolio_photos: portfolio.portfolio_photos,
       service_id: portfolio.service_id,
       industry_id: portfolio.industry_id,
-      technology_ids: portfolio.technology_ids,
+      technology_ids: portfolio.technology_ids
+        ? portfolio.technology_ids.split(",")
+        : [],
     });
   };
 

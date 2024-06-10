@@ -130,6 +130,7 @@ const insertPortfolio = async (req, res) => {
 const updatePortfolio = async (req, res) => {
   try {
     const id = req.params.id;
+    console.log(req.params);
 
     const {
       title,
@@ -140,7 +141,7 @@ const updatePortfolio = async (req, res) => {
       industry_id,
       technology_ids,
     } = req.body;
-    console.log(req.body);
+
     let thumbnail;
     if (req.files && req.files.thumbnail) {
       thumbnail = req.files.thumbnail[0].filename;
@@ -148,7 +149,7 @@ const updatePortfolio = async (req, res) => {
       thumbnail = req.body.thumbnail || null;
     }
 
-    const updatePortfolioQuery = `UPDATE portfolio SET thumbnail = ?, title = ?, short_description = ?, company_name = ?, portfolio_photos = ?, service_id = ?, industry_id = ? WHERE id = ?`;
+    const firstQue = `UPDATE portfolio SET thumbnail = ?, title = ?, short_description = ?, company_name = ?, portfolio_photos = ?, service_id = ?, industry_id = ? WHERE id = ?`;
     const portfolioValues = [
       thumbnail,
       title,
@@ -160,7 +161,9 @@ const updatePortfolio = async (req, res) => {
       id,
     ];
 
-    connectDB.query(updatePortfolioQuery, portfolioValues, (err) => {
+    console.log(portfolioValues);
+
+    connectDB.query(firstQue, portfolioValues, (err) => {
       if (err) {
         console.error("Error updating portfolio data:", err.message);
         return res
