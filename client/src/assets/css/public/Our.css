@@ -77,6 +77,7 @@
   justify-content: space-between;
   align-items: center;
   width: 90%;
+  color: #68ab3b;
 }
 
 .selected-technology::after {
