@@ -86,6 +86,7 @@ const Portfolio = () => {
     formData.append("service_id", insertPortfolio.service_id);
     formData.append("industry_id", insertPortfolio.industry_id);
     formData.append("technology_id", insertPortfolio.technology_id);
+    console.log(insertPortfolio.technology_id, 89);
 
     try {
       const response = await axios.post(`${API}/insertportfolio`, formData);

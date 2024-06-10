@@ -53,8 +53,9 @@ const insertPortfolio = async (req, res) => {
       portfolio_photos,
       service_id,
       industry_id,
-      technology_ids,
+      technology_id,
     } = req.body;
+    console.log(req.body);
 
     // Insert into portfolio table
     const Que = `INSERT INTO portfolio (thumbnail, title, short_description, company_name, portfolio_photos, service_id, industry_id) VALUES (?, ?, ?, ?, ?, ?, ?)`;
@@ -76,12 +77,11 @@ const insertPortfolio = async (req, res) => {
           .json({ message: "Error inserting portfolio data" });
       }
 
-      // Get the last inserted portfolio ID
       const portfolioId = result.insertId;
 
       // Get technology IDs based on technology names
       const tech_id_query = `SELECT id FROM technologies WHERE technology_name IN (?)`;
-      connectDB.query(tech_id_query, [technology_ids], (err, techResults) => {
+      connectDB.query(tech_id_query, [technology_id], (err, techResults) => {
         if (err) {
           console.error(err.message);
           return res
@@ -138,8 +138,10 @@ const updatePortfolio = async (req, res) => {
       portfolio_photos,
       service_id,
       industry_id,
-      technology_ids,
+      technology_id,
     } = req.body;
+
+    console.log(req.body);
 
     let thumbnail;
     if (req.files && req.files.thumbnail) {
@@ -160,41 +162,62 @@ const updatePortfolio = async (req, res) => {
       id,
     ];
 
-    console.log(portfolioValues, 163);
-
-    connectDB.query(firstQue, portfolioValues, (err) => {
+    connectDB.query(firstQue, portfolioValues, async (err) => {
       if (err) {
         console.error("Error updating portfolio data:", err.message);
         return res
           .status(500)
           .json({ message: "Error updating portfolio data" });
       }
-    });
 
-    const techId = `SELECT id FROM technologies WHERE technology_name = ?`;
-    const techValue = [technology_ids];
+      let techIdValue = technology_id;
+      console.log(techIdValue, 268);
 
-    connectDB.query(techId, techValue, (err, result) => {
-      if (err) {
-        console.error("Error updating portfolio data:", err.message);
-        return res
-          .status(500)
-          .json({ message: "Error updating portfolio data" });
+      if (isNaN(techIdValue)) {
+        try {
+          const techIdQuery = `SELECT id FROM technologies WHERE technology_name = ?`;
+          const techResults = await new Promise((resolve, reject) => {
+            connectDB.query(techIdQuery, [technology_id], (err, result) => {
+              if (err) {
+                reject(err);
+              } else {
+                resolve(result);
+              }
+            });
+          });
+
+          console.log(techResults, 279);
+
+          if (techResults && techResults.length > 0) {
+            techIdValue = techResults[0].id;
+            console.log(techIdValue, 286);
+          } else {
+            return res.status(400).json({ message: "Technology not found" });
+          }
+        } catch (error) {
+          console.error("Error finding technology ID:", error.message);
+          return res
+            .status(500)
+            .json({ message: "Error finding technology ID" });
+        }
       }
-      console.log(result);
-    });
 
-    const updateJunction = `UPDATE port_serv_tech SET service_id = ?, technology_id = ? WHERE id = ?`;
-    const junctionValue = [service_id, technology_ids, id];
+      const updateJunction = `UPDATE port_serv_tech SET service_id = ?, technology_id = ? WHERE portfolio_id = ?`;
+      const junctionValue = [service_id, techIdValue, id];
+      console.log(junctionValue);
 
-    connectDB.query(updateJunction, junctionValue, (err) => {
-      if (err) {
-        console.error("Error updating portfolio data:", err.message);
-        return res
-          .status(500)
-          .json({ message: "Error updating portfolio data" });
-      }
-      return res.sendStatus(200);
+      connectDB.query(updateJunction, junctionValue, (err) => {
+        if (err) {
+          console.error(
+            "Error updating portfolio service technology data:",
+            err.message
+          );
+          return res.status(500).json({
+            message: "Error updating portfolio service technology data",
+          });
+        }
+        return res.sendStatus(200);
+      });
     });
   } catch (error) {
     console.error("Error updating portfolio", error);
@@ -202,7 +225,7 @@ const updatePortfolio = async (req, res) => {
   }
 };
 
-// Deleting portfolio
+// deleting portfolio
 const deletePortfolio = async (req, res) => {
   try {
     const { id: portfolio_id } = req.params;
