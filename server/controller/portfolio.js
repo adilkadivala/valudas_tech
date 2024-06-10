@@ -255,27 +255,9 @@ const deletePortfolio = async (req, res) => {
   }
 };
 
-// getting data from juction table
-const getFullData = async (req, res) => {
-  try {
-    const Que = `SELECT * FROM port_serv_tech`;
-
-    connectDB.query(Que, (err, data) => {
-      if (err) {
-        console.error(err);
-        return res.sendStatus(500).json({ message: "data not found " });
-      }
-      return res.json(data);
-    });
-  } catch (error) {
-    console.error(error.message);
-  }
-};
-
 module.exports = {
   getPortfolio,
   insertPortfolio,
   updatePortfolio,
   deletePortfolio,
-  getFullData,
 };

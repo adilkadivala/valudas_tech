@@ -16,7 +16,6 @@ export const ValudasStorage = ({ children }) => {
   const [technology, setTechnology] = useState([]);
   const [portImages, setPortImages] = useState([]);
   const [serviceTechnology, setServicesTechnology] = useState([]);
-  const [portTechServData, setPortTechServData] = useState([]);
 
   // users
   const getUsersList = async () => {
@@ -78,16 +77,6 @@ export const ValudasStorage = ({ children }) => {
     }
   };
 
-  // second junction table
-  const getFullData = async () => {
-    try {
-      const response = await axios.get("http://localhost:5665/getfulldata");
-      setPortTechServData(response.data);
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
-
   useEffect(() => {
     getUsersList();
     getIndustryData();
@@ -95,7 +84,6 @@ export const ValudasStorage = ({ children }) => {
     getTechnology();
     getPortImages();
     getServiceTechnology();
-    getFullData();
   }, []);
 
   return (
@@ -113,8 +101,6 @@ export const ValudasStorage = ({ children }) => {
         setPortImages,
         serviceTechnology,
         setServicesTechnology,
-        portTechServData,
-        setPortTechServData,
       }}
     >
       {children}
