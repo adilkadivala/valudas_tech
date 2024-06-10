@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import "../../assets/css/public/Our.css";
 import { useValudasData } from "../../context/Storage";
 
-const Our = () => {
+const Portfolio = () => {
   const { portfolio, serviceTechnology } = useValudasData();
 
   const [selectedServiceId, setSelectedServiceId] = useState(null);
-  const [selectedTechnology, setSelectedTechnology] = useState(null);
+  const [selectedTechnologyId, setSelectedTechnologyId] = useState(null); 
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -17,12 +17,13 @@ const Our = () => {
 
   const handleServiceClick = (serviceId) => {
     setSelectedServiceId(serviceId);
-    setSelectedTechnology(null);
+    setSelectedTechnologyId(null);
     setCurrentIndex(0);
   };
 
-  const handleTechnologyClick = (technology) => {
-    setSelectedTechnology(technology);
+  const handleTechnologyClick = (technologyId) => {
+    // Updated parameter
+    setSelectedTechnologyId(technologyId); // Updated state
     setCurrentIndex(0);
   };
 
@@ -30,12 +31,11 @@ const Our = () => {
     if (selectedServiceId !== null && port.service_id !== selectedServiceId) {
       return false;
     }
-    if (selectedTechnology !== null) {
-      const techIdsArray = serviceTechnology
-        .find((tech) => tech.service_id === selectedServiceId)
-        .technology_ids.split(",")
-        .map((id) => parseInt(id.trim()));
-      return techIdsArray.includes(port.technology_id);
+    if (
+      selectedTechnologyId !== null &&
+      port.technology_id !== selectedTechnologyId
+    ) {
+      return false;
     }
     return true;
   });
@@ -91,12 +91,14 @@ const Our = () => {
                     <p id="cm">{tech.service_name}</p>
                   </summary>
                   <div className="details">
-                    {tech.technologies.split(", ").map((technology) => (
+                    {tech.technologies.split(", ").map((technology, index) => (
                       <p key={technology} style={{ marginBottom: "10px" }}>
                         <span
                           onClick={(e) => {
                             e.stopPropagation();
-                            handleTechnologyClick(technology);
+                            handleTechnologyClick(
+                              parseInt(tech.technology_ids.split(", ")[index])
+                            ); // Updated to pass technology ID
                           }}
                           style={{
                             cursor: "pointer",
@@ -153,4 +155,4 @@ const Our = () => {
   );
 };
 
-export default Our;
+export default Portfolio;

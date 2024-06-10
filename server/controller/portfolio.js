@@ -55,7 +55,7 @@ const insertPortfolio = async (req, res) => {
       industry_id,
       technology_id,
     } = req.body;
-    console.log(req.body);
+  
 
     // Insert into portfolio table
     const Que = `INSERT INTO portfolio (thumbnail, title, short_description, company_name, portfolio_photos, service_id, industry_id) VALUES (?, ?, ?, ?, ?, ?, ?)`;
@@ -141,7 +141,7 @@ const updatePortfolio = async (req, res) => {
       technology_id,
     } = req.body;
 
-    console.log(req.body);
+ 
 
     let thumbnail;
     if (req.files && req.files.thumbnail) {
@@ -171,7 +171,7 @@ const updatePortfolio = async (req, res) => {
       }
 
       let techIdValue = technology_id;
-      console.log(techIdValue, 268);
+     
 
       if (isNaN(techIdValue)) {
         try {
@@ -186,11 +186,11 @@ const updatePortfolio = async (req, res) => {
             });
           });
 
-          console.log(techResults, 279);
+         
 
           if (techResults && techResults.length > 0) {
             techIdValue = techResults[0].id;
-            console.log(techIdValue, 286);
+           
           } else {
             return res.status(400).json({ message: "Technology not found" });
           }
@@ -204,7 +204,7 @@ const updatePortfolio = async (req, res) => {
 
       const updateJunction = `UPDATE port_serv_tech SET service_id = ?, technology_id = ? WHERE portfolio_id = ?`;
       const junctionValue = [service_id, techIdValue, id];
-      console.log(junctionValue);
+     
 
       connectDB.query(updateJunction, junctionValue, (err) => {
         if (err) {

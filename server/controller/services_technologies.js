@@ -90,7 +90,6 @@ const postService_technologies = async (req, res) => {
 const deleteService_technologies = async (req, res) => {
   try {
     const { id: service_id } = req.params;
-    console.log(req.params); // Ensure the correct service_id is being logged
 
     const deleteMappingsQuery = `DELETE FROM service_technology WHERE services_id = ?`;
     const deleteServiceQuery = `DELETE FROM services WHERE id = ?`;

@@ -2,7 +2,7 @@ import Header from "./layouts/Header";
 import Hero from "./Hero";
 import Hubsport from "./Hubsport";
 import Service from "./Service";
-import Our from "./Our";
+import Portfolio from "./Portfolio";
 import Review from "./Review";
 import Query from "./Query";
 import Footer from "./layouts/Footer";
@@ -14,7 +14,7 @@ const Index = () => {
       <Hero />
       <Hubsport />
       <Service />
-      <Our />
+      <Portfolio />
       <Review />
       <Query />
       <Footer />
