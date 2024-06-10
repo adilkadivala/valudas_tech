@@ -130,7 +130,6 @@ const insertPortfolio = async (req, res) => {
 const updatePortfolio = async (req, res) => {
   try {
     const id = req.params.id;
-    console.log(req.params);
 
     const {
       title,
@@ -161,7 +160,7 @@ const updatePortfolio = async (req, res) => {
       id,
     ];
 
-    console.log(portfolioValues);
+    console.log(portfolioValues, 163);
 
     connectDB.query(firstQue, portfolioValues, (err) => {
       if (err) {

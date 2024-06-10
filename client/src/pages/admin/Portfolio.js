@@ -57,7 +57,7 @@ const Portfolio = () => {
     portfolio_photos: "",
     service_id: "",
     industry_id: "",
-    technology_ids: "",
+    technology_id: "",
   });
 
   const [selectedTechnologies, setSelectedTechnologies] = useState([]);
@@ -70,7 +70,7 @@ const Portfolio = () => {
     portfolio_photos: "",
     service_id: "",
     industry_id: "",
-    technology_ids: "",
+    technology_id: "",
   });
 
   // insertig data
@@ -85,7 +85,7 @@ const Portfolio = () => {
     formData.append("portfolio_photos", insertPortfolio.portfolio_photos);
     formData.append("service_id", insertPortfolio.service_id);
     formData.append("industry_id", insertPortfolio.industry_id);
-    formData.append("technology_ids", insertPortfolio.technology_ids);
+    formData.append("technology_id", insertPortfolio.technology_id);
 
     try {
       const response = await axios.post(`${API}/insertportfolio`, formData);
@@ -101,7 +101,7 @@ const Portfolio = () => {
           portfolio_photos: null,
           service_id: "",
           industry_id: "",
-          technology_ids: "",
+          technology_id: "",
         });
         closeInsertModal();
         toast.success("Portfolio Inserted successfully");
@@ -131,7 +131,7 @@ const Portfolio = () => {
       .map((option) => option.value);
     setState((prevState) => ({
       ...prevState,
-      technology_ids: selectedTechnologies,
+      technology_id: selectedTechnologies,
     }));
   };
 
@@ -177,8 +177,9 @@ const Portfolio = () => {
     formData.append("portfolio_photos", updatePortfolio.portfolio_photos);
     formData.append("service_id", updatePortfolio.service_id);
     formData.append("industry_id", updatePortfolio.industry_id);
-    formData.append("technology_ids", updatePortfolio.technology_ids);
-    console.log(updatePortfolio.technology_ids);
+    formData.append("technology_id", updatePortfolio.technology_id);
+
+    console.log(updatePortfolio.technology_id);
 
     try {
       const response = await axios.put(
@@ -186,7 +187,7 @@ const Portfolio = () => {
         formData
       );
 
-      console.log(response.data, 188);
+      console.log(response, 188);
 
       if (response.status === 200) {
         const response = await axios.get(`${API}/getportfolio`);
@@ -200,7 +201,7 @@ const Portfolio = () => {
           portfolio_photos: "",
           service_id: "",
           industry_id: "",
-          technology_ids: "",
+          technology_id: "",
         });
         closeUpdateModal();
         toast.success("data updated Success fully");
@@ -223,10 +224,9 @@ const Portfolio = () => {
       portfolio_photos: portfolio.portfolio_photos,
       service_id: portfolio.service_id,
       industry_id: portfolio.industry_id,
-      technology_ids: portfolio.technology_ids
-        ? portfolio.technology_ids.split(",")
-        : [],
+      technology_id: portfolio.technology_id,
     });
+    console.log(portfolio.technology_id);
   };
 
   // darkmode handler
@@ -607,15 +607,15 @@ const Portfolio = () => {
                 className="mb-3"
                 style={{ display: "flex", flexDirection: "column" }}
               >
-                <label htmlFor="technology_ids" className="form-label">
+                <label htmlFor="technology_id" className="form-label">
                   Choose Technologies
                 </label>
                 <select
                   style={{ padding: "12px 5px", fontSize: "15px" }}
                   multiple
                   className="form-control"
-                  id="technology_ids"
-                  name="technology_ids"
+                  id="technology_id"
+                  name="technology_id"
                   onChange={(e) =>
                     handleTechnologyChange(e, setInsertPortfolio)
                   }
@@ -886,19 +886,19 @@ const Portfolio = () => {
                 className="mb-3"
                 style={{ display: "flex", flexDirection: "column" }}
               >
-                <label htmlFor="technology_ids" className="form-label">
+                <label htmlFor="technology_id" className="form-label">
                   Choose Technologies
                 </label>
                 <select
                   style={{ padding: "12px 5px", fontSize: "15px" }}
                   multiple
                   className="form-control"
-                  id="technology_ids"
-                  name="technology_ids"
+                  id="technology_id"
+                  name="technology_id"
                   onChange={(e) =>
                     handleTechnologyChange(e, setUpdatePortfolio)
                   }
-                  value={updatePortfolio.technology_ids}
+                  value={updatePortfolio.technology_id}
                 >
                   {selectedTechnologies.map((technology, index) => (
                     <option key={index} value={technology.id}>
