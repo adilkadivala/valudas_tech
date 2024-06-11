@@ -54,7 +54,7 @@
 .hub_img_page img {
   width: 100%;
 }
-
+/* 
 @media only screen and (max-width: 769px) {
   .hubsport {
     flex-wrap: wrap;
@@ -123,6 +123,118 @@
 
   .hub_bt {
     margin-top: 20px;
+  }
+  .empowering_pera {
+    font-size: 13px;
+  }
+  .hub_img_page {
+    margin-right: 40px;
+    margin-left: 50px;
+  }
+} */
+
+@media only screen and (max-width: 769px) {
+  .hubsport {
+    flex-wrap: wrap;
+    margin-top: 70px;
+  }
+  .first_page {
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    padding: 0 15px;
+  }
+  .empowering_pera {
+    font-size: 12px;
+    margin: 0;
+    padding: 10px;
+    width: 100%;
+  }
+  .hub_heding h1 {
+    font-size: 22px;
+    margin: 0;
+    padding: 28px 0px;
+  }
+  .hub_pera p {
+    font-size: 13px;
+    margin: 0;
+    line-height: 20px;
+    text-align: center;
+  }
+  .hub_bt {
+    font-size: 14px;
+    width: 45%;
+    margin: 20px 0;
+    padding: 10px;
+  }
+  #hire {
+    width: 46%;
+  }
+  .hub_button {
+    flex-wrap: wrap;
+  }
+  .hub_img_page {
+    width: 100%;
+    margin: 0;
+  }
+  .hub_img_page img {
+    padding: 15px;
+  }
+}
+
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .first_page {
+    text-align: start;
+    padding-left: 20px;
+  }
+  .hub_img_page img {
+    padding-top: 30px;
+    width: 100%;
+    padding-right: 0;
+  }
+  .hub_img_page {
+    width: 43%;
+  }
+  .hubsport {
+    flex-wrap: wrap;
+    margin-top: 120px;
+  }
+
+  .hub_pera p {
+    padding-bottom: 15px;
+    text-align: start;
+  }
+  .first_page {
+    width: 55%;
+  }
+
+  #hire {
+    width: 40%;
+  }
+  .hub_bt {
+    font-size: 13px;
+    width: 40%;
+    margin: 20px 0;
+    padding: 4px;
+    text-align: center;
+  }
+}
+
+@media only screen and (min-width: 770px) and (max-width: 1025px) {
+  .hubsport {
+    margin-top: 110px;
+  }
+  .hub_heding h1 {
+    font-size: 30px;
+  }
+  .first_page {
+    margin-left: 25px;
+  }
+
+  .hub_bt {
+    margin-top: 20px;
+    font-size: 12px;
+    padding: 14px 20px;
   }
   .empowering_pera {
     font-size: 13px;
