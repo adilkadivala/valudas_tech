@@ -71,14 +71,14 @@
   animation: scroll 40s linear infinite;
   display: flex;
   height: 90%;
-  width: calc(250px * 14);
+  width: calc(180px * 14);
 }
 
 .slide {
   display: flex;
   height: 100%;
   align-items: center;
-  width: 15%;
+  width: 10%;
   justify-content: space-evenly;
 }
 

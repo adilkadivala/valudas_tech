@@ -54,7 +54,6 @@
   background-color: #f7f8f7;
   display: flex;
   cursor: pointer;
-  /* margin-top: 10px; */
 }
 .dev_Page:hover {
   background-color: white;
@@ -154,7 +153,7 @@
 .service_third {
   margin-top: 100px;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   background-color: #52a01f;
   height: auto;
   padding-bottom: 30px;
@@ -166,11 +165,11 @@
 }
 .third_header h1 {
   margin-top: 45px;
-  margin-left: 50px;
+  /* margin-left: 50px; */
   font-size: 30px;
 }
 .third_header p {
-  margin-left: 50px;
+  /* margin-left: 50px; */
   margin-top: 15px;
   font-weight: 300;
   line-height: 28px;
@@ -182,7 +181,7 @@
   border: none;
   margin-top: 85px;
   font-size: 18px;
-  margin-left: 150px;
+  /* margin-left: 150px; */
   font-weight: 600;
   background-color: #fff;
 }
@@ -216,7 +215,7 @@
     margin: 10px 15px;
   }
   .language_box {
-    width: 29%;
+    width: 46%;
   }
   .language_box p {
     font-size: 10px;
@@ -281,6 +280,7 @@
   }
   .devlopment_page {
     width: 35%;
+    height: 21rem;
   }
   .cms_Pera p {
     display: none;
@@ -301,12 +301,12 @@
 
   .dev_Page {
     width: 100%;
-    margin: 10px 15px;
+    /* margin: 10px 15px; */
     height: 70px;
   }
-  .language_box {
+  /* .language_box {
     width: 23%;
-  }
+  } */
   #joomla img {
     width: 21%;
   }
@@ -327,9 +327,9 @@
     margin: 0;
     padding: 10px;
   }
-  .language_box {
+  /* .language_box {
     width: 22%;
-  }
+  } */
   .language_box i {
     font-size: 30px;
   }
@@ -341,7 +341,7 @@
   }
 }
 
-@media only screen and (min-width: 770px) and (max-width: 1025px) {
+/* @media only screen and (min-width: 770px) and (max-width: 1025px) {
   .cms_devlopment {
     height: auto;
   }
@@ -352,4 +352,4 @@
   .lets_bt button {
     margin: 110px 60px;
   }
-}
+} */
