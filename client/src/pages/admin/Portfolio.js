@@ -86,7 +86,6 @@ const Portfolio = () => {
     formData.append("service_id", insertPortfolio.service_id);
     formData.append("industry_id", insertPortfolio.industry_id);
     formData.append("technology_id", insertPortfolio.technology_id);
-    console.log(insertPortfolio.technology_id, 89);
 
     try {
       const response = await axios.post(`${API}/insertportfolio`, formData);
@@ -180,15 +179,11 @@ const Portfolio = () => {
     formData.append("industry_id", updatePortfolio.industry_id);
     formData.append("technology_id", updatePortfolio.technology_id);
 
-    console.log(updatePortfolio.technology_id);
-
     try {
       const response = await axios.put(
         `${API}/updateportfolio/${updatePortfolio.id}`,
         formData
       );
-
-      console.log(response, 188);
 
       if (response.status === 200) {
         const response = await axios.get(`${API}/getportfolio`);
@@ -215,7 +210,7 @@ const Portfolio = () => {
   // update modal
   const openUpdateModal = (portfolio) => {
     setUpdateModalOpen(true);
-    console.log(portfolio);
+
     setUpdatePortfolio({
       thumbnail: portfolio.thumbnail,
       title: portfolio.title,
@@ -227,7 +222,6 @@ const Portfolio = () => {
       industry_id: portfolio.industry_id,
       technology_id: portfolio.technology_id,
     });
-    console.log(portfolio.technology_id);
   };
 
   // darkmode handler

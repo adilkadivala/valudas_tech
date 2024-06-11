@@ -101,9 +101,6 @@
   border-radius: 10px;
 }
 
-#hub_line {
-  border-bottom: 1px solid;
-}
 
 .details p {
   padding: 5px;
@@ -111,6 +108,7 @@
   margin-top: 6px;
   padding-top: 6px;
   width: 79%;
+  cursor: pointer;
 }
 
 .details p:hover {
