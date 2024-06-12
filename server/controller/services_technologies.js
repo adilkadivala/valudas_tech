@@ -29,9 +29,9 @@ GROUP BY
           .json({ message: "Error retrieving services with technologies" });
       }
 
-      data.forEach((service) => {
-        service.tech_photos = service.tech_photos.split(", ");
-      });
+      // data.forEach((service) => {
+      //   service.tech_photos = service.tech_photos.split(", ");
+      // });
 
       return res.json(data);
     });

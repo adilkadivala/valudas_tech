@@ -16,11 +16,13 @@ body::-webkit-scrollbar {
 
 .nawbar {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   position: absolute;
+  column-gap: 27rem;
   z-index: 1;
   width: 100%;
 }
+
 .logo img {
   width: 80%;
   padding: 20px;

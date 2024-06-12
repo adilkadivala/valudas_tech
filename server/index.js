@@ -11,6 +11,7 @@ const industries = require("./routes/industries");
 const photos = require("./routes/photos");
 const technologies = require("./routes/technologies");
 const service_technologies = require("./routes/service_tech");
+const slider = require("./routes/slider");
 
 // middleware
 
@@ -30,9 +31,9 @@ app.use("/", users);
 app.use("/", portfolio);
 app.use("/", industries);
 app.use("/", photos);
-// app.use("/", services);
 app.use("/", technologies);
 app.use("/", service_technologies);
+app.use("/", slider);
 
 // port no
 const PORT = process.env.SERVER_PORT;
