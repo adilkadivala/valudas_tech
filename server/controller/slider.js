@@ -62,12 +62,21 @@ const updateSlider = async (req, res) => {
 
 // deleting slider data
 
-// const deleteSlider = async (req, res) => {
-//     try {
-//         const {id} req
-//     } catch (error) {
-        
-//     }
-// }
+const deleteSlider = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const Que = `DELETE FROM slider WHERE id = ?`;
 
-module.exports = { getSlider, setSlider, updateSlider, };
+    connectDB.query(Que, [id], (err) => {
+      if (err) {
+        console.error(err.message);
+        return res.status(500).json({ message: "internel server error" });
+      }
+      return res.sendStatus(200);
+    });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+module.exports = { getSlider, setSlider, updateSlider, deleteSlider };
