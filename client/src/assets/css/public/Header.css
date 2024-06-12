@@ -16,39 +16,146 @@ body::-webkit-scrollbar {
 
 .nawbar {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   position: absolute;
-  column-gap: 27rem;
   z-index: 1;
   width: 100%;
 }
-
 .logo img {
   width: 80%;
   padding: 20px;
 }
 .nawbar_pages ul {
   display: flex;
+  margin-left: 50px;
 }
 
 .nawbar_pages li {
-  margin-left: 20px;
+  margin-left: 25px;
   margin-top: 30px;
   font-size: 15px;
   font-weight: 500;
   color: white;
   padding-right: 30px;
 }
-
+.toggal_bt {
+  display: none;
+}
 @media only screen and (max-width: 769px) {
   .nawbar_pages {
     display: none;
   }
   .nawbar {
     height: 70px;
+    justify-content: space-between;
   }
   .logo img {
     width: 55%;
     padding: 20px;
+  }
+  .toggal_bt {
+    color: white;
+    display: block;
+    margin-top: 25px;
+    margin-right: 30px;
+  }
+  .toggal_bt i {
+    font-size: 20px;
+  }
+  .nawbar_pages {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 10%;
+    left: 10%;
+    width: 80%;
+    background-color: #0a181d;
+    padding: 10px 0;
+    text-align: center;
+    transition: cubic-bezier(0.165, 0.84, 0.44, 1);
+    border-radius: 20px;
+  }
+
+  .nawbar_pages li {
+    margin: 8px;
+    padding: 0;
+  }
+  .nawbar_pages li:hover {
+    color: #6fbe44;
+  }
+  .nawbar_pages.active {
+    display: block;
+  }
+
+  nav ul {
+    flex-direction: column;
+  }
+
+  nav ul li {
+    margin: 10px 0;
+  }
+}
+@media only screen and (min-width: 427px) and (max-width: 769px) {
+  .hero_page {
+    margin-top: 40px;
+  }
+  .toggal_bt i {
+    font-size: 27px;
+  }
+  .hero_second {
+    top: 26rem !important;
+    height: 90px !important;
+  }
+  .logo {
+    width: 50%;
+  }
+  .toggal_bt {
+    color: white;
+    display: block;
+    margin-top: 25px;
+    margin-right: 60px;
+    z-index: 3;
+  }
+
+  .nawbar_pages {
+    display: none;
+    position: absolute;
+    top: 15%;
+    right: 5%;
+    width: 30%;
+    background-color: #0a181d;
+    padding: 10px 0;
+    text-align: center;
+    transition: cubic-bezier(0.165, 0.84, 0.44, 1);
+    border-radius: 20px;
+  }
+
+  .nawbar_pages li {
+    margin: 8px;
+    padding: 0;
+  }
+  .nawbar_pages li:hover {
+    color: #6fbe44;
+  }
+  .nawbar_pages.active {
+    display: block;
+  }
+
+  nav ul {
+    flex-direction: column;
+    margin-top: 50px;
+  }
+
+  nav ul li {
+    margin: 10px 0;
+  }
+}
+@media only screen and (min-width: 770px) and (max-width: 1025px) {
+  .logo img {
+    width: 70%;
+  }
+  .nawbar_pages li {
+    margin-left: 0px;
+    font-size: 14px;
   }
 }

@@ -65,6 +65,15 @@ function Review() {
           <h5 id="Muqarab">Muqarab Hussain</h5>
         </div>
       </div>
+      <div className="review_box_icon">
+        <div className="review_arrow">
+          <i class="fa-solid fa-chevron-left"></i>
+        </div>
+        <div className="line">|</div>
+        <div className="review_arrow">
+          <i class="fa-solid fa-chevron-right"></i>
+        </div>
+      </div>
     </>
   );
 }

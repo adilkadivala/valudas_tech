@@ -1,7 +1,12 @@
-import React from "react";
+import { useState } from "react";
 import "../../../assets/css/public/Header.css";
 import valudas from "../../../assets/images/valuda_logo.png";
 function Header() {
+  const [isNavActive, setIsNavActive] = useState(false);
+
+  const toggleNav = () => {
+    setIsNavActive(!isNavActive);
+  };
   return (
     <>
       <div className="nawbar">
@@ -17,6 +22,12 @@ function Header() {
             <li>Our Work</li>
             <li>Contact Us</li>
           </ul>
+        </div>
+
+        <div className="toggal_bt" onClick={toggleNav}>
+          <div className="toggle">
+            <i className="fas fa-bars menu"></i>
+          </div>
         </div>
       </div>
     </>
