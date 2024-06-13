@@ -55,12 +55,18 @@
   display: flex;
   justify-content: center;
   margin-top: 30px;
+  cursor: pointer;
 }
 .review_arrow {
-  margin: 0 15px;
+  margin: 0 8px;
+  border-radius: 50%;
+  padding: 0.5rem 0.8rem;
+}
+.review_arrow:hover {
+  border: 1px solid #d4d6d4;
 }
 .line {
-  margin-top: -2px;
+  margin-top: 7px;
   cursor: context-menu;
 }
 @media only screen and (max-width: 769px) {

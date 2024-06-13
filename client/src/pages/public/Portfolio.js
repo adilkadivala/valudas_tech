@@ -4,6 +4,7 @@ import { useValudasData } from "../../context/Storage";
 
 const Portfolio = () => {
   const { portfolio, serviceTechnology } = useValudasData();
+  // console.log(serviceTechnology);
 
   const [selectedServiceId, setSelectedServiceId] = useState(null);
   const [selectedTechnologyId, setSelectedTechnologyId] = useState(null);
