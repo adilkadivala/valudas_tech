@@ -133,20 +133,12 @@ const Industries = () => {
   };
 
   // update input handler
-  const updateInputHandler = (e) => {
+  const handleInputChange = (e, setState) => {
     const { name, value } = e.target;
-    setEditIndustryData({
-      ...editIndustryData,
+    setState((prevState) => ({
+      ...prevState,
       [name]: value,
-    });
-  };
-
-  const insertInputHandler = (e) => {
-    const { name, value } = e.target;
-    setInsertIndustryData({
-      ...insertIndustryData,
-      [name]: value,
-    });
+    }));
   };
 
   useEffect(() => {
@@ -272,7 +264,9 @@ const Industries = () => {
                       className="form-control"
                       value={insertIndustryData.industry_name}
                       id="industry_name"
-                      onChange={insertInputHandler}
+                      onChange={(e) =>
+                        handleInputChange(e, setInsertIndustryData)
+                      }
                       name="industry_name"
                       placeholder="Enter Industry name Here"
                     />
@@ -360,7 +354,7 @@ const Industries = () => {
                   cursor: "pointer",
                   padding: "7px 10px",
                   right: "0",
-                  borderRadius:"0 0 0 0.2rem"
+                  borderRadius: "0 0 0 0.2rem",
                 }}
                 onClick={closeEditModal}
               >
@@ -392,7 +386,7 @@ const Industries = () => {
                     className="form-control"
                     value={editIndustryData.industry_name}
                     id="industry_name"
-                    onChange={updateInputHandler}
+                    onChange={(e) => handleInputChange(e, setEditIndustryData)}
                     name="industry_name"
                     placeholder="Enter Industry name Here"
                   />

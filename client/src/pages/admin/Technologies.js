@@ -50,23 +50,13 @@ const TechStack = () => {
     }
   };
 
-  // insert input handler
-  const inserHandler = (e) => {
-    const { name, value, files } = e.target;
-
-    setInsertTechStack({
-      ...insertTechStack,
-      [name]: files ? files[0] : value,
-    });
-  };
-
   // update data
   const UpdateData = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("tech_photo", updatetTechStack.tech_photo);
     formData.append("technology_name", updatetTechStack.technology_name);
-    console.log(formData);
+
     try {
       const response = await axios.put(
         `${API}/updatestack/${updatetTechStack.id}`,
@@ -88,13 +78,12 @@ const TechStack = () => {
     }
   };
 
-  // update input handler
-  const updateHandler = (e) => {
+  const handleInputChange = (e, setState) => {
     const { name, value, files } = e.target;
-    setUpdateTechStack({
-      ...updatetTechStack,
+    setState((prevState) => ({
+      ...prevState,
       [name]: files ? files[0] : value,
-    });
+    }));
   };
 
   // open update modal
@@ -282,7 +271,7 @@ const TechStack = () => {
                       type="file"
                       className="form-control"
                       id="tech_photo"
-                      onChange={inserHandler}
+                      onChange={(e) => handleInputChange(e, setInsertTechStack)}
                       name="tech_photo"
                       placeholder="Enter Technology Photo Here"
                     />
@@ -298,7 +287,7 @@ const TechStack = () => {
                       className="form-control"
                       value={insertTechStack.technology_name}
                       id="technology_name"
-                      onChange={inserHandler}
+                      onChange={(e) => handleInputChange(e, setInsertTechStack)}
                       name="technology_name"
                       placeholder="Enter Technology name Here"
                     />
@@ -417,7 +406,7 @@ const TechStack = () => {
                     type="file"
                     className="form-control"
                     id="tech_photo"
-                    onChange={updateHandler}
+                    onChange={(e) => handleInputChange(e, setUpdateTechStack)}
                     name="tech_photo"
                     placeholder="Enter Technology photo Here"
                   />
@@ -438,7 +427,7 @@ const TechStack = () => {
                     className="form-control"
                     value={updatetTechStack.technology_name}
                     id="technology_name"
-                    onChange={updateHandler}
+                    onChange={(e) => handleInputChange(e, setUpdateTechStack)}
                     name="technology_name"
                     placeholder="Enter Technology name Here"
                   />
