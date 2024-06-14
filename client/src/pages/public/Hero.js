@@ -1,16 +1,19 @@
 import React from "react";
 import "../../assets/css/public/Hero.css";
+import { useValudasData } from "../../context/Storage";
 
 function Hero() {
-  const sliderImgs = [
-    { img: require("../../assets/images/awc.png") },
-    { img: require("../../assets/images/forolly 1.png") },
-    { img: require("../../assets/images/mumezshop.png") },
-    { img: require("../../assets/images/microface.png") },
-    { img: require("../../assets/images/awc.png") },
-    { img: require("../../assets/images/forolly 1.png") },
-    { img: require("../../assets/images/nandolia.png") },
-  ];
+  const { slider } = useValudasData();
+
+  // const sliderImgs = [
+  //   { img: require("../../assets/images/awc.png") },
+  //   { img: require("../../assets/images/forolly 1.png") },
+  //   { img: require("../../assets/images/mumezshop.png") },
+  //   { img: require("../../assets/images/microface.png") },
+  //   { img: require("../../assets/images/awc.png") },
+  //   { img: require("../../assets/images/forolly 1.png") },
+  //   { img: require("../../assets/images/nandolia.png") },
+  // ];
 
   return (
     <div className="hero">
@@ -31,10 +34,11 @@ function Hero() {
       <div className="hero_second">
         <div className="slider">
           <div className="slide-track">
-            {sliderImgs.concat(sliderImgs).map((slide, index) => (
+            {slider.concat(slider).map((slide, index) => (
               <div className="slide" key={index}>
                 <img
-                  src={slide.img}
+                  // src={slide.img}  this is for static
+                  src={`/upload/${slide.image}`} //this is for dynamic
                   alt="Testimonial user"
                   style={{ width: "50%" }}
                 />
