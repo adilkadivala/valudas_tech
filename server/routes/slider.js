@@ -11,12 +11,12 @@ router
     sliderData.setSlider
   );
 router
-  .route("/updateslider")
+  .route("/updateslider/:id")
   .put(
     Middleware.uploads.fields([{ name: "image", maxCount: 1 }]),
     sliderData.updateSlider
   );
 
-router.route("/deleteslider").delete(sliderData.deleteSlider);
+router.route("/deleteslider/:id").delete(sliderData.deleteSlider);
 
 module.exports = router;

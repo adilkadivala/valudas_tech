@@ -87,6 +87,17 @@ const Sidebar = ({ isOpen }) => {
                   <span className="text">Portfolio Image</span>
                 </Link>
               </li>
+
+              <li
+                className={
+                  location.pathname === "/dashboard/slider" ? "active" : ""
+                }
+              >
+                <Link to="/dashboard/slider">
+                  <i className="fa-solid fa-repeat"></i>
+                  <span className="text">slider Image</span>
+                </Link>
+              </li>
             </ul>
 
             <ul className="side-menu">
@@ -171,6 +182,15 @@ const Sidebar = ({ isOpen }) => {
               >
                 <Link to="/dashboard/portimage">
                   <i className="fa-solid fa-image"></i>
+                </Link>
+              </li>
+              <li
+                className={
+                  location.pathname === "/dashboard/slider" ? "active" : ""
+                }
+              >
+                <Link to="/dashboard/slider">
+                  <i className="fa-solid fa-repeat"></i>
                 </Link>
               </li>
             </ul>

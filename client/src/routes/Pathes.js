@@ -7,6 +7,7 @@ import Portfolio from "../pages/admin/Portfolio";
 import Services from "../pages/admin/Services";
 import Technologies from "../pages/admin/Technologies";
 import PortImages from "../pages/admin/PortfolioImages";
+import Slider from "../pages/admin/Slider";
 
 const Pathes = () => {
   return (
@@ -23,6 +24,7 @@ const Pathes = () => {
         <Route path="services" element={<Services />} />
         <Route path="technologies" element={<Technologies />} />
         <Route path="portimage" element={<PortImages />} />
+        <Route path="slider" element={<Slider />} />
       </Route>
     </Routes>
   );

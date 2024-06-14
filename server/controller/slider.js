@@ -23,8 +23,9 @@ const getSlider = async (req, res) => {
 
 const setSlider = async (req, res) => {
   try {
-    const { image } = req.body;
-    const Que = `INSERT INTO slider (image) VALUE (?)`;
+    const image = req.files.image ? req.files.image[0].filename : null;
+
+    const Que = `INSERT INTO slider (image) VALUES (?)`;
     const data = [image];
 
     connectDB.query(Que, data, (err) => {
@@ -44,7 +45,14 @@ const setSlider = async (req, res) => {
 const updateSlider = async (req, res) => {
   try {
     const { id } = req.params;
-    const { image } = req.body;
+
+    let image;
+    if (req.files && req.files.image) {
+      image = req.files.image[0].filename;
+    } else {
+      image = req.body.image || null;
+    }
+
     const Que = `UPDATE slider SET image = ? WHERE id =?`;
     const data = [image, id];
 
