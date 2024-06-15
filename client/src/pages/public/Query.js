@@ -46,14 +46,11 @@ function Query() {
       return;
     }
 
-    if (postQuery.mobile_no.length < 10 && postQuery.name.length > 10) {
+    if (postQuery.mobile_no.length < 10 || postQuery.mobile_no.length > 10) {
       toast.error("mobile no Should be validate");
       return;
     }
-    // if (postQuery.budget.length < 1000) {
-    //   toast.error("Budget no Should be validate");
-    //   return;
-    // }
+
 
     try {
       const response = await axios.post(`${API}/postuser`, postQuery);
