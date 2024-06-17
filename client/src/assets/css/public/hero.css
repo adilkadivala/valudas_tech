@@ -68,7 +68,6 @@
 }
 
 .slide-track {
-  animation: scroll 40s linear infinite;
   display: flex;
   height: 90%;
   width: calc(180px * 14);
@@ -82,12 +81,20 @@
   justify-content: space-evenly;
 }
 
-@keyframes scroll {
-  0% {
-    transform: translateX(0);
+
+@media only screen and (max-width: 374px) {
+  .hero_second {
+    top: 28.7rem !important;
   }
-  100% {
-    transform: translateX(calc(-250px * 7));
+}
+@media only screen and (min-width: 375px) and (max-width: 420px) {
+  .hero_second {
+    top: 27.6rem !important;
+  }
+}
+@media only screen and (min-width: 421px) and (max-width: 430px) {
+  .hero_second {
+    top: 26rem !important;
   }
 }
 
