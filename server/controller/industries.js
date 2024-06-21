@@ -1,3 +1,5 @@
+const fs = require("fs");
+const path = require("path");
 const connectDB = require("../database/connection");
 
 // get data

@@ -1,3 +1,5 @@
+const fs = require("fs");
+const path = require("path");
 const connectDB = require("../database/connection");
 
 // Getting portfolio data
@@ -19,10 +21,6 @@ const getPortfolio = async (req, res) => {
       LEFT JOIN
         port_serv_tech pst ON p.id = pst.portfolio_id
     `;
-    // const query = `SELECT pst.*,pf.*,sr.*,tc.* from port_serv_tech as pst
-    // INNER JOIN portfolio as pf ON pf.id=pst.portfolio_id
-    // INNER JOIN services as sr ON sr.id=pst.service_id
-    // INNER JOIN technologies as tc ON tc.id=pst.technology_id`;
 
     connectDB.query(query, (err, data) => {
       if (err) {
@@ -55,7 +53,6 @@ const insertPortfolio = async (req, res) => {
       industry_id,
       technology_id,
     } = req.body;
-  
 
     // Insert into portfolio table
     const Que = `INSERT INTO portfolio (thumbnail, title, short_description, company_name, portfolio_photos, service_id, industry_id) VALUES (?, ?, ?, ?, ?, ?, ?)`;
@@ -141,8 +138,6 @@ const updatePortfolio = async (req, res) => {
       technology_id,
     } = req.body;
 
- 
-
     let thumbnail;
     if (req.files && req.files.thumbnail) {
       thumbnail = req.files.thumbnail[0].filename;
@@ -171,7 +166,6 @@ const updatePortfolio = async (req, res) => {
       }
 
       let techIdValue = technology_id;
-     
 
       if (isNaN(techIdValue)) {
         try {
@@ -186,11 +180,8 @@ const updatePortfolio = async (req, res) => {
             });
           });
 
-         
-
           if (techResults && techResults.length > 0) {
             techIdValue = techResults[0].id;
-           
           } else {
             return res.status(400).json({ message: "Technology not found" });
           }
@@ -204,7 +195,6 @@ const updatePortfolio = async (req, res) => {
 
       const updateJunction = `UPDATE port_serv_tech SET service_id = ?, technology_id = ? WHERE portfolio_id = ?`;
       const junctionValue = [service_id, techIdValue, id];
-     
 
       connectDB.query(updateJunction, junctionValue, (err) => {
         if (err) {
@@ -230,23 +220,66 @@ const deletePortfolio = async (req, res) => {
   try {
     const { id: portfolio_id } = req.params;
 
-    const deletePortServTechQuery = `DELETE FROM port_serv_tech WHERE portfolio_id = ?`;
-    connectDB.query(deletePortServTechQuery, [portfolio_id], (err) => {
+    const getFilesQuery = `SELECT thumbnail FROM portfolio WHERE id = ?`;
+    connectDB.query(getFilesQuery, [portfolio_id], (err, results) => {
       if (err) {
-        console.error(
-          "Error deleting port_serv_tech associations:",
-          err.message
-        );
-        return res.status(500).json({ message: "Error deleting portfolio" });
+        console.error(`Database error: ${err.message}`);
+        return res.status(500).json({ message: "Internal server error" });
       }
 
-      const deletePortfolioQuery = `DELETE FROM portfolio WHERE id = ?`;
-      connectDB.query(deletePortfolioQuery, [portfolio_id], (err) => {
+      // Delete associated files from the server
+      if (results.length > 0) {
+        results.forEach((row) => {
+          const filePath = path.join(
+            __dirname,
+            "../../client/public/upload",
+            row.thumbnail
+          );
+
+          // Check if the file exists
+          fs.access(filePath, fs.constants.F_OK, (err) => {
+            if (err) {
+              console.error(`File does not exist: ${filePath}`);
+              return res.status(404).json({ message: "File not found" });
+            }
+
+            // Delete the file
+            fs.unlink(filePath, (err) => {
+              if (err) {
+                console.error(`Error deleting file: ${err.message}`);
+                return res
+                  .status(500)
+                  .json({ message: "Internal server error" });
+              }
+
+              console.log(`File deleted: ${filePath}`);
+            });
+          });
+        });
+      }
+
+      // Delete associations in port_serv_tech table
+      const deletePortServTechQuery = `DELETE FROM port_serv_tech WHERE portfolio_id = ?`;
+      connectDB.query(deletePortServTechQuery, [portfolio_id], (err) => {
         if (err) {
-          console.error("Error deleting portfolio:", err.message);
+          console.error(
+            "Error deleting port_serv_tech associations:",
+            err.message
+          );
           return res.status(500).json({ message: "Error deleting portfolio" });
         }
-        res.sendStatus(200);
+
+        // Delete the portfolio record
+        const deletePortfolioQuery = `DELETE FROM portfolio WHERE id = ?`;
+        connectDB.query(deletePortfolioQuery, [portfolio_id], (err) => {
+          if (err) {
+            console.error("Error deleting portfolio:", err.message);
+            return res
+              .status(500)
+              .json({ message: "Error deleting portfolio" });
+          }
+          res.sendStatus(200);
+        });
       });
     });
   } catch (error) {

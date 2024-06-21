@@ -1,4 +1,6 @@
 const connectDB = require("../database/connection");
+const fs = require("fs");
+const path = require("path");
 
 // getting photos
 const getPhotos = async (req, res) => {
@@ -69,26 +71,64 @@ const updatePhotos = async (req, res) => {
   }
 };
 
-// deleting photos
+// deleting slider data FS
 const deletePhotos = async (req, res) => {
   try {
     const { id } = req.params;
-    const Que = `DELETE FROM photos WHERE id = ?`;
 
-    connectDB.query(Que, [id], (err) => {
+    const getPhotoQuery = `SELECT portfolio_photo FROM photos WHERE id = ?`;
+    connectDB.query(getPhotoQuery, [id], (err, results) => {
       if (err) {
-        console.error(err.message);
-        return res
-          .status(500)
-          .json({ message: "error got from deleting photosw" });
+        console.error(`Database error: ${err.message}`);
+        return res.status(500).json({ message: "Internal server error" });
       }
-      return res.sendStatus(200);
+
+      if (results.length > 0) {
+        const filePath = path.join(
+          __dirname,
+          "../../client/public/upload",
+          results[0].portfolio_photo
+        );
+
+        // Check if the file exists
+        fs.access(filePath, fs.constants.F_OK, (err) => {
+          if (err) {
+            console.error(`File does not exist: ${filePath}`);
+            return res.status(404).json({ message: "File not found" });
+          }
+
+          // Delete the file from the server
+          fs.unlink(filePath, (err) => {
+            if (err) {
+              console.error(`Error deleting file: ${err.message}`);
+              return res.status(500).json({ message: "Internal server error" });
+            }
+
+            console.log(`File deleted: ${filePath}`);
+
+            // Delete the record from the database
+            const deletePhotoQuery = `DELETE FROM photos WHERE id = ?`;
+            connectDB.query(deletePhotoQuery, [id], (err) => {
+              if (err) {
+                console.error(`Database error: ${err.message}`);
+                return res
+                  .status(500)
+                  .json({ message: "Internal server error" });
+              }
+
+              return res.sendStatus(200);
+            });
+          });
+        });
+      } else {
+        return res.status(404).json({ message: "Photo not found" });
+      }
     });
   } catch (error) {
     console.error(error.message);
     return res
       .status(400)
-      .json({ message: "internel server error from deleting photos" });
+      .json({ message: "Internal server error from deleting photos" });
   }
 };
 

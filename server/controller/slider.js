@@ -67,25 +67,6 @@ const updateSlider = async (req, res) => {
   }
 };
 
-// delete without FS
-// const deleteSlider = async (req, res) => {
-//   try {
-//     const { id } = req.params;
-
-//     const Que = `DELETE FROM slider WHERE id =?`;
-
-//     connectDB.query(Que, [id], (err) => {
-//       if (err) {
-//         console.error(err.message);
-//         return res.status(500).json({ message: "internal server err" });
-//       }
-//       return res.sendStatus(200);
-//     });
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
-
 // deleting slider data FS
 const deleteSlider = async (req, res) => {
   try {
@@ -116,10 +97,6 @@ const deleteSlider = async (req, res) => {
             "../../client/public/upload",
             image
           );
-
-          // Print out the file path for debugging
-          console.log(`File path: ${filePath}`);
-
           // Check if the file exists
           fs.access(filePath, fs.constants.F_OK, (err) => {
             if (err) {
@@ -136,7 +113,6 @@ const deleteSlider = async (req, res) => {
                   .json({ message: "Internal server error" });
               }
 
-              console.log(`File deleted: ${filePath}`);
               return res.sendStatus(200);
             });
           });
