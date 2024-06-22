@@ -4,6 +4,7 @@
 }
 .footer_first {
   display: flex;
+  padding: 0 3rem;
   margin: 50px;
 }
 
@@ -52,7 +53,7 @@
 }
 #footer_line {
   width: 92%;
-  margin-left: 50px;
+  margin-left: 72px;
 }
 
 .footer_end {
@@ -62,7 +63,7 @@
 .footerend_Page {
   display: flex;
   margin-top: 30px;
-  margin-left: 50px;
+  margin-left: 87px;
   font-size: 14px;
 }
 #space {
@@ -100,6 +101,7 @@
 @media only screen and (max-width: 769px) {
   .footer_first {
     flex-wrap: wrap;
+    padding: 0;
     margin: 10px 15px;
   }
   .footer_first_page {

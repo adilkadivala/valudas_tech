@@ -162,7 +162,7 @@
   justify-content: space-around;
   background-color: #52a01f;
   height: auto;
-  padding-bottom: 30px;
+  padding: 0 2rem 30px 2rem;
 }
 
 .third_header {

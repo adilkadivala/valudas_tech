@@ -65,15 +65,17 @@ body::-webkit-scrollbar {
   .nawbar_pages {
     display: none;
     position: absolute;
-    top: 100%;
+    top: 60px;
     right: 10%;
     left: 10%;
     width: 80%;
     background-color: #0a181d;
     padding: 10px 0;
     text-align: center;
-    transition: cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: max-height 0.3s ease-in-out;
     border-radius: 20px;
+    max-height: 0;
+    overflow: hidden;
   }
 
   .nawbar_pages li {
@@ -85,6 +87,7 @@ body::-webkit-scrollbar {
   }
   .nawbar_pages.active {
     display: block;
+    max-height: 300px; /* Adjust this value as needed */
   }
 
   nav ul {
@@ -120,14 +123,17 @@ body::-webkit-scrollbar {
   .nawbar_pages {
     display: none;
     position: absolute;
-    top: 15%;
+    top: 60px;
     right: 5%;
-    width: 30%;
+    left: 5%;
+    width: 90%;
     background-color: #0a181d;
     padding: 10px 0;
     text-align: center;
-    transition: cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: max-height 0.3s ease-in-out;
     border-radius: 20px;
+    max-height: 0;
+    overflow: hidden;
   }
 
   .nawbar_pages li {
@@ -139,6 +145,7 @@ body::-webkit-scrollbar {
   }
   .nawbar_pages.active {
     display: block;
+    max-height: 300px; /* Adjust this value as needed */
   }
 
   nav ul {
