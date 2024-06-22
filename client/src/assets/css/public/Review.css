@@ -58,10 +58,14 @@
 }
 .review_arrow {
   margin: 0 15px;
+  border-radius: 50%;
+  padding: 0.5rem 0.8rem;
+}
+.review_arrow:hover {
+  background-color: darkgray;
 }
 .line {
-  margin-top: -2px;
-  cursor: context-menu;
+  margin-top: 6px;
 }
 @media only screen and (max-width: 769px) {
   .review_first_page {

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "../../assets/css/public/Our.css";
 import { useValudasData } from "../../context/Storage";
+import noDataImage from "../../assets/images/oops.png";
 
 const Portfolio = () => {
   const { portfolio, serviceTechnology } = useValudasData();
-  // console.log(serviceTechnology);
 
   const [selectedServiceId, setSelectedServiceId] = useState(null);
   const [selectedTechnologyId, setSelectedTechnologyId] = useState(null);
@@ -116,7 +116,7 @@ const Portfolio = () => {
               </div>
             ))}
         </div>
-        {filteredPortfolio.length > 0 && (
+        {filteredPortfolio.length > 0 ? (
           <div className="slid">
             {filteredPortfolio.length > 1 && (
               <div className="slick-prev" onClick={prevSlide}>
@@ -150,6 +150,11 @@ const Portfolio = () => {
                 <i className="fa-solid fa-arrow-right"></i>
               </div>
             )}
+          </div>
+        ) : (
+          <div className="no-data">
+            <img src={noDataImage} alt="No data available"/>
+            <p>No data available</p>
           </div>
         )}
       </div>

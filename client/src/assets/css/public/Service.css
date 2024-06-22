@@ -98,7 +98,7 @@
   border-radius: 10px;
   background-color: #ffffff;
   margin-top: 10px;
-  overflow: hidden;
+  overflow-x: hidden;
   box-shadow: 0px 10px 20px -10px #0a181d26;
 }
 
@@ -125,7 +125,13 @@
   flex-wrap: wrap;
   justify-content: flex-start;
   padding: 2rem;
+  height: 18rem;
+  overflow-x: hidden;
+  overflow-y: auto;
   gap: 1rem;
+}
+.all_language_boxes::-webkit-scrollbar {
+  display: none;
 }
 .language_box i {
   color: #6fbe44;

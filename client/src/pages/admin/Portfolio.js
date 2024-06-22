@@ -261,7 +261,12 @@ const Portfolio = () => {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [
+    insertPortfolio.service_id,
+    updatePortfolio.service_id,
+    insertModalOpen,
+    updateModalOpen,
+  ]);
 
   return (
     <>
