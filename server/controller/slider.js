@@ -45,25 +45,66 @@ const updateSlider = async (req, res) => {
   try {
     const { id } = req.params;
 
-    let image;
-    if (req.files && req.files.image) {
-      image = req.files.image[0].filename;
-    } else {
-      image = req.body.image || null;
-    }
-
-    const Que = `UPDATE slider SET image = ? WHERE id =?`;
-    const data = [image, id];
-
-    connectDB.query(Que, data, (err) => {
+    const getImageQuery = `SELECT image FROM slider WHERE id = ?`;
+    connectDB.query(getImageQuery, [id], (err, results) => {
       if (err) {
-        console.error(err.message);
-        return res.status(500).json({ message: "internal server error" });
+        console.error(`Database error: ${err.message}`);
+        return res.status(500).json({ message: "Internal server error" });
       }
-      return res.sendStatus(200);
+
+      if (results.length > 0) {
+        const oldImage = results[0].image;
+
+        let newImage;
+        if (req.files && req.files.image) {
+          newImage = req.files.image[0].filename;
+        } else {
+          newImage = req.body.image || null;
+        }
+
+        // Update the database record with the new image filename
+        const updateQuery = `UPDATE slider SET image = ? WHERE id = ?`;
+        const data = [newImage, id];
+
+        connectDB.query(updateQuery, data, (err) => {
+          if (err) {
+            console.error(`Database error: ${err.message}`);
+            return res.status(500).json({ message: "Internal server error" });
+          }
+
+          // If there is a new image, delete the old image file
+          if (newImage && oldImage && oldImage !== newImage) {
+            const oldFilePath = path.join(
+              __dirname,
+              "../../client/public/upload",
+              oldImage
+            );
+
+            fs.access(oldFilePath, fs.constants.F_OK, (err) => {
+              if (err) {
+                console.error(`Old file does not exist: ${oldFilePath}`);
+                return res.sendStatus(200);
+              }
+
+              // Delete the old image file
+              fs.unlink(oldFilePath, (err) => {
+                if (err) {
+                  console.error(`Error deleting old file: ${err.message}`);
+                }
+                return res.sendStatus(200);
+              });
+            });
+          } else {
+            return res.sendStatus(200);
+          }
+        });
+      } else {
+        return res.status(404).json({ message: "Record not found" });
+      }
     });
   } catch (error) {
-    console.error(error);
+    console.error(`Unexpected error: ${error.message}`);
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
 
