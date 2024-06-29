@@ -6,7 +6,6 @@ import "../../assets/css/admin/main.css";
 import { DeleteModal, PhotosGallery } from "./layout/Modal";
 import { toast } from "react-toastify";
 import { NavLink } from "react-router-dom";
-
 import axios from "axios";
 
 const API = process.env.REACT_APP_API_URL;
@@ -28,6 +27,7 @@ const Portfolio = () => {
     serviceTechnology = [],
     portImages = [],
   } = useValudasData();
+
 
   const openInsertModal = () => setInsertModalOpen(true);
   const closeInsertModal = () => setInsertModalOpen(false);
