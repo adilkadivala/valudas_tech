@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 06, 2024 at 04:00 AM
+-- Generation Time: Aug 06, 2024 at 01:13 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -32,6 +32,16 @@ CREATE TABLE `industries` (
   `industry_name` tinytext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `industries`
+--
+
+INSERT INTO `industries` (`id`, `industry_name`) VALUES
+(34, 'Bank menegment'),
+(36, 'Hotel Menegment'),
+(37, 'It Service'),
+(38, 'Auto Mobiles');
+
 -- --------------------------------------------------------
 
 --
@@ -42,6 +52,14 @@ CREATE TABLE `photos` (
   `id` int(15) NOT NULL,
   `portfolio_photo` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `photos`
+--
+
+INSERT INTO `photos` (`id`, `portfolio_photo`) VALUES
+(72, '1718983050544_image 79.png'),
+(73, '1718983072415_real.png');
 
 -- --------------------------------------------------------
 
@@ -60,6 +78,17 @@ CREATE TABLE `portfolio` (
   `industry_id` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `portfolio`
+--
+
+INSERT INTO `portfolio` (`id`, `thumbnail`, `title`, `short_description`, `company_name`, `portfolio_photos`, `service_id`, `industry_id`) VALUES
+(217, '1719019888380_real.png', 'Open cart', 'Open cart Project', 'New Tach', 73, 165, 34),
+(218, '1719020126863_image 79.png', 'HTML', 'html web page', 'Valudas Tech Park', 73, 164, 37),
+(219, '1719020816194_port5.png', 'Css Customization', 'Css Designe', 'Valudas tech', 72, 164, 36),
+(220, '1719020940985_port2.png', 'css', 'Crud Application', 'New Info Tech', 72, 167, 34),
+(221, '1719021144429_portfolio1.png', 'Java Script', 'Java Script', 'Company Name ', 73, 164, 36);
+
 -- --------------------------------------------------------
 
 --
@@ -72,6 +101,17 @@ CREATE TABLE `port_serv_tech` (
   `service_id` int(40) NOT NULL,
   `technology_id` int(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `port_serv_tech`
+--
+
+INSERT INTO `port_serv_tech` (`id`, `portfolio_id`, `service_id`, `technology_id`) VALUES
+(85, 217, 165, 126),
+(86, 218, 164, 114),
+(87, 219, 164, 118),
+(88, 220, 167, 118),
+(89, 221, 164, 115);
 
 -- --------------------------------------------------------
 
@@ -86,6 +126,16 @@ CREATE TABLE `services` (
   `service_description` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `services`
+--
+
+INSERT INTO `services` (`id`, `service_name`, `service_tagline`, `service_description`) VALUES
+(164, 'MERN STACK', 'web development', 'We are Provide You <em><strong>Mern stack</strong></em> development <em>service</em>'),
+(165, 'Cms development', 'Cms warehouse', 'Here You Will get What ever You want'),
+(166, 'Android development', 'Android development', 'Create <strong>Your App</strong> And Make <em>People Proude</em>'),
+(167, 'custom Web Development', 'custome development', 'Customize your Web Application');
+
 -- --------------------------------------------------------
 
 --
@@ -98,6 +148,62 @@ CREATE TABLE `service_technology` (
   `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `service_technology`
+--
+
+INSERT INTO `service_technology` (`services_id`, `technology_id`, `id`) VALUES
+(164, 114, 314),
+(164, 115, 315),
+(164, 117, 316),
+(164, 118, 317),
+(164, 122, 318),
+(164, 123, 319),
+(164, 124, 320),
+(164, 125, 321),
+(165, 120, 327),
+(165, 126, 328),
+(165, 127, 329),
+(166, 119, 330),
+(166, 121, 331),
+(167, 114, 332),
+(167, 115, 333),
+(167, 117, 334),
+(167, 118, 335),
+(167, 119, 336),
+(167, 120, 337),
+(167, 121, 338),
+(167, 122, 339),
+(167, 123, 340),
+(167, 124, 341),
+(167, 125, 342),
+(167, 126, 343),
+(167, 127, 344);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `slider`
+--
+
+CREATE TABLE `slider` (
+  `id` int(40) NOT NULL,
+  `image` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `slider`
+--
+
+INSERT INTO `slider` (`id`, `image`) VALUES
+(41, '1718982915636_awc.png'),
+(42, '1718982924403_forolly 1.png'),
+(43, '1718982930544_microface.png'),
+(44, '1718982936555_mumezshop.png'),
+(45, '1718982942089_nandolia.png'),
+(46, '1718982956181_forolly 1.png'),
+(48, '1719306726355_mumezshop.png');
+
 -- --------------------------------------------------------
 
 --
@@ -109,6 +215,25 @@ CREATE TABLE `technologies` (
   `technology_name` tinytext NOT NULL,
   `tech_photo` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `technologies`
+--
+
+INSERT INTO `technologies` (`id`, `technology_name`, `tech_photo`) VALUES
+(114, 'Html', '1718983512028_html.png'),
+(115, 'JavaScript', '1718983534387_javascript.png'),
+(117, 'Bootstrape', '1719018181502_bootstrape.png'),
+(118, 'Css', '1719018195132_css.png'),
+(119, 'Flutter', '1719018214697_fluuter.png'),
+(120, 'Hubspot', '1719018234594_hubspot.png'),
+(121, 'Netive', '1719018256693_native.png'),
+(122, 'Node', '1719018271817_node.png'),
+(123, 'React', '1719018304831_react.png'),
+(124, 'MySql', '1719018316033_sql.png'),
+(125, 'Tailwind', '1719018333659_tailwind.png'),
+(126, 'Open cart', '1719018607845_opencart.png'),
+(127, 'Wordpress', '1719018623176_wordpress.png');
 
 -- --------------------------------------------------------
 
@@ -126,6 +251,13 @@ CREATE TABLE `users` (
   `prefer` varchar(100) NOT NULL,
   `message` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `mobile_no`, `skype_id`, `budget`, `prefer`, `message`) VALUES
+(20, 'Adil Kadival', 'adilkadivala560@gmail.com', 9408018560, 'aSas@JDJKDS233', 2500, 'just testing', 'it is just for testing purpose');
 
 --
 -- Indexes for dumped tables
@@ -176,6 +308,12 @@ ALTER TABLE `service_technology`
   ADD KEY `technology_id` (`technology_id`);
 
 --
+-- Indexes for table `slider`
+--
+ALTER TABLE `slider`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `technologies`
 --
 ALTER TABLE `technologies`
@@ -195,49 +333,55 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `industries`
 --
 ALTER TABLE `industries`
-  MODIFY `id` int(40) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(40) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `photos`
 --
 ALTER TABLE `photos`
-  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT for table `portfolio`
 --
 ALTER TABLE `portfolio`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=222;
 
 --
 -- AUTO_INCREMENT for table `port_serv_tech`
 --
 ALTER TABLE `port_serv_tech`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
 
 --
 -- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=156;
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=168;
 
 --
 -- AUTO_INCREMENT for table `service_technology`
 --
 ALTER TABLE `service_technology`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=262;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=345;
+
+--
+-- AUTO_INCREMENT for table `slider`
+--
+ALTER TABLE `slider`
+  MODIFY `id` int(40) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT for table `technologies`
 --
 ALTER TABLE `technologies`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- Constraints for dumped tables
