@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import "../../assets/css/public/Hero.css";
+import "../../assets/css/public/hero.css";
 import { useValudasData } from "../../context/Storage";
 
 function Hero() {
